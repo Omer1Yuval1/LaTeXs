@@ -1,4 +1,4 @@
-function str = test_cases(n) {
+function test_cases(n) {
 	
 	var str = [];
 	var i = -1;
@@ -57,7 +57,7 @@ function str = test_cases(n) {
 	// Middle and forward operations
 	str[++i] = 'a \in b';
 	str[++i] = '{a^3} \in {b^2} + c';
-	str[++i] = '{a^3} \in \frac[++i][++i]';
+	str[++i] = '{a^3} \in \frac{1}{2}';
 	
 	// Combination of index and power operators
 	str[++i] = 'a_b^c';
@@ -70,9 +70,9 @@ function str = test_cases(n) {
 	str[++i] = '\sum_{i+1}^{N+1}{i^2}';
 	str[++i] = '\int_{i+1}^{N+1}{i^2}';
 	str[++i] = '\sum_i^N';
-	str[++i] = '\sum_i^N [++i]';
-	str[++i] = '\lim_{i \to \infty} [++i]';
-	str[++i] = 'a_{i+1}[++i]';
+	str[++i] = '\sum_i^N {2}';
+	str[++i] = '\lim_{i \to \infty} {1}';
+	str[++i] = 'a_{i+1}{2}';
 	
 	// Comparisons
 	str[++i] = 'x^2 + y = w + z^3';
@@ -86,14 +86,14 @@ function str = test_cases(n) {
 	str[++i] = '\sin^{-1}(x+6)'; // Inverse sine function is replaced by arcsin.
 	
 	// Comparison inside parentheses
-	str[++i] = '\sum_{i=0}^{N}[++i]';
+	str[++i] = '\sum_{i=0}^{N}{1}';
 	str[++i] = '\cos(x=0)';
 	
 	// Unnecessary arguments
 	str[++i] = '\frac{x}{y}{b}';
 	str[++i] = '\sqrt[3]{x}{y}{b}';
 	str[++i] = '\nabla(x+4)(5)';
-	str[++i] = '\lim_{i \to \infty} [++i]{x}';
+	str[++i] = '\lim_{i \to \infty} {1}{x}';
 	
 	
 	if(arguments.length == 1) {

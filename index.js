@@ -21,19 +21,20 @@ function index(test_ids,rep_vars,plot_01) {
 		// disp(str{i});
 		// disp(test_ids(i));
 		
-		let S = {'id': [], 'str': [], 'parent_id': []);
+		let S = {id: [], str: [], parent_id: [], operator: [], type: []);
 		
 		str_i = preprocess_input(str[i]);
 		
-		[op_ind,op_priority,op_type] = op2ind('=',1);
-		id = 1;
-		S(id).id = id;
-		S(id).parent_id = 0; // Top level.
-		S(id).operator = op2ind('=',1);
-		S(id).type = op_type;
-		S(id).str = str_i;
+		[op_ind,op_priority,op_type] = op2ind('=',0);
 		
-		S = parse_formula(S,1,id,op_ind,op_priority,op_type,[]);
+		id = 0;
+		S['id'].push(id);
+		S['str'].push(str_i);
+		S['parent_id'].push(0); // Top level.
+		S['operator'].push(op2ind('=',1));
+		S['type'].push(op_type);
+		
+		S = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
 		
 		S = postprocess_tree(S);
 		
@@ -50,7 +51,7 @@ function index(test_ids,rep_vars,plot_01) {
 			
 			// set(gcf,'WindowState','Maximized');
 			plot_AST(S,str[i]);
-			set(gcf,'Name',num2str(test_ids(i)));
+			set(gcf,'Name',num2str(test_ids[i]));
 			// assignin('base','S',S);
 			
 			if(str.length > 1) {
