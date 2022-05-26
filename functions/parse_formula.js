@@ -18,7 +18,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			S.str[id] = '=+=';
 			
 			[S,id1,i] = parse_formula(S,p1,id,op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
-			if(i == length(S.str[0])) {
+			if(i == S.str[0].length) {
 				break;
 			} else {
 				continue;
@@ -45,7 +45,14 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				if(op_type_parent != 3) { // Feedback mechanism for middle operations.
 					
 					if(op_type == 1) { // If the parent is a comparison operator (=,<,> etc.).
+						
+						// I = S.type.lastIndexOf(1); // find the index of the last occurence of a type=1 element.
+						// pid = S.id[I] // take its id.
+						// S.parent_id(I) // Then find its last child that is an operator (i.e., not leaf, operator > 0).
+						
 						id_temp = find([S.parent_id] == find([S.type] == 1,1,'last') & [S.operator] > 0,1,'last'); // Find the last child of the last comparison operator.
+						
+						
 						S.parent_id[id] = S.parent_id[id_temp];
 						S.parent_id[id_temp] = id; // Make the new comparison element its parent.
 						
@@ -79,9 +86,9 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				
 				if(i < S.str[0].length) {
 					if(op_type_parent == 3) { // If the parent is a type 3 operator (e.g., \sum, \int, \lim).
-						[~,I] = ismember(op_ind,arg_list_parent);
-						if(I) {
-							arg_list_parent[I] = []; // Remove the operator from the parent's arg_list.
+						I = arg_list_parent.indexOf(op_ind); // Check if the current operator is included in the argument list of the parent, and get its index. Otherwise return -1.
+						if(I > -1) {
+							arg_list_parent.splice(I,1); // Remove the operator from the parent's arg_list.
 						}
 					}
 					
@@ -123,12 +130,12 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			id1 = id;
 			
 			// Check the status of the arguments of the parent operator:
-			if(arg_list_parent.length == 1 || ismember(op_ind,arg_list_parent)) {
-				arg_list_parent(:,1) = []; // Remove the first index that matched the current closing parenthesis.
+			if(arg_list_parent.length == 1 || arg_list_parent.indexOf(op_ind) > -1) {
+				arg_list_parent.splice(0,1); // Remove the first index that matched the current closing parenthesis.
 				if(isempty(arg_list_parent))
 					
-					if(i < length(S(1).str) && !isNaN(op_priority_parent) && ismember(op2ind(S.str[0][i+1],0),[10,11,12])) {
-						S.str[0] = S.str[0][1:i] + '*' + S.str[0][i+1:end];
+					if(i < S.str[0].length && !isNaN(op_priority_parent) && [10,11,12].indexOf(op2ind(S.str[0][i+1],0)) > -1) {
+						S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 					}
 					
 					i = Math.min(i + 1,S.str[0].length);
@@ -136,8 +143,8 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				end
 			} else if(op_type_parent == 0 && (op_priority_parent < 4 || isNaN(op_priority_parent))) {
 				
-				if(i < S.str[0].length && !isNaN(op_priority_parent) && ismember(op2ind(S.str[0][i+1],0),[10,11,12])) {
-					S.str[0] = S.str[0][1:i] + '*' + S.str[0][i+1:end];
+				if(i < S.str[0].length && !isNaN(op_priority_parent) && [10,11,12].indexOf(op2ind(S.str[0][i+1],0)) > -1) {
+					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 				
 				i = i + 1;
@@ -213,7 +220,7 @@ function add_new_substring(S,id0,id,minus) {
 function end_substring(S,p1,i,id,operator) {
 	i = Math.min(i,S.str[0].length);
 	
-	S.str[id] = S.str[id] + S.str[0](p1:i);
+	S.str[id].push(S.str[0].slice(p1,i+1));
 	S.operator[id] = operator;
 	if(!isNaN(operator)) {
 		S.type[id] = get_operation_type(operator);
