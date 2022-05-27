@@ -2,9 +2,9 @@ function operators_database() {
 	
 	// Types:
 		// 0 = Simple middle operator (e.g., *, ^).
-		// 1 = Non-simple middle operator (e.g., =, >, \in, \exist). These make everything before/after them their child, until the next operator of this type at this level.
-		// 2 = Simple forward operator (e.g., \frac, \sqrt).
-		// 3 = Forward opertor with non-simple inputs (e.g., \sum, \int, \lim).
+		// 1 = Non-simple middle operator (e.g., =, >, \\in, \\exist). These make everything before/after them their child, until the next operator of this type at this level.
+		// 2 = Simple forward operator (e.g., \\frac, \\sqrt).
+		// 3 = Forward opertor with non-simple inputs (e.g., \\sum, \\int, \\lim).
 		// 4 = parentheses.
 		// 5 = Minus and plus/minus.
 	
@@ -94,7 +94,7 @@ function operators_database() {
 	}
 	
 	Ops['index'].push(++i);
-	Ops['operator'].push('\sqrt');
+	Ops['operator'].push('\\sqrt');
 	Ops['symbol'].push(String.fromCharCode(8730));
 	Ops['type'].push(2);
 	Ops['argument_num'].push(2);
@@ -103,7 +103,7 @@ function operators_database() {
 	Ops['commutative'].push(false);
 	
 	Ops['index'].push(++i);
-	Ops['operator'].push('\frac');
+	Ops['operator'].push('\\frac');
 	Ops['symbol'].push(String.fromCharCode(247));
 	Ops['type'].push(2);
 	Ops['argument_num'].push(2);
@@ -111,7 +111,7 @@ function operators_database() {
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
-	let A = [["\sum",931] , ["\int",8747]];
+	let A = [["\\sum",931] , ["\\int",8747]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -124,8 +124,8 @@ function operators_database() {
 	}
 	
 	Ops['index'].push(++i);
-	Ops['operator'].push('\lim');
-	Ops['symbol'].push('\lim');
+	Ops['operator'].push('\\lim');
+	Ops['symbol'].push('\\lim');
 	Ops['type'].push(3);
 	Ops['argument_num'].push(2);
 	Ops['argument_list'].push([2,10]); // ['_','}']
@@ -133,7 +133,7 @@ function operators_database() {
 	Ops['commutative'].push(false);
 	
 	Ops['index'].push(++i);
-	Ops['operator'].push('\to');
+	Ops['operator'].push('\\to');
 	Ops['symbol'].push(String.fromCharCode(8594));
 	Ops['type'].push(0);
 	Ops['argument_num'].push(2);
@@ -141,7 +141,7 @@ function operators_database() {
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
-	let A = [["\in",8712] , ["\notin",8713] , ["\ni",8715] , ["\nni",8716] , ["\exists",8707] , ["\nexists",8708] , ["\subset",8834] , ["\subseteq",8838]];
+	let A = [["\\in",8712] , ["\\notin",8713] , ["\\ni",8715] , ["\\nni",8716] , ["\\exists",8707] , ["\\nexists",8708] , ["\\subset",8834] , ["\\subseteq",8838]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -153,7 +153,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	let A = [["\cup",8746] , ["\cap",8745] , ["\wedge",8896] , ["\vee",8897]];
+	let A = [["\\cup",8746] , ["\\cap",8745] , ["\\wedge",8896] , ["\\vee",8897]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -165,7 +165,7 @@ function operators_database() {
 		Ops['commutative'].push(true);
 	}
 	
-	let A = [["\cdot",8226] , ["\vdot",8226] , ["\cross",215]];
+	let A = [["\\cdot",8226] , ["\\vdot",8226] , ["\\cross",215]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -177,7 +177,7 @@ function operators_database() {
 		Ops['commutative'].push(true);
 	}
 	
-	let A = [["\sin","sin" , ["\cos","cos"] , ["\tan","tan"] , ["\csc ","csc"] , ["\sec","sec"] , ["\cot","cot"] , ["\sinh","sinh"] , ["\cosh","cosh"] , ["\tanh","tanh"] , ["\coth","coth"] , ["\arcsin","arcsin"] , ["\arccos","arccos"] , ["\arctan","arctan"]];
+	let A = [["\\sin","sin" , ["\\cos","cos"] , ["\\tan","tan"] , ["\\csc ","csc"] , ["\\sec","sec"] , ["\\cot","cot"] , ["\\sinh","sinh"] , ["\\cosh","cosh"] , ["\\tanh","tanh"] , ["\\coth","coth"] , ["\\arcsin","arcsin"] , ["\\arccos","arccos"] , ["\\arctan","arctan"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -189,7 +189,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	let A = [["\nabla",8711 , ["\gradient",8711] , ["\grad",8711]];  // ∇. Physics. Same as \curl, \div.
+	let A = [["\\nabla",8711 , ["\\gradient",8711] , ["\\grad",8711]];  // ∇. Physics. Same as \\curl, \\div.
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(String.fromCharCode(op[1]));
@@ -201,7 +201,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	let A = [["-",45 , ["\pm",177] , ["\mp",8723]];
+	let A = [["-",45 , ["\\pm",177] , ["\\mp",8723]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -213,10 +213,10 @@ function operators_database() {
 		Ops['commutative'].push(NaN);
 	}
 	
-	greek_lower_latex = ["\infty","\alpha","\beta","\gamma","\delta","\epsilon","\zeta","\eta","\theta","\iota","\kappa","\lambda","\mu","\nu","\xi","\omicron","\pi","\rho","\varsigma","\sigma","\tau","\upsilon","\phi","\chi","\psi","\omega"];
+	greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
 	let range = (start, stop) => Array.from({ length: stop - start + 1 }, (_, i) => start + i)
 	let greek_lower_symbol = [8734].concat(range(945,969));
-	// ['\Gamma','\Delta','\Theta','\Lambda','\Pi','\Sigma','\Upsilon','\Phi','\Psi','\Omega'];
+	// ['\\Gamma','\\Delta','\\Theta','\\Lambda','\\Pi','\\Sigma','\\Upsilon','\\Phi','\\Psi','\\Omega'];
 	// Uppercase: char(913:937);
 	
 	for(let j=0; j<greek_lower_latex.length; j++) {

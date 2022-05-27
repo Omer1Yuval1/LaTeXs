@@ -46,12 +46,13 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					
 					if(op_type == 1) { // If the parent is a comparison operator (=,<,> etc.).
 						
-						// I = S.type.lastIndexOf(1); // find the index of the last occurence of a type=1 element.
-						// pid = S.id[I] // take its id.
-						// S.parent_id(I) // Then find its last child that is an operator (i.e., not leaf, operator > 0).
-						
-						id_temp = find([S.parent_id] == find([S.type] == 1,1,'last') & [S.operator] > 0,1,'last'); // Find the last child of the last comparison operator.
-						
+						// Find the last child (that is an operator, not a leaf), of the last type=1 (comparison) element:
+						for(let j=S.id.length; j>=0; j--) {
+							if(S.parent_id[j] == I && S.operator[j] > 0) {
+								id_temp = j;
+								break;
+							}
+						}
 						
 						S.parent_id[id] = S.parent_id[id_temp];
 						S.parent_id[id_temp] = id; // Make the new comparison element its parent.
