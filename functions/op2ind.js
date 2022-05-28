@@ -48,7 +48,7 @@ function op2ind(str,i) {
 		var di = str.length;
 		var sym = str;
 	} else if(str = str.slice(i).match(/^[a-zA-Z]{1}/g)[0]) { // A letter.
-		var ind = 0;
+		var ind = -1;
 		var type = NaN;
 		var di = 1;
 		var sym = str[i];

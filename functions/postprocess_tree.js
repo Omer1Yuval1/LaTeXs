@@ -1,14 +1,5 @@
 function postprocess_tree(S) {
 	
-	// TODO:
-		// consider giving letters and numbers a different id.
-	
-	for(let i=0; i<S.id.length; i++) {
-		if(S.parent_id.indexOf(S.id[i]) == -1) { // If it is a leaf.
-			S.operator[i] = 0;
-		}
-	}
-	
 	S = add_level(S,0,0);
 	
 	return S;

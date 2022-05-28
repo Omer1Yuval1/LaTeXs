@@ -184,14 +184,21 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			if(i == S.str[0].length)) { // If it's the last character.
 				[S,p1] = end_substring(S,p1,i,id,op_ind);
 				break;
-			} else if(isNaN(op_priority_parent)) {
-				[S,p1] = end_substring(S,p1,i,id,op_ind);
-				i = i + 1;
-				p1 = i;
-				break;
 			} else {
-				[S,p1] = end_substring(S,p1,i,id,op_ind);
-				id1 = id;
+				if(isNaN(op_priority_parent)) {
+					[S,p1] = end_substring(S,p1,i,id,op_ind);
+					i = i + 1;
+					p1 = i;
+					break;
+				} else {
+					[S,p1] = end_substring(S,p1,i,id,op_ind);
+					id1 = id;
+				}
+				
+				[undefined,undefined,op_type_temp] = op2ind(S.str[0],i+1); // Check the next element.
+				if(isNaN(op_type_temp)) { // If the next element is also a letter/number.
+					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
+				}
 			}
 			
 			i = i + 1;

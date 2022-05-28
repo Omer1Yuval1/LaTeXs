@@ -27,7 +27,7 @@ function index(test_ids,rep_vars,plot_01) {
 		
 		[op_ind,op_priority,op_type] = op2ind('=',0);
 		
-		id = 0;
+		id = 1;
 		S['id'].push(id);
 		S['str'].push(str_i);
 		S['parent_id'].push(0); // Top level.
