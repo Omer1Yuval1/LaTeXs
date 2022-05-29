@@ -8,13 +8,10 @@ function replace_var_names(S) {
 	var range = (start, stop) => Array.from({ length: stop - start + 1 }, (_, i) => start + i);
 	var Letters_Vector = String.fromCharCode(...range(97,122).concat(range(65,90))); // a-z,A-Z.
 	
-	var F1 = find(isnan([S.type])); // Find all leafs.
-	
 	// Create an array of parameter/var elements:
 	var params = {}; // An array of params/vars elements, with keys as their string (.e.g., letter).
 	for(let i=0; i<S.id.length) {
 		if(S.operator[i] == -1) { // If it's a parameter/var element.
-			
 			if(S.str[i] in params) { // If this element has already been added before.
 				if(S.level[i] <= params.(S.str[i])[0] && S.parent_id[i] < params.(S.str[i])[1] && S.id[i] < params.(S.str[i])[2]) { // If the current element is better according to the sorting rule, use it instead.
 					params.(S.str[i]) = [S.level[i], S.parent_id[i], S.id[i]];
