@@ -1,8 +1,6 @@
 function postprocess_tree(S) {
 	
-	S = add_level(S,0,0);
-	
-	return S;
+	return add_level(S,0,0);
 }
 
 function add_level(S,p,level) {

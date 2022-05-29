@@ -1,9 +1,9 @@
 function preprocess_input(str) {
 	
-	Ops = operators_database();
+	var Ops = operators_database();
 	
 	// Replace expressions to get proper notation of inverse trigonometric functions
-	A = [['\\sin^{-1}','\\arcsin'] , ['\\cos^{-1}','\\arccos'] , ['\\tan^{-1}','\\arctan'] , ['\\csc^{-1}','\\arccsc'] , ['\\sec^{-1}','\\arcsec'] , ['\\cot^{-1}','\\arccot']];
+	var A = [['\\sin^{-1}','\\arcsin'] , ['\\cos^{-1}','\\arccos'] , ['\\tan^{-1}','\\arctan'] , ['\\csc^{-1}','\\arccsc'] , ['\\sec^{-1}','\\arcsec'] , ['\\cot^{-1}','\\arccot']];
 	A.forEach((element) => {
 		str = str.replace(element[0],element[1]); 
 	});
