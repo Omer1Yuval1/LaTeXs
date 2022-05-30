@@ -11,7 +11,7 @@ function get_tree_size(S,p) {
 	
 	return treeSize;
 }
-	
+
 function get_tree_size(S,p) {
 	
 	for(let i=0; i<S.id.length; i++) {
@@ -27,50 +27,3 @@ function get_tree_size(S,p) {
 	
 	return treeSize;
 }
-	
-	/*
-	
-	var Nv = 0; // Counter of the number of direct child nodes of parent_id.
-	Nvv = {}; // An object for storing tree size information. Each element contains the number of nodes at a certain level. The key is the row number in S of a child of parent_id.
-	var Lmax = 0; // Maximum number of levels across all children at this level.
-	
-	for(let i=0; i<S.id.length) {
-		if(S.parent_id[i] == parent_id) { // If the i-th element is a child of element parent_id.
-			Nv++;
-			Nvv.i = get_tree_size(S,S.id[i]); // Get the size array of the sub-tree of the i-th element (S.id[i]).
-			
-			Lmax = Math.max(Lmax,Nvv.i); // Update the maximum number of levels.
-		}
-	}
-	
-	Nvv = ; // Add zeros to have all the same length, and then add up the arrays from all cells.
-	Nv = [...Nv, ...Nvv]; // Concaternate the total size array to the number of elements at this level.
-	
-	Nvv = {0: [3,4,6,2], 1: [4,2,4], 2: [3,7,1]}
-	Vals = Object.values(obj);
-	keys = Object.keys(obj);
-	for(let i=0; i < Lmax; i++) {
-		Nvv[] = 
-		c.push((a[i] || 0) + (b[i] || 0));
-	}
-	
-	
-	
-	if(Nv) { // If there is at least one child.
-		let Nvv = cell(1,Nv);
-		
-		for(let ii=; ii<Nv; ii++) { // For each child element.
-			Nvv{ii} = get_tree_size(S,S(Fpp(ii)).id); // Get the size array of the sub-tree of element Fpp(ii).
-		}
-		
-		let Lmax = max(cellfun(@length,Nvv)); // Maximum number of levels across all children at this level.
-		Nvv = sum(cell2mat(transpose(cellfun(@(x) [x,zeros(1,Lmax-length(x))],Nvv,'UniformOutput',false))),1); // Add zeros to have all the same length, and then add up the arrays from all cells.
-		
-		Nv = [Nv,Nvv]; // Concaternate the total size array to the number of elements at this level.
-	} else {
-		Nv = [];
-	}
-	
-	return Nv;
-}
-*/

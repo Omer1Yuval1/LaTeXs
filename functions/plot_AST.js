@@ -1,5 +1,9 @@
 function plot_AST(S,str0,container) {
 	
+	// TODO:
+		// Add elements in order according to their id.
+			// Create an array of [id,row] pairs. Sort it by id. Then loop over the sorted row numbers.
+			
 	var P = parameters();
 	var Ops = operators_database();
 	
