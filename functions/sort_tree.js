@@ -15,6 +15,63 @@ function sort_tree(S,p,sub_id) {
 		var sub_id = 0;
 	}
 	
+	var ii = S.id.indexOf(p); // Find the index of the parent element using its id.
+	
+	if(!isNaN(S.type[ii])) { // If it's an operator (i.e., not a leaf element).
+		if(Ops.commutative[Ops.index.indexOf(S.operator[ii])]) { // If its commutative.
+			// Create an array of elements with properties for sorting:
+			var params = {}; // An array of params/vars elements, with keys as their string (.e.g., letter).
+			for(let i=0; i<S.id.length) {
+				if(S.parent_id[i] == p) { // If the i-th element is a child of element p.
+					
+					// TODO: revise this. add the correct features for sorting.
+					// same level - operation
+					// tree size.
+					// numeric value.
+					
+					params.i = [S.operator[i], S.parent_id[i], S.id[i]]; // Use i as the key, in order to be able to get to this element in S easily later.
+					
+					
+					// params.i = [S.level[i], S.parent_id[i], S.id[i]]; // Use i as the key, in order to be able to get to this element in S easily later.
+					
+					
+					
+					
+				}
+			}
+			
+			// Sort the params object (first by operator, then by tree size, and finally by numeric value):
+			params.sort(function(a,b) { // Smallest comes first.
+				if(a[0] != b[0]) { // Sort by level.
+					return a[0] - b[0];
+				} else if(a[1] != b[1]) { // Sort by parent_id.
+					return a[1] - b[1];
+				} else { // Sort by id.
+					return a[2] - b[2];
+				}
+			});
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	var F0 = find([S.id] == p); // Find element p (id=p).
 	var F1 = find([S.parent_id] == p); // Find all direct children of parent p.
 	
@@ -45,7 +102,7 @@ function sort_tree(S,p,sub_id) {
 		Lmax = max(cellfun(@length,size_array)); // Maximum number of levels across all children at this level.
 		size_array = cell2mat(cellfun(@(x) [x;zeros(Lmax-length(x),1)],size_array,'UniformOutput',false)); // Add zeros so that all cells have the same number of elements. Then convert to a matrix where each column is a different element (F1(i)), and each row is a different level.
 		
-		all_weights = transpose([ops_loc ; size_array ; numeric_value]); // First column considers same level features (ops_loc). The rest of the columns contain tree-size information. Row correspond to elements, and columns correspond to levels (highest level first).
+		all_weights = transpose([ops_loc ; size_array ; numeric_value]); // First column considers same level features (ops_loc). The rest of the columns contain tree-size information. Rows correspond to elements, and columns correspond to levels (highest level first).
 		[undefined,I] = sortrows(all_weights,1:size(all_weights,2)); // Get the indices for sorting the elements. Sort first by same level features (operation/leaf type), and then by tree size.
 		
 		var F1_sorted = F1(I);
