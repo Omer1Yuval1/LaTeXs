@@ -8,20 +8,20 @@ function index(test_ids,rep_vars,plot_01) {
 	}
 	
 	if(arguments.length < 3 || !rep_vars) {
-		var rep_vars = 1;
+		var rep_vars = true;
 	}
 	
 	if(!isNaN(test_ids)) { // If it's a number.
 		var str = test_cases(test_ids); // Load test cases.
 	} else { // If a formula is given as an input string.
-		var str[0] = test_ids;
+		var str = [test_ids];
 	}
 	
-	for(let i=0; i< str.length; i++) // i=1:length(str) {
+	for(let i=0; i< str.length; i++) { // i=1:length(str) {
 		// disp(str{i});
 		// disp(test_ids(i));
 		
-		let S = {id: [], str: [], parent_id: [], operator: [], type: []);
+		var S = {id: [], str: [], parent_id: [], operator: [], type: []};
 		
 		str_i = preprocess_input(str[i]);
 		
@@ -31,7 +31,7 @@ function index(test_ids,rep_vars,plot_01) {
 		S['id'].push(id);
 		S['str'].push(str_i);
 		S['parent_id'].push(0); // Top level.
-		S['operator'].push(op2ind('=',1));
+		S['operator'].push(op2ind('=',0));
 		S['type'].push(op_type);
 		
 		S = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
@@ -50,7 +50,7 @@ function index(test_ids,rep_vars,plot_01) {
 			}
 			
 			// set(gcf,'WindowState','Maximized');
-			plot_AST(S,str[i]);
+			plot_AST(S,str[i],"#LaTex_AST");
 			set(gcf,'Name',num2str(test_ids[i]));
 			// assignin('base','S',S);
 			

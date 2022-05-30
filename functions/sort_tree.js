@@ -1,7 +1,5 @@
 function sort_tree(S,p) {
 	
-	// TODO: seems like this algorithm goes over each element multiple times.
-	
 	// This algorithm sorts a given tree (directed graph) in a top-down manner.
 	// For each level, it first considers level-specific features (such as operator and leaf type).
 	// Then, as a secondary sorting condition, it sorts by tree size.

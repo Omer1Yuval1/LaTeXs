@@ -1,9 +1,12 @@
 function op2ind(str,i) {
 	
+	// TODO:
+		// I change str in some of the conditions, even if they are false. need to define a new variable using let.
+	
 	// This function gets an operator as a string (this can be either a single character or a LaTex command).
 	// It returns the unique index (int) of the operation (ind), as well as its symbol (sym).
 	
-	var P = parameters();
+	// var P = parameters();
 	var Ops = operators_database();
 	
 	// Set the default to be a middle operator with two arguments (one before and one after):

@@ -68,7 +68,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						[S,p1] = end_substring(S,p1,i-1,id,op_ind);
 						S.str[id] = op_sym;
 						
-						if(i == S.str[0].length)) {
+						if(i == S.str[0].length) {
 							i = i + 1;
 						}
 						
@@ -181,7 +181,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			
 			i = i + di - 1;
 			
-			if(i == S.str[0].length)) { // If it's the last character.
+			if(i == S.str[0].length) { // If it's the last character.
 				[S,p1] = end_substring(S,p1,i,id,op_ind);
 				break;
 			} else {
