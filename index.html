@@ -22,10 +22,35 @@
 </head>
 <body>
 
-<div id="LaTex_AST"> </div>
+<div id="input_latex" contenteditable="true"></div>
+<input type="number" id="input_test_index" value=1></div>
+<!-- 
+\\sqrt[3]{4}
+\sum_{i=0}^N{i^2}
+-->
+<div id="LaTex_AST"></div>
 
 <script>
-	index(1,false,true);
+	let t = [1];
+	index(t,false,true);
+	document.getElementById("input_latex").innerHTML = test_cases(t);
+	
+	document.getElementById("input_test_index").addEventListener("change", function() {
+		document.getElementById("LaTex_AST").innerHTML = "";
+		
+		if(this.value.length) {
+			document.getElementById("input_latex").innerHTML = test_cases(this.value);
+			index([Number(this.value)],false,true);
+		} else {
+			document.getElementById("input_latex").innerHTML = "";
+		}
+	});
+	
+	document.getElementById("input_latex").addEventListener("keyup", function() {
+		// console.log(this.innerHTML);
+		document.getElementById("LaTex_AST").innerHTML = "";
+		index(this.innerHTML,false,true);
+	});
 </script>
 
 </body>

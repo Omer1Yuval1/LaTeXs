@@ -32,6 +32,34 @@ body {
   margin: 0;
 }
 
+#input_latex {
+	/* display: inline-block; */
+	width: 35%;
+	min-height: 20px;
+	border: 2px solid black;
+	border-radius: 5px;
+	margin: 10px auto 0 auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#input_test_index {
+	display: block;
+	width: 7%;
+	height: 20px;
+	margin: 10px auto 0 auto;
+	text-align: center;
+	border: 2px solid black;
+	border-radius: 5px;
+	
+}
+#input_test_index::-webkit-inner-spin-button, #input_test_index::-webkit-outer-spin-button {
+	opacity: 1;
+}
+
 #LaTex_AST {
-	height: 100%;
+	height: 80%;
+	margin: 20px auto 0 auto;
+	overflow-y: auto;
+	padding: auto;
 }

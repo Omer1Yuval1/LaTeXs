@@ -17,7 +17,7 @@ function operators_database() {
 	Ops['symbol'].push(String.fromCharCode(94));
 	Ops['type'].push(0);
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push(1);
+	Ops['argument_list'].push([1]);
 	Ops['priority'].push(priority_0 + 1);
 	Ops['commutative'].push(false);
 	
@@ -184,7 +184,7 @@ function operators_database() {
 		Ops['symbol'].push(op[1]);
 		Ops['type'].push(2);
 		Ops['argument_num'].push(1);
-		Ops['argument_list'].push(11); // [')'].
+		Ops['argument_list'].push([11]); // [')'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
 	}
@@ -192,11 +192,11 @@ function operators_database() {
 	var A = [["\\nabla",8711] , ["\\gradient",8711] , ["\\grad",8711]];  // ∇. Physics. Same as \\curl, \\div.
 	for(let op of A) {
 		Ops['index'].push(++i);
-		Ops['operator'].push(String.fromCharCode(op[1]));
-		Ops['symbol'].push(op[1]);
+		Ops['operator'].push(op[0]);
+		Ops['symbol'].push(String.fromCharCode(op[1]));
 		Ops['type'].push(2);
 		Ops['argument_num'].push(1);
-		Ops['argument_list'].push([[10,11]]); // [')','}'].
+		Ops['argument_list'].push([10,11]); // [')','}'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
 	}
@@ -208,7 +208,7 @@ function operators_database() {
 		Ops['symbol'].push(String.fromCharCode(op[1]));
 		Ops['type'].push(5);
 		Ops['argument_num'].push(NaN);
-		Ops['argument_list'].push(NaN);
+		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(NaN);
 	}
@@ -225,7 +225,7 @@ function operators_database() {
 		Ops['symbol'].push(String.fromCharCode(greek_lower_symbol[j]));
 		Ops['type'].push(NaN);
 		Ops['argument_num'].push(NaN);
-		Ops['argument_list'].push(NaN);
+		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(NaN);
 	}

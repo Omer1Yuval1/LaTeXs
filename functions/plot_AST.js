@@ -18,7 +18,7 @@ function plot_AST(S,str0,container) {
 		}
 	};
 	
-	AST.nodeStructure.children = add_subtree_nodes(S,null,AST.nodeStructure.children);
+	AST.nodeStructure.children = add_subtree_nodes(S,null,[]);
 	
 	var my_chart = new Treant(AST);
 	
@@ -29,12 +29,21 @@ function add_subtree_nodes(S,p,AST) {
 	for(let i=0; i<S.id.length; i++) { // Search for elements with p as their parent.
 		if(S.parent_id[i] == p) { // If p is the parent of this element.
 			if(S.operator[i] > 0) { // If it's an operator.
-				var temp = { text: { name: Ops.symbol[Ops.index.indexOf(S.operator[i])] }, children: add_subtree_nodes(S,S.id[i],[]) };
+				let s = Ops.index.indexOf(S.operator[i]);
+				
+				if([9,10,11].includes(s)) {
+					var sym = Ops.symbol[s] + Ops.symbol[s+3];
+				} else {
+					var sym = Ops.symbol[s];
+				}
+				
+				var temp = { text: { name: sym }, children: add_subtree_nodes(S,S.id[i],[]) };
 				AST.push(temp); // Add child of parent p.
-				// AST[].children = []; // Add a children node.
-				// AST[].children = add_subtree_nodes(S,S.id[i],AST.children); // Run the function again with this element as the parent.
 			} else { // If it's a leaf element.
-				AST.push({ text: { name: S.str[i] } });
+				// let s = Ops.index.indexOf(S.operator[i]);
+				// let sym = Ops.symbol[s];
+				let sym = op2ind(S.str[i],0)[3];
+				AST.push({ text: { name: sym } }); // AST.push({ text: { name: S.str[i] } });
 			}
 		}
 	}

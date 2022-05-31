@@ -3,7 +3,7 @@ function index(test_ids,rep_vars,plot_01) {
 	// cd(fileparts(which(mfilename)));
 	// addpath(genpath(pwd));
 	
-	if(arguments.length == 0 || !test_ids) {
+	if(arguments.length == 0 || !test_ids.length) {
 		var test_ids = 1;
 	}
 	
