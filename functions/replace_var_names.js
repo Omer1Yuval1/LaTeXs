@@ -10,14 +10,14 @@ function replace_var_names(S) {
 	
 	// Create an array of parameter/var elements:
 	var params = {}; // An array of params/vars elements, with keys as their string (.e.g., letter).
-	for(let i=0; i<S.id.length) {
+	for(let i=0; i<S.id.length; i++) {
 		if(S.operator[i] == -1) { // If it's a parameter/var element.
 			if(S.str[i] in params) { // If this element has already been added before.
-				if(S.level[i] <= params.(S.str[i])[0] && S.parent_id[i] < params.(S.str[i])[1] && S.id[i] < params.(S.str[i])[2]) { // If the current element is better according to the sorting rule, use it instead.
-					params.(S.str[i]) = [S.level[i], S.parent_id[i], S.id[i]];
+				if(S.level[i] <= params[S.str[i]][0] && S.parent_id[i] < params[S.str[i]][1] && S.id[i] < params[S.str[i]][2]) { // If the current element is better according to the sorting rule, use it instead.
+					params[S.str[i]] = [S.level[i], S.parent_id[i], S.id[i]];
 				} // else do nothing.
 			} else { // Add it.
-				params.(S.str[i]) = [S.level[i], S.parent_id[i], S.id[i]];
+				params[S.str[i]] = [S.level[i], S.parent_id[i], S.id[i]];
 			}
 		}
 	}
@@ -35,8 +35,8 @@ function replace_var_names(S) {
 	
 	// Use the order of keys in params to update the the string of each param/var element:
 	var I = Object.keys(params); // Get the numeric indices of the sorted object.
-	for(let i=0; i<S.id.length) {
-		S.str[i] = String.fromCharCode(Letters_Vector[I.indexOf(params.(S.str[i]))]);
+	for(let i=0; i<S.id.length; i++) {
+		S.str[i] = String.fromCharCode(Letters_Vector[I.indexOf(params[S.str[i]])]);
 	}
 	
 	return S;

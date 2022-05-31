@@ -7,12 +7,12 @@ function index(test_ids,rep_vars,plot_01) {
 		var test_ids = 1;
 	}
 	
-	if(arguments.length < 3 || !rep_vars) {
+	if(arguments.length < 3) {
 		var rep_vars = true;
 	}
 	
 	if(!isNaN(test_ids)) { // If it's a number.
-		var str = test_cases(test_ids); // Load test cases.
+		var str = [test_cases(test_ids)]; // Load test cases.
 	} else { // If a formula is given as an input string.
 		var str = [test_ids];
 	}
@@ -21,43 +21,33 @@ function index(test_ids,rep_vars,plot_01) {
 		// disp(str{i});
 		// disp(test_ids(i));
 		
-		var S = {id: [], str: [], parent_id: [], operator: [], type: []};
+		var S = {id: [], str: [], parent_id: [], operator: [], type: [], sign: [], level: []};
 		
-		str_i = preprocess_input(str[i]);
+		let str_i = preprocess_input(str[i]);
 		
-		[op_ind,op_priority,op_type] = op2ind('=',0);
+		[op_ind,op_priority,op_type,undefined,undefined,undefined,undefined] = op2ind('=',0);
 		
-		id = 1;
+		id = 0;
 		S['id'].push(id);
 		S['str'].push(str_i);
-		S['parent_id'].push(0); // Top level.
-		S['operator'].push(op2ind('=',0));
+		S['parent_id'].push(null); // Top level.
+		S['operator'].push(op2ind('=',0)[0]);
 		S['type'].push(op_type);
+		S['sign'].push('');
+		S['level'].push(0);
 		
-		S = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
+		[S,undefined,undefined] = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
 		
 		S = postprocess_tree(S);
 		
-		S = sort_tree(S,0,0);
+		// S = sort_tree(S,null);
 		
 		if(rep_vars) {
 			S = replace_var_names(S);
 		}
 		
-		if(nargin < 3 || plot_01) {
-			if(i == 1) {
-				figure;
-			}
-			
-			// set(gcf,'WindowState','Maximized');
+		if(arguments.length < 3 || plot_01) {
 			plot_AST(S,str[i],"#LaTex_AST");
-			set(gcf,'Name',num2str(test_ids[i]));
-			// assignin('base','S',S);
-			
-			if(str.length > 1) {
-				waitforbuttonpress;
-				clf;
-			}
 		}
 	}
 	

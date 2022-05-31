@@ -14,6 +14,7 @@ function op2ind(str,i) {
 	var arg_list = NaN;
 	var priority = NaN;
 	var is_commutative = NaN;
+	let str_i;
 	
 	if(str[i] == '\\') { // Find the operator in the operators database.
 		
@@ -40,21 +41,24 @@ function op2ind(str,i) {
 		var arg_num = Ops.argument_num[fop];
 		var arg_list = Ops.argument_list[fop];
 		var is_commutative = Ops.commutative[fop];
-	} else if(str = str.slice(i).match(/^[0-9]+[.]{1}[0-9]+/g)[0]) { // A decimal number (must come before the next condition for matching an integer).
+	} else if(str_i = str.slice(i).match(/^[0-9]+[.]{1}[0-9]+/g)) { // A decimal number (must come before the next condition for matching an integer).
+		str_i = str_i[0];
 		var ind = 0;
 		var type = NaN;
-		var di = str.length;
-		var sym = str;
-	} else if(str = str.slice(i).match(/^[0-9]+/g)[0]) { // An integer number.
+		var di = str_i.length;
+		var sym = str_i;
+	} else if(str_i = str.slice(i).match(/^[0-9]+/g)) { // An integer number.
+		str_i = str_i[0];
 		var ind = 0;
 		var type = NaN;
-		var di = str.length;
-		var sym = str;
-	} else if(str = str.slice(i).match(/^[a-zA-Z]{1}/g)[0]) { // A letter.
+		var di = str_i.length;
+		var sym = str_i;
+	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter.
+		str_i = str_i[0];
 		var ind = -1;
 		var type = NaN;
 		var di = 1;
-		var sym = str[i];
+		var sym = str_i;
 	} else { // Space.
 		var ind = NaN;
 		var di = 1;

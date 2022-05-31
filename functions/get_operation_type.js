@@ -3,9 +3,9 @@ function get_operation_type(ind) {
 	var Ops = operators_database();
 	
 	if(ind > 0) {
-		type = Ops(ind).type;
+		type = Ops.type[ind];
 	} else {
-		type = nan;
+		type = NaN;
 	}
 	
 	return type;

@@ -1,18 +1,28 @@
 <html>
 <head>
-<script src="index.js"></script>
+
+<script src="functions/op2ind.js"></script>
 <script src="functions/validation/test_cases.js"></script>
 <script src="functions/preprocess_input.js"></script>
 <script src="functions/operators_database.js"></script>
-<script src="functions/op2ind.js"></script>
+<script src="functions/get_operation_type.js"></script>
 <script src="functions/parse_formula.js"></script>
+<script src="functions/postprocess_tree.js"></script>
+<script src="functions/sort_tree.js"></script>
+<script src="functions/replace_var_names.js"></script>
+<script src="functions/plot_AST.js"></script>
+<script src="index.js"></script>
 <!-- <script src="functions/parameters.js"></script> -->
 
+<link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css" type="text/css"/>
 <link rel="stylesheet" href="functions/ast.css">
+
+<script src="https://fperucic.github.io/treant-js/Treant.js"></script>
+<script src="https://fperucic.github.io/treant-js/vendor/raphael.js"></script>
 </head>
 <body>
 
-<div id="LaTex_AST" style="height: 160px"> </div>
+<div id="LaTex_AST"> </div>
 
 <script>
 	index(1,false,true);

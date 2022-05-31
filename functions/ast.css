@@ -7,7 +7,6 @@ body {
   background: #fff;
 }
 
-/* optional Container STYLES */
 .chart {
   height: 159px;
   width: 332px;
@@ -31,4 +30,8 @@ body {
   font-weight: bold;
   padding: 3px;
   margin: 0;
+}
+
+#LaTex_AST {
+	height: 100%;
 }

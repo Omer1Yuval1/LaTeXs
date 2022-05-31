@@ -6,7 +6,7 @@ function sort_tree(S,p) {
 	// Tree size is an array containing the number of elements within each level of a sub-tree (see get_tree_size.m for more information).
 	// (not yet used) In addition, every elemets are assigned with sub-id, corresponding to their order as direct children of a parent element.
 	
-	var P = parameters();
+	// var P = parameters();
 	var Ops = operators_database();
 	
 	var ii = S.id.indexOf(p); // Find the index of the parent element using its id.
@@ -16,7 +16,7 @@ function sort_tree(S,p) {
 		var arr = {};
 		var new_ids = []; // An array of child node ids that will be used to reassign ids after sorting.
 		
-		for(let i=0; i<S.id.length) {
+		for(let i=0; i<S.id.length; i++) {
 			if(S.parent_id[i] == p) { // If the i-th element is a child of element p.
 				
 				treeSize = get_tree_size(S,S.id[i]); // This produces an array of node counts per level (higher levels appear first).
@@ -59,9 +59,9 @@ function sort_tree(S,p) {
 			childKeys = Object.keys(arr);
 			new_ids = new_ids.sort(function(a, b){return a - b}); // Sort the array of child node id, in order to use them to reassign ids to sorted child nodes.
 			
-			for(let j=0; j<childKeys.length) { // For each child of element p, in their sorted order.
+			for(let j=0; j<childKeys.length; i++) { // For each child of element p, in their sorted order.
 				S.id[arr.childKeys[j][4]] = -new_ids[j]; // Assign the new id with a negative sign.
-				for(let i=0; i<S.id.length) {
+				for(let i=0; i<S.id.length; i++) {
 					if(S.parent_id[i] == arr.childKeys[j][3]) { // If the i-th element is a child of element arr.childKeys[j][3] (which stores the id of a child of p).
 						S.parent_id[i] = -new_ids[j];
 					}
@@ -69,7 +69,7 @@ function sort_tree(S,p) {
 			}
 			
 			// Change all negative ids (including parent_ids) back to positive:
-			for(let i=0; i<S.id.length) {
+			for(let i=0; i<S.id.length; i++) {
 				if(S.id[i] < 0) {
 					S.id[i] = -S.id[i];
 				} else if(S.parent_id[i] < 0) {
@@ -78,6 +78,7 @@ function sort_tree(S,p) {
 			}
 			
 			for(let i=0; i<new_ids.length; i++) {
+				// S.sub_id[] = i;
 				S = sort_tree(S,new_ids[i]);
 			}
 		}
