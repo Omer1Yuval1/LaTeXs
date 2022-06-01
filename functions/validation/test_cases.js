@@ -4,6 +4,7 @@ function test_cases(n) {
 	var i = -1;
 	
 	// Simple cases
+	str[++i] = 'ax^2 + bx + c';
 	str[++i] = 'x + y + z';
 	str[++i] = '2xy + zw';
 	str[++i] = 'x^2';

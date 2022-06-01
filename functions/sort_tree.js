@@ -12,8 +12,8 @@ function sort_tree(S,p) {
 	var ii = S.id.indexOf(p); // Find the index of the parent element using its id.
 	
 	if(!isNaN(S.type[ii]) && Ops.commutative[Ops.index.indexOf(S.operator[ii])]) { // If it's an operator (i.e., not a leaf element) and is commutative.
-		// Create an array of elements with properties for sorting:
-		var arr = {};
+		
+		var arr = []; // Create an array of elements with properties for sorting.
 		var new_ids = []; // An array of child node ids that will be used to reassign ids after sorting.
 		
 		for(let i=0; i<S.id.length; i++) {
@@ -22,8 +22,8 @@ function sort_tree(S,p) {
 				treeSize = get_tree_size(S,S.id[i]); // This produces an array of node counts per level (higher levels appear first).
 				
 				// Assign numeric value (or NaN if not a leaf element):
-				let num_val = nan;
-				if(isNaN(S.type)) { // If it's a leaf element.
+				let num_val = NaN;
+				if(isNaN(S.type[i])) { // If it's a leaf element.
 					if(isNaN(S.str[i])) { // If its NOT a number.
 						num_val = S.str[i].charCodeAt(0); // Get the numeric Unicode of the first letter.
 					} else { // If it's a number.
@@ -31,7 +31,7 @@ function sort_tree(S,p) {
 					}
 				}
 				
-				arr['key' + i] = [S.operator[i], treeSize, num_val, S.id[i], i]; // Use i as the key, in order to be able to get to this element in S easily later. Note that treeSize is an array within an array. The id and i (row number) are only saved for later use (not for sorting).
+				arr.push([S.operator[i], treeSize, num_val, S.id[i], i]); // Note that treeSize is itself an array. The id and i (row number) are only saved for later use (not for sorting).
 				new_ids.push(S.id[i]);
 			}
 		}
@@ -42,7 +42,7 @@ function sort_tree(S,p) {
 			arr.sort(function(a,b) { // Smallest comes first.
 				let Nab = Math.min(a[1].length,b[1].length); // The minimum length of the tree-size arrays.
 				if(a[0] != b[0]) { // Sort by operator.
-					return a[0] - b[0];
+					return b[0] - a[0];
 				} else if(a[1].slice(0,Nab)+"" != b[1].slice(0,Nab)+"") { // Sort by tree size. Do this only if the arrays are not identical (up to Nab).
 					for(let i=0; i<Nab; i++) { // Compare only the mutual keys of a and b (up to Nab).
 						if(a[1][i] != b[1][i]) {
@@ -56,13 +56,12 @@ function sort_tree(S,p) {
 			
 			// After sorting all child nodes of parent p, update their ids accordingly:
 				// Note that if an id changes, the parent id of all of its child nodes must be updates too.
-			childKeys = Object.keys(arr);
 			new_ids = new_ids.sort(function(a, b){return a - b}); // Sort the array of child node id, in order to use them to reassign ids to sorted child nodes.
 			
-			for(let j=0; j<childKeys.length; i++) { // For each child of element p, in their sorted order.
-				S.id[arr.childKeys[j][4]] = -new_ids[j]; // Assign the new id with a negative sign.
-				for(let i=0; i<S.id.length; i++) {
-					if(S.parent_id[i] == arr.childKeys[j][3]) { // If the i-th element is a child of element arr.childKeys[j][3] (which stores the id of a child of p).
+			for(let j=0; j<arr.length; j++) { // For each child of element p, in their sorted order.
+				S.id[arr[j][4]] = -new_ids[j]; // Assign the new id with a negative sign.
+				for(let i=0; i<S.id.length; i++) { // Then find its children.
+					if(S.parent_id[i] == arr[j][3]) { // If the i-th element is a child of element arr.childKeys[j][3] (which stores the id of a child of p).
 						S.parent_id[i] = -new_ids[j];
 					}
 				}
@@ -77,10 +76,18 @@ function sort_tree(S,p) {
 				}
 			}
 			
+			/*
 			for(let i=0; i<new_ids.length; i++) {
 				// S.sub_id[] = i;
 				S = sort_tree(S,new_ids[i]);
 			}
+			*/
+		}
+	}
+	
+	for(let i=0; i<S.id.length; i++) {
+		if(S.parent_id[i] == p) { // If the i-th element is a child of element p.
+			S = sort_tree(S,S.id[i]);
 		}
 	}
 	

@@ -220,7 +220,7 @@ function operators_database() {
 	// Uppercase: char(913:937);
 	
 	for(let j=0; j<greek_lower_latex.length; j++) {
-		Ops['index'].push(-1);
+		Ops['index'].push(0);
 		Ops['operator'].push(greek_lower_latex[j]);
 		Ops['symbol'].push(String.fromCharCode(greek_lower_symbol[j]));
 		Ops['type'].push(NaN);

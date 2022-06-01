@@ -40,14 +40,32 @@ function index(test_ids,rep_vars,plot_01) {
 		
 		S = postprocess_tree(S);
 		
-		// S = sort_tree(S,null);
+		S = sort_tree(S,0);
+		
+		// just convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
+		
+		var S_transformed = [];
+		for(let i=0; i<S.id.length; i++) {
+			S_transformed[i] = {};
+			Object.keys(S).forEach(function(key) {
+				S_transformed[i][key] = S[key][i];
+			});
+		}
+		// console.log(S_transformed);
+		
+		// Sort the transformed S in increasing order of id:
+		S_transformed.sort(function(a,b) {
+			return a.id - b.id;
+		});
+		// console.log(S_transformed);
 		
 		if(rep_vars) {
 			S = replace_var_names(S);
 		}
 		
 		if(arguments.length < 3 || plot_01) {
-			plot_AST(S,str[i],"#LaTex_AST");
+			plot_AST(S_transformed,str[i],"#LaTex_AST");
+			// plot_AST(S,str[i],"#LaTex_AST");
 		}
 	}
 	

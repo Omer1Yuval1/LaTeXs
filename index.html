@@ -8,6 +8,7 @@
 <script src="functions/get_operation_type.js"></script>
 <script src="functions/parse_formula.js"></script>
 <script src="functions/postprocess_tree.js"></script>
+<script src="functions/get_tree_size.js"></script>
 <script src="functions/sort_tree.js"></script>
 <script src="functions/replace_var_names.js"></script>
 <script src="functions/plot_AST.js"></script>
@@ -23,7 +24,7 @@
 <body>
 
 <div id="input_latex" contenteditable="true"></div>
-<input type="number" id="input_test_index" value=1></div>
+<input type="number" id="input_test_index" value=0 min="0" max="60"></div>
 <!-- 
 \\sqrt[3]{4}
 \sum_{i=0}^N{i^2}
@@ -31,7 +32,7 @@
 <div id="LaTex_AST"></div>
 
 <script>
-	let t = [1];
+	let t = [0];
 	index(t,false,true);
 	document.getElementById("input_latex").innerHTML = test_cases(t);
 	
