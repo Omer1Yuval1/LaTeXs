@@ -1,60 +1,79 @@
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
-  margin:0;
-  padding:0;
+body,div,input {
+	font-family: 'Open Sans', sans-serif;
 }
 
 body {
-  background: #fff;
+	background: #fff;
 }
 
 .chart {
-  height: 159px;
-  width: 332px;
-  margin: 5px;
-  margin: 5px auto;
-  border: 3px solid #DDD;
-  border-radius: 3px;
+	height: 159px;
+	width: 332px;
+	margin: 5px;
+	margin: 5px auto;
+	border: 3px solid #DDD;
+	border-radius: 3px;
 }
 
 .node {
-  color: #2C3E50;
-  border: 2px solid #C8C8C8;
-  border-radius: 3px;
+	color: #2C3E50;
+	border: 2px solid #C8C8C8;
+	border-radius: 3px;
 }
 
 .node p {
-  font-family: Sans-serif;
-  font-size: 26px;
-  line-height: 20px;
-  height: 20px;
-  font-weight: bold;
-  padding: 3px;
-  margin: 0;
+	font-family: Sans-serif;
+	font-size: 26px;
+	line-height: 20px;
+	font-weight: bold;
+	padding: 3px;
+	margin: 0;
+	height: 20px;
+}
+
+#wrapper_1 {
+	width: 40%;
+	margin: 10px auto 0 auto;
 }
 
 #input_latex {
-	/* display: inline-block; */
-	width: 35%;
-	min-height: 20px;
-	border: 2px solid black;
+	display: inline-block;
+	width: 88%;
+	height: 30px;
+	border: 2px solid #2C3E50;
 	border-radius: 5px;
-	margin: 10px auto 0 auto;
+	margin: 0 5px 0 auto;
 	text-align: center;
-	vertical-align: middle;
+	font-size: 24px;
+	color: #2C3E50;
+	font-weight: bold;
 }
 
 #input_test_index {
-	display: block;
-	width: 7%;
-	height: 20px;
-	margin: 10px auto 0 auto;
+	display: inline-block;
+	width: 10%;
+	height: 30px;
+	margin: 0;
 	text-align: center;
-	border: 2px solid black;
+	border: 2px solid #2C3E50;
 	border-radius: 5px;
+	font-size: 24px;
+	color: #2C3E50;
 	
 }
 #input_test_index::-webkit-inner-spin-button, #input_test_index::-webkit-outer-spin-button {
 	opacity: 1;
+}
+
+#compiled_latex {
+	width: 99%;
+	min-height: 15px;
+	border: 2px solid #2C3E50;
+	border-radius: 5px;
+	margin: 10px auto 0 auto;
+	text-align: center;
+	font-size: 24px;
+	color: #2C3E50;
 }
 
 #LaTex_AST {
