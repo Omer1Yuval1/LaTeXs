@@ -58,7 +58,7 @@ function test_cases(n) {
 	// Middle and forward operations
 	str[++i] = 'a \\in b';
 	str[++i] = '{a^3} \\in {b^2} + c';
-	str[++i] = '{a^3} \\in \frac{1}{2}';
+	str[++i] = '{a^3} \\in \\frac{1}{2}';
 	
 	// Combination of index and power operators
 	str[++i] = 'a_b^c';

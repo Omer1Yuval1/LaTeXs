@@ -19,7 +19,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
-
 <link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css" type="text/css"/>
 <link rel="stylesheet" href="functions/ast.css">
 
@@ -46,7 +45,7 @@
 	document.getElementById("input_latex").value = test_cases(t);
 	
 	document.getElementById("compiled_latex").innerHTML = '$$' + document.getElementById("input_latex").value + '$$'; // Update the text in the compiled LaTex box.
-	MathJax.typeset([document.getElementById("compiled_latex")]); // Compile LaTex.
+	// MathJax.typeset([document.getElementById("compiled_latex")]); // Compile LaTex.
 	
 	document.getElementById("input_test_index").addEventListener("change", function() {
 		document.getElementById("LaTex_AST").innerHTML = "";

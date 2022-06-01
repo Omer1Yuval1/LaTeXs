@@ -39,7 +39,7 @@ body {
 #input_latex {
 	display: inline-block;
 	width: 88%;
-	height: 30px;
+	height: 35px;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
 	margin: 0 5px 0 auto;
@@ -52,14 +52,14 @@ body {
 #input_test_index {
 	display: inline-block;
 	width: 10%;
-	height: 30px;
+	height: 35px;
 	margin: 0;
 	text-align: center;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
 	font-size: 24px;
 	color: #2C3E50;
-	
+	font-weight: bold;
 }
 #input_test_index::-webkit-inner-spin-button, #input_test_index::-webkit-outer-spin-button {
 	opacity: 1;
@@ -77,8 +77,9 @@ body {
 }
 
 #LaTex_AST {
-	height: 80%;
+	height: 60%;
 	margin: 20px auto 0 auto;
 	overflow-y: auto;
-	padding: auto;
+	padding: 0 auto 0 auto;
+	vertical-align: top;
 }

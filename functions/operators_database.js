@@ -13,6 +13,15 @@ function operators_database() {
 	let Ops = {index: [], operator: [], symbol: [], type: [], argument_num: [], argument_list: [], priority: [], commutative: []};
 	
 	Ops['index'].push(++i);
+	Ops['operator'].push('*');
+	Ops['symbol'].push(String.fromCharCode(42));
+	Ops['type'].push(0);
+	Ops['argument_num'].push(2);
+	Ops['argument_list'].push([]);
+	Ops['priority'].push(priority_0 + 2);
+	Ops['commutative'].push(true);
+	
+	Ops['index'].push(++i);
 	Ops['operator'].push('^');
 	Ops['symbol'].push(String.fromCharCode(94));
 	Ops['type'].push(0);
@@ -37,15 +46,6 @@ function operators_database() {
 	Ops['argument_num'].push(2);
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 3);
-	Ops['commutative'].push(true);
-	
-	Ops['index'].push(++i);
-	Ops['operator'].push('*');
-	Ops['symbol'].push(String.fromCharCode(42));
-	Ops['type'].push(0);
-	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([]);
-	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(true);
 	
 	Ops['index'].push(++i);
