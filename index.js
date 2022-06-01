@@ -1,4 +1,4 @@
-function index(test_ids,rep_vars,plot_01) {
+function index(test_ids,mode,plot) {
 	
 	// cd(fileparts(which(mfilename)));
 	// addpath(genpath(pwd));
@@ -7,8 +7,9 @@ function index(test_ids,rep_vars,plot_01) {
 		var test_ids = 1;
 	}
 	
-	if(arguments.length < 3) {
-		var rep_vars = true;
+	if(arguments.length < 2) {
+		var mode = 1; // Sorted.
+		var plot = "#LaTex_AST_1";
 	}
 	
 	if(!isNaN(test_ids)) { // If it's a number.
@@ -40,7 +41,9 @@ function index(test_ids,rep_vars,plot_01) {
 		
 		S = postprocess_tree(S);
 		
-		S = sort_tree(S,0);
+		if(mode >= 1) {
+			S = sort_tree(S,0);
+		}
 		
 		// just convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
 		
@@ -59,13 +62,12 @@ function index(test_ids,rep_vars,plot_01) {
 		});
 		// console.log(S_transformed);
 		
-		if(rep_vars) {
-			S = replace_var_names(S);
+		if(mode >= 2) {
+			S_transformed = replace_var_names(S_transformed);
 		}
 		
-		if(arguments.length < 3 || plot_01) {
-			plot_AST(S_transformed,str[i],"#LaTex_AST");
-			// plot_AST(S,str[i],"#LaTex_AST");
+		if(plot) {
+			plot_AST(S_transformed,str[i],plot);
 		}
 	}
 	

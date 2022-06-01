@@ -28,48 +28,75 @@
 <body>
 
 <div id="wrapper_1">
-	<input type="text" id="input_latex">
-	<input type="number" id="input_test_index" value=0 min="0" max="60">
-	<div id="compiled_latex"></div>
+	<input type="text" id="input_latex_1">
+	<input type="number" id="input_test_index_1" value=0 min="0" max="60">
+	<select name="parsing_mode_1" id="parsing_mode_1">
+		<option value="0">Basic</option>
+		<option value="1">Sorted</option>
+		<option value="2">Canonical</option>
+		<option value="3">Similarity</option>
+		<option value="4">Matching</option>
+	</select>
+	<div id="compiled_latex_1"></div>
+	<div id="LaTex_AST_1"></div>
 </div>
 
-<!-- 
-\\sqrt[3]{4}
-\sum_{i=0}^N{i^2}
--->
-<div id="LaTex_AST"></div>
+<div id="wrapper_2">
+	<input type="text" id="input_latex_2">
+	<input type="number" id="input_test_index_2" value=0 min="0" max="60">
+	<select name="parsing_mode_2" id="parsing_mode_2">
+		<option value="0">Basic</option>
+		<option value="1">Sorted</option>
+		<option value="2">Canonical</option>
+		<option value="3">Similarity</option>
+		<option value="4">Matching</option>
+	</select>
+	<div id="compiled_latex_2"></div>
+	
+	<div id="LaTex_AST_2"></div>
+</div>
 
 <script>
 	let t = [0];
-	index(t,false,true);
-	document.getElementById("input_latex").value = test_cases(t);
 	
-	document.getElementById("compiled_latex").innerHTML = '$$' + document.getElementById("input_latex").value + '$$'; // Update the text in the compiled LaTex box.
-	// MathJax.typeset([document.getElementById("compiled_latex")]); // Compile LaTex.
-	
-	document.getElementById("input_test_index").addEventListener("change", function() {
-		document.getElementById("LaTex_AST").innerHTML = "";
+	for(let i=1; i<=2; i++) {
 		
-		if(this.value.length) {
-			document.getElementById("input_latex").value = test_cases(this.value);
+		index(t,0,"#LaTex_AST_" + i);
+		document.getElementById("input_latex_" + i).value = test_cases(t);
+		
+		document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
+		// MathJax.typeset([document.getElementById("compiled_latex_1")]); // Compile LaTex.
+		
+		document.getElementById("input_test_index_" + i).addEventListener("change", function() {
+			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			
-			document.getElementById("compiled_latex").innerHTML = '$$' + document.getElementById("input_latex").value + '$$'; // Update the text in the compiled LaTex box.
-			MathJax.typeset([document.getElementById("compiled_latex")]); // Compile LaTex.
+			if(this.value.length) {
+				document.getElementById("input_latex_" + i).value = test_cases(this.value);
+				
+				document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
+				MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
+				
+				index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+			} else {
+				document.getElementById("input_latex_" + i).value = "";
+			}
+		});
+		
+		document.getElementById("input_latex_" + i).addEventListener("keyup", function() {
 			
-			index([Number(this.value)],false,true);
-		} else {
-			document.getElementById("input_latex").value = "";
-		}
-	});
+			document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
+			MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
+			
+			document.getElementById("LaTex_AST_" + i).innerHTML = "";
+			index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+		});
+		
+		document.getElementById("parsing_mode_" + i).addEventListener("change", function() {
+			document.getElementById("LaTex_AST_" + i).innerHTML = "";
+			index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
+		});
+	}
 	
-	document.getElementById("input_latex").addEventListener("keyup", function() {
-		
-		document.getElementById("compiled_latex").innerHTML = '$$' + document.getElementById("input_latex").value + '$$'; // Update the text in the compiled LaTex box.
-		MathJax.typeset([document.getElementById("compiled_latex")]); // Compile LaTex.
-		
-		document.getElementById("LaTex_AST").innerHTML = "";
-		index(this.value,false,true);
-	});
 </script>
 
 </body>

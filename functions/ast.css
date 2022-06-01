@@ -3,7 +3,8 @@ body,div,input {
 }
 
 body {
-	background: #fff;
+	padding: auto;
+	text-align: center;
 }
 
 .chart {
@@ -31,14 +32,16 @@ body {
 	height: 20px;
 }
 
-#wrapper_1 {
+#wrapper_1, #wrapper_2 {
+	display: inline-block;
 	width: 40%;
 	margin: 10px auto 0 auto;
+	text-align: center;
 }
 
-#input_latex {
+#input_latex_1, #input_latex_2 {
 	display: inline-block;
-	width: 88%;
+	width: 67%;
 	height: 35px;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
@@ -49,11 +52,11 @@ body {
 	font-weight: bold;
 }
 
-#input_test_index {
+#input_test_index_1, #input_test_index_2 {
 	display: inline-block;
 	width: 10%;
 	height: 35px;
-	margin: 0;
+	margin: 0 5px 0 auto;
 	text-align: center;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
@@ -61,13 +64,25 @@ body {
 	color: #2C3E50;
 	font-weight: bold;
 }
-#input_test_index::-webkit-inner-spin-button, #input_test_index::-webkit-outer-spin-button {
+#input_test_index_1::-webkit-inner-spin-button, #input_test_index_1::-webkit-outer-spin-button, #input_test_index_2::-webkit-inner-spin-button, #input_test_index_2::-webkit-outer-spin-button {
 	opacity: 1;
 }
 
-#compiled_latex {
+#parsing_mode_1, #parsing_mode_2 {
+	display: inline-block;
+	width: 20%;
+	height: 35px;
+	margin: auto;
+	border: 2px solid #2C3E50;
+	border-radius: 5px;
+	font-size: 24px;
+	color: #2C3E50;
+	font-weight: bold;
+}
+
+#compiled_latex_1, #compiled_latex_2 {
 	width: 99%;
-	min-height: 15px;
+	min-height: 10%;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
 	margin: 10px auto 0 auto;
@@ -76,7 +91,7 @@ body {
 	color: #2C3E50;
 }
 
-#LaTex_AST {
+#LaTex_AST_1, #LaTex_AST_2 {
 	height: 60%;
 	margin: 20px auto 0 auto;
 	overflow-y: auto;

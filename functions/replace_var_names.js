@@ -9,15 +9,23 @@ function replace_var_names(S) {
 	var Letters_Vector = String.fromCharCode(...range(97,122).concat(range(65,90))); // a-z,A-Z.
 	
 	// Create an array of parameter/var elements:
-	var params = {}; // An array of params/vars elements, with keys as their string (.e.g., letter).
-	for(let i=0; i<S.id.length; i++) {
-		if(S.operator[i] == -1) { // If it's a parameter/var element.
-			if(S.str[i] in params) { // If this element has already been added before.
-				if(S.level[i] <= params[S.str[i]][0] && S.parent_id[i] < params[S.str[i]][1] && S.id[i] < params[S.str[i]][2]) { // If the current element is better according to the sorting rule, use it instead.
-					params[S.str[i]] = [S.level[i], S.parent_id[i], S.id[i]];
-				} // else do nothing.
-			} else { // Add it.
-				params[S.str[i]] = [S.level[i], S.parent_id[i], S.id[i]];
+	var params = []; // An array of params/vars elements, with keys as their string (.e.g., letter).
+	var letters = [];
+	for(let i=0; i<S.length; i++) {
+		if(S[i].operator == 0) { // If it's a parameter/var element.
+			if(letters.includes(S[i].str)) { // If this element has already been added before.
+				let ii = letters.indexOf(S[i].str); // The index of the previous occurance in the params/letters arrays.
+				params[ii][4].push(i); // Add the index of the new element with the same letter.
+				
+				// If the current element is better according to the sorting rule, use it instead.
+				if(S[i].level > params[ii][0] || (S[i].level == params[ii][0] && S[i].parent_id < params[ii][1]) || (S[i].level == params[ii][0] && S[i].parent_id == params[ii][1] && S[i].id < params[ii][2])) {
+					params[ii][0] = S[i].level;
+					params[ii][1] = S[i].parent_id;
+					params[ii][2] = S[i].id;
+				}
+			} else { // Just add it.
+				params.push([S[i].level, S[i].parent_id, S[i].id, S[i].str, [i]]);
+				letters.push(S[i].str);
 			}
 		}
 	}
@@ -25,7 +33,7 @@ function replace_var_names(S) {
 	// Sort the array of leaf elements:
 	params.sort(function(a,b) { // Smallest comes first.
 		if(a[0] != b[0]) { // Sort by level.
-			return a[0] - b[0];
+			return b[0] - a[0];
 		} else if(a[1] != b[1]) { // Sort by parent_id.
 			return a[1] - b[1];
 		} else { // Sort by id.
@@ -34,9 +42,12 @@ function replace_var_names(S) {
 	});
 	
 	// Use the order of keys in params to update the the string of each param/var element:
-	var I = Object.keys(params); // Get the numeric indices of the sorted object.
-	for(let i=0; i<S.id.length; i++) {
-		S.str[i] = String.fromCharCode(Letters_Vector[I.indexOf(params[S.str[i]])]);
+	// var I = Object.keys(params); // Get the numeric indices of the sorted object.
+	// var ii = NaN;
+	for(let i=0; i<params.length; i++) { // For each letter.
+		for(let j=0; j<params[i][4].length; j++) { // For each element with this letter.
+			S[params[i][4][j]].str = Letters_Vector[i];
+		}
 	}
 	
 	return S;
