@@ -47,7 +47,8 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					if(op_type == 1) { // If the parent is a comparison operator (=,<,> etc.).
 						
 						// Find the last child (that is an operator, not a leaf), of the last type=1 (comparison) element:
-						var I = S.type.lastIndexOf(1); // Find the last (most recent) element of type 1 (comparison operator). It's index (=id) will be used to find it's last child.
+						let I = S.type.lastIndexOf(1); // Find the last (most recent) element of type 1 (comparison operator). Its index (=id) will be used to find its last child.
+						let id_temp;
 						for(let j=S.id.length-1; j>=0; j--) { // Go over elements in S backwards.
 							if(S.parent_id[j] == I && S.operator[j] > 0) {
 								id_temp = j;
@@ -88,7 +89,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				
 				if(i < S.str[0].length-1) {
 					if(op_type_parent == 3) { // If the parent is a type 3 operator (e.g., \sum, \int, \lim).
-						var I = arg_list_parent.indexOf(op_ind); // Check if the current operator is included in the argument list of the parent, and get its index. Otherwise return -1.
+						let I = arg_list_parent.indexOf(op_ind); // Check if the current operator is included in the argument list of the parent, and get its index. Otherwise return -1.
 						if(I > -1) {
 							arg_list_parent.splice(I,1); // Remove the operator from the parent's arg_list.
 						}
@@ -196,8 +197,8 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					id1 = id;
 				}
 				
-				[undefined,undefined,op_type_temp,undefined,undefined,undefined,undefined] = op2ind(S.str[0],i+1); // Check the next element.
-				if(isNaN(op_type_temp)) { // If the next element is also a letter/number.
+				// var [undefined,undefined,op_type_temp,undefined,undefined,undefined,undefined] = op2ind(S.str[0],i+1); // Check the next element.
+				if(isNaN(op2ind(S.str[0],i+1)[2])) { // If the next element is also a letter/number.
 					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 			}
@@ -229,8 +230,10 @@ function end_substring(S,p1,i,id,operator) {
 	
 	S.str[id] = S.str[id] + S.str[0].slice(p1,i+1);
 	S.operator[id] = operator;
-	if(!isNaN(operator)) {
-		S.type[id] = get_operation_type(operator);
+	// if(!isNaN(operator)) {
+	if(operator > 0) { // !NaN and positive.
+		let Ops = operators_database();
+		S.type[id] = Ops.type[Ops.index.indexOf(operator)]; // get_operation_type(operator);
 	} else {
 		S.type[id] = NaN;
 	}
