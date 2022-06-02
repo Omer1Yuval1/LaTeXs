@@ -14,6 +14,7 @@ function plot_AST(S,str0,container) {
 		},
 		nodeStructure: {
 			text: { name: "S" },
+			HTMLid: "S",
 			children: []
 		}
 	};
@@ -39,11 +40,11 @@ function add_subtree_nodes(S,p,AST) {
 					var sym = Ops.symbol[s];
 				}
 				
-				var temp = { text: { name: sym }, children: add_subtree_nodes(S,S[i].id,[]) };
+				var temp = { text: { name: sym }, HTMLid: "node_"+i.toString(), children: add_subtree_nodes(S,S[i].id,[]) };
 				AST.push(temp); // Add child of parent p.
 			} else { // If it's a leaf element.
 				let sym = op2ind(S[i].str,0)[3];
-				AST.push({ text: { name: sym } });
+				AST.push({ text: { name: sym }, HTMLid: "node_"+i.toString() });
 			}
 		}
 	}

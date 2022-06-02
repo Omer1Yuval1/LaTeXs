@@ -107,3 +107,7 @@ mjx-container {
 	padding: 0 auto 0 auto;
 	vertical-align: top;
 }
+
+#LaTex_AST_1 #node_9 {
+	color: red;
+}
