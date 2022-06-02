@@ -9,7 +9,7 @@ function index(test_ids,mode,plot) {
 	
 	if(arguments.length < 2) {
 		var mode = 1; // Sorted.
-		var plot = "#LaTex_AST_1";
+		var plot = "#LaTex_AST_0";
 	}
 	
 	if(!isNaN(test_ids)) { // If it's a number.
@@ -71,5 +71,5 @@ function index(test_ids,mode,plot) {
 		}
 	}
 	
-	return S;
+	return S_transformed;
 }

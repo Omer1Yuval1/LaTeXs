@@ -32,14 +32,14 @@ body {
 	height: 20px;
 }
 
-#wrapper_1, #wrapper_2 {
+#wrapper_0, #wrapper_1 {
 	display: inline-block;
 	width: 40%;
 	margin: 10px auto 0 auto;
 	text-align: center;
 }
 
-#input_latex_1, #input_latex_2 {
+#input_latex_0, #input_latex_1 {
 	display: inline-block;
 	width: 67%;
 	height: 35px;
@@ -52,7 +52,7 @@ body {
 	font-weight: bold;
 }
 
-#input_test_index_1, #input_test_index_2 {
+#input_test_index_0, #input_test_index_1 {
 	display: inline-block;
 	width: 10%;
 	height: 35px;
@@ -64,11 +64,11 @@ body {
 	color: #2C3E50;
 	font-weight: bold;
 }
-#input_test_index_1::-webkit-inner-spin-button, #input_test_index_1::-webkit-outer-spin-button, #input_test_index_2::-webkit-inner-spin-button, #input_test_index_2::-webkit-outer-spin-button {
+#input_test_index_0::-webkit-inner-spin-button, #input_test_index_0::-webkit-outer-spin-button, #input_test_index_1::-webkit-inner-spin-button, #input_test_index_1::-webkit-outer-spin-button {
 	opacity: 1;
 }
 
-#parsing_mode_1, #parsing_mode_2 {
+#parsing_mode_0, #parsing_mode_1 {
 	display: inline-block;
 	width: 20%;
 	height: 35px;
@@ -80,7 +80,7 @@ body {
 	font-weight: bold;
 }
 
-#compiled_latex_1, #compiled_latex_2 {
+#compiled_latex_0, #compiled_latex_1 {
 	display: flex;
     align-items: center;
 	vertical-align: middle;
@@ -100,7 +100,7 @@ mjx-container {
 	margin: 0 !important;
 }
 
-#LaTex_AST_1, #LaTex_AST_2 {
+#LaTex_AST_0, #LaTex_AST_1 {
 	height: 60%;
 	margin: 20px auto 0 auto;
 	overflow-y: auto;
@@ -108,6 +108,10 @@ mjx-container {
 	vertical-align: top;
 }
 
-#LaTex_AST_1 #node_9 {
-	color: red;
+#LaTex_AST_0 #node_8, #LaTex_AST_0 #node_9 {
+	color: #C0392B;
+}
+
+#LaTex_AST_1 #node_8, #LaTex_AST_1 #node_9 {
+	color: #229954;
 }

@@ -10,6 +10,7 @@
 <script src="functions/get_tree_size.js"></script>
 <script src="functions/sort_tree.js"></script>
 <script src="functions/replace_var_names.js"></script>
+<script src="functions/get_trees_similarity.js"></script>
 <script src="functions/plot_AST.js"></script>
 <script src="index.js"></script>
 <!-- <script src="functions/parameters.js"></script> -->
@@ -26,6 +27,20 @@
 </head>
 <body>
 
+<div id="wrapper_0">
+	<input type="text" id="input_latex_0">
+	<input type="number" id="input_test_index_0" value=0 min="0" max="60">
+	<select name="parsing_mode_0" id="parsing_mode_0">
+		<option value="0">Basic</option>
+		<option value="1">Sorted</option>
+		<option value="2">Canonical</option>
+		<option value="3">Similarity</option>
+		<option value="4">Matching</option>
+	</select>
+	<div id="compiled_latex_0"></div>
+	<div id="LaTex_AST_0"></div>
+</div>
+
 <div id="wrapper_1">
 	<input type="text" id="input_latex_1">
 	<input type="number" id="input_test_index_1" value=0 min="0" max="60">
@@ -37,35 +52,24 @@
 		<option value="4">Matching</option>
 	</select>
 	<div id="compiled_latex_1"></div>
+	
 	<div id="LaTex_AST_1"></div>
 </div>
 
-<div id="wrapper_2">
-	<input type="text" id="input_latex_2">
-	<input type="number" id="input_test_index_2" value=0 min="0" max="60">
-	<select name="parsing_mode_2" id="parsing_mode_2">
-		<option value="0">Basic</option>
-		<option value="1">Sorted</option>
-		<option value="2">Canonical</option>
-		<option value="3">Similarity</option>
-		<option value="4">Matching</option>
-	</select>
-	<div id="compiled_latex_2"></div>
-	
-	<div id="LaTex_AST_2"></div>
-</div>
-
 <script>
-	let t = [0];
 	
-	for(let i=1; i<=2; i++) {
+	let t = [0];
+	var S = new Array(2).fill(null);
+	
+	for(let i=0; i<=1; i++) {
 		
-		index(t,0,"#LaTex_AST_" + i);
+		// Assign default values:
+		S[i] = index(t,0,"#LaTex_AST_" + i);
 		document.getElementById("input_latex_" + i).value = test_cases(t);
-		
 		document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
-		// MathJax.typeset([document.getElementById("compiled_latex_1")]); // Compile LaTex.
+		// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 		
+		// If the user selects a test case number:
 		document.getElementById("input_test_index_" + i).addEventListener("change", function() {
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			
@@ -75,26 +79,35 @@
 				document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 				MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
 				
-				index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+				S[i] = index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+				get_trees_similarity(S[0],S[1]);
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
 			}
 		});
 		
+		// If the user types a formula:
 		document.getElementById("input_latex_" + i).addEventListener("keyup", function() {
 			
 			document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 			MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
 			
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
-			index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+			S[i] = index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+			get_trees_similarity(S[0],S[1]);
 		});
 		
+		// If the user selects a parsing mode:
 		document.getElementById("parsing_mode_" + i).addEventListener("change", function() {
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
-			index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
+			S[i] = index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
+			get_trees_similarity(S[0],S[1]);
 		});
 	}
+	
+	
+	get_trees_similarity(S[0],S[1]);
+	// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 	
 </script>
 

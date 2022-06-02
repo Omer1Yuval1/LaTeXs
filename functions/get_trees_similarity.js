@@ -1,10 +1,8 @@
-function [C0,C1] = get_trees_similarity(S0,S1,vars,params,param_constraints)
-	
-	// TODO:
-		// Add a cell array of variable. change the last argument to param_constraints.
+function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 	
 	// This function computes a similarity score between two given trees.
 	// The similarity is computed asymmetrically, as one tree (S0) is the reference tree, and the second (S1) is the tested tree.
+	// The trees are assumed to be sorted.
 	
 	// Run examples
 	/*
@@ -53,97 +51,110 @@ function [C0,C1] = get_trees_similarity(S0,S1,vars,params,param_constraints)
 			// Think of normalising for the total number of ref elements for comparing scores across ref formulas.
 				// But I think that dividing by the number of element in each level already accounts for this.
 	
-	if(ischar(S0) && ischar(S1))
-		S0 = index(S0,0,0);
-		S1 = index(S1,0,0);
-	end
+	if(typeof(S0) == 'string' && typeof(S1) == 'string') {
+		var S0 = index(S0,1,0); // mode=1 means the tree will be sorted.
+		var S1 = index(S1,1,0); // ".
+	}
 	
-	// Create nested cell arrays for the reference and input trees
-	C0 = generate_nested_array(S0,{},null);
-	C1 = generate_nested_array(S1,{},null);
-	C0 = C0{1};
-	C1 = C1{1};
+	// Create nested arrays for the reference (S0) and input (S1) trees
+	var C0 = generate_nested_array(S0,[],null);
+	var C1 = generate_nested_array(S1,[],null);
+	C0 = C0[0];
+	C1 = C1[0];
+	
+	// console.log(C0);
+	// console.log(C1);
 	
 	// Compare the nested arrays of the reference (C0) and input (C1) trees
-	[op_score,leaf_score] = compare_nested_arrays(C0,C1,0,0);
-	disp([op_score,leaf_score]);
+	var [op_score,leaf_score] = compare_nested_arrays(C0,C1,0,0);
+	console.log("\nOperator nodes similarity = " + op_score, "\nLeaf nodes similarity = " + leaf_score);
 	
-	if(nargin >= 3 && op_score == 0) // If parameters are given as an input argument && if the structures are identical.
-		vars_vals = cell(1,length(vars));
-		param_vals = cell(1,length(params));
+	return [C0,C1];
+	
+	/*
+	// Match values
+	if(nargin >= 3 && op_score == 0) { // If parameters are given as an input argument && if the structures are identical.
+		var vars_vals = new Array(vars.length).fill(null);
+		var param_vals = new Array(params.length).fill(null);
 		[vars_vals,param_vals] = match_values(C0,C1,vars,vars_vals,params,param_vals);
-		disp('Variables: ');
-		disp(join([vars',vars_vals'],'=')');
-		disp('Parameters: ');
-		disp(join([params',param_vals'],'=')');
-	end
-	
-	function C = generate_nested_array(S,C,p0)
 		
-		Fp = find([S.parent_id] == p0); // Find all direct children of the parent id.
-		[~,I] = sort([S(Fp).id]); // Get the *order* of the indices in ascending order.
-		
-		for i=1:length(I) // For each child element of parent p0 (with indices in ascending order (according to tree sorting)).
-			
-			if(S(Fp(I(i))).operator == 0) // If it's a leaf.
-				C{end+1} = S(Fp(I(i))).str; // Add the i-th child's str (param/number).
-				// C{end+1} = S(Fp(I(i))).id; // Add the i-th child id  (only used for testing).
-			else
-				C{end+1} = {S(Fp(I(i))).operator}; // Add the i-th child operator.
-				// C{end+1} = {S(Fp(I(i))).id}; // Add the i-th child id (only used for testing).
-				C{end} = generate_nested_array(S,C{end},S(Fp(I(i))).id); // Repeat the process recursively for the i-th element's subtree.
-			end
-		end
-	end
+		// console.log('Variables: ');
+		// console.log(join([vars',vars_vals'],'=')');
+		// console.log('Parameters: ');
+		// console.log(join([params',param_vals'],'=')');
+	}
 	
-	function [op_score,leaf_score] = compare_nested_arrays(C0,C1,op_score,leaf_score)
-		for i=1:min(length(C0),length(C1)) // For each pair of corresponding cells of C0 and C1 in the current level (the first element in each level is the parent).
-			if(length(C0{i}) == 1 && length(C1{i}) == 1) // If both arrays have a single element in the i-th cell (and can thus be compared).
-				if(isnumeric(C0{i}) && isnumeric(C1{i})) // If both are not leafs.
-					if(C0{i} ~= C1{i})
-						op_score = op_score + 1;
-					end
-				elseif(ischar(C0{i}) && ischar(C1{i})) // If both are leafs.
-					if(C0{i} ~= C1{i})
-						leaf_score = leaf_score + 1;
-					end
-				else // One is a leaf and one is not.
+	return [C0,C1];
+	*/
+}
+
+function generate_nested_array(S,C,p) {
+	
+	for(let i=0; i<S.length; i++) { // For each child element of parent p (with indices in ascending order (according to tree sorting)).
+		if(S[i].parent_id == p) { // If this element is a child of element p.
+			if(isNaN(S[i].type)) { // If it's a leaf.
+				C.push(S[i].str); // Add the i-th child's str (param/number).
+			} else {
+				C.push([S[i].operator]); // Add the i-th child operator.
+				C[C.length - 1] = generate_nested_array(S,C[C.length - 1],S[i].id); // Repeat the process recursively for the i-th element's subtree.
+			}
+		}
+	}
+	
+	return C;
+}
+
+function compare_nested_arrays(C0,C1,op_score,leaf_score) {
+	for(let i=0; i<Math.min(C0.length,C1.length); i++) { // For each pair of corresponding arrays of C0 and C1 in the current level (the first element in each level is the parent).
+		if(C0[i].length == 1 && C1[i].length == 1) { // If both arrays have a single element in the i-th cell (and can thus be compared).
+			if(typeof(C0[i]) == 'number' && typeof(C1[i]) == 'number') { // If both are not leafs (not letters).
+				if(C0[i] != C1[i]) {
 					op_score = op_score + 1;
+				}
+			} else if(typeof(C0[i]) == 'string' && typeof(C1[i]) == 'string') { // If both are leafs.
+				if(C0[i] != C1[i]) {
 					leaf_score = leaf_score + 1;
-				end
-			elseif(length(C0{i}) > 1 && length(C1{i}) > 1) // If both arrays have multiple elements in the i-th cell.
-				[op_score,leaf_score] = compare_nested_arrays(C0{i},C1{i},op_score,leaf_score);
-			else // If one array have a single element and the other multiple elements in the i-th cell.
-				// Compare only the first element.
-			end
-		end
-	end
+				}
+			} else { // One is a leaf and one is not.
+				op_score = op_score + 1;
+				leaf_score = leaf_score + 1;
+			}
+		} else if(C0[i].length > 1 && C1[i].length > 1) { // If both arrays have multiple elements in the i-th cell.
+			[op_score,leaf_score] = compare_nested_arrays(C0[i],C1[i],op_score,leaf_score);
+		} else {// If one array has a single element and the other multiple elements in the i-th cell.
+			// Compare only the first element.
+		}
+	}
 	
-	function [vars_vals,param_vals] = match_values(C0,C1,vars,vars_vals,params,param_vals)
-		
-		for i=1:length(C0) // For each pair of corresponding cells of C0 and C1 in the current level (the first element in each level is the parent).
-			if(ischar(C0{i}) && ischar(C1{i})) // If both are leafs.
-				
-				[~,Iv] = ismember(C0{i},vars);
-				[~,Ip] = ismember(C0{i},params);
-				
-				if(Iv) // If this character is a variable (i.e., not a parameters or a number).
-					if(~isempty(vars_vals{Iv}) && vars_vals{Iv} ~= C1{i}) // If a value for this parameter already exists && this value is different from the current value.
-						vars_vals{Iv} = nan;
-					else
-						vars_vals{Iv} = C1{i}; // Add its value to the vars_vals array at the same index as the matching parameter.
-					end
-				elseif(Ip) // If this character is a parameters (i.e., not a variable or a number).
-					if(~isempty(param_vals{Ip}) && param_vals{Ip} ~= C1{i}) // If a value for this parameter already exists && this value is different from the current value.
-						param_vals{Ip} = nan;
-					else
-						param_vals{Ip} = C1{i}; // Add its value to the param_vals array at the same index as the matching parameter.
-					end
-				end
-			elseif(length(C0{i}) > 1)
-				[vars_vals,param_vals] = match_values(C0{i},C1{i},vars,vars_vals,params,param_vals);
-			end // else - continue. Do nothing about non-leaf elements.
-		end
-	end
+	return [op_score,leaf_score];
+}
+/*
+function match_values(C0,C1,vars,vars_vals,params,param_vals) {
 	
-end
+	for i=1:length(C0) { // For each pair of corresponding cells of C0 and C1 in the current level (the first element in each level is the parent).
+		if(ischar(C0{i}) && ischar(C1{i})) { // If both are leafs.
+			
+			[~,Iv] = ismember(C0{i},vars);
+			[~,Ip] = ismember(C0{i},params);
+			
+			if(Iv) { // If this character is a variable (i.e., not a parameters or a number).
+				if(~isempty(vars_vals{Iv}) && vars_vals{Iv} ~= C1{i}) { // If a value for this parameter already exists && this value is different from the current value.
+					vars_vals{Iv} = nan;
+				} else {
+					vars_vals{Iv} = C1{i}; // Add its value to the vars_vals array at the same index as the matching parameter.
+				}
+			} else if(Ip) { // If this character is a parameters (i.e., not a variable or a number).
+				if(~isempty(param_vals{Ip}) && param_vals{Ip} ~= C1{i}) { // If a value for this parameter already exists && this value is different from the current value.
+					param_vals{Ip} = nan;
+				} else {
+					param_vals{Ip} = C1{i}; // Add its value to the param_vals array at the same index as the matching parameter.
+				}
+			}
+		} else if(length(C0{i}) > 1) {
+			[vars_vals,param_vals] = match_values(C0{i},C1{i},vars,vars_vals,params,param_vals);
+		} // else - continue. Do nothing about non-leaf elements.
+	}
+	
+	return [vars_vals,param_vals];
+}
+*/
