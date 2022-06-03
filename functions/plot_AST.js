@@ -35,16 +35,16 @@ function add_subtree_nodes(S,p,AST,n) {
 				let s = Ops.index.indexOf(S[i].operator);
 				
 				if([9,10,11].includes(s)) {
-					var sym = Ops.symbol[s] + Ops.symbol[s+3];
+					var sym = S[i].sign + Ops.symbol[s] + Ops.symbol[s+3];
 				} else {
-					var sym = Ops.symbol[s];
+					var sym = S[i].sign + Ops.symbol[s];
 				}
 				
 				var temp = { text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) };
 				AST.push(temp); // Add child of parent p.
 			} else { // If it's a leaf element.
 				let sym = op2ind(S[i].str,0)[3];
-				AST.push({ text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n});
+				AST.push({ text: { name: S[i].sign + sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n});
 			}
 		}
 	}

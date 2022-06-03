@@ -5,6 +5,7 @@ function sort_tree(S,p) {
 	// Then, as a secondary sorting condition, it sorts by tree size.
 	// Tree size is an array containing the number of elements within each level of a sub-tree (see get_tree_size.m for more information).
 	// (not yet used) In addition, every elemets are assigned with sub-id, corresponding to their order as direct children of a parent element.
+	// Note that numbers are sorted in decreasing absolute size (i.e., regardless of their sign).
 	
 	// var P = parameters();
 	var Ops = operators_database();
@@ -20,6 +21,7 @@ function sort_tree(S,p) {
 			if(S.parent_id[i] == p) { // If the i-th element is a child of element p.
 				
 				treeSize = get_tree_size(S,S.id[i]); // This produces an array of node counts per level (higher levels appear first).
+				treeSize = treeSize.filter(Number); // This just removes undefined values (missing level keys).
 				
 				// Assign numeric value (or NaN if not a leaf element):
 				let num_val = NaN;
@@ -40,13 +42,19 @@ function sort_tree(S,p) {
 			
 			// Sort the arr object (first by operator, then by tree size, and finally by numeric value):
 			arr.sort(function(a,b) { // Smallest comes first.
-				let Nab = Math.min(a[1].length,b[1].length); // The minimum length of the tree-size arrays.
+				let Nab = Math.max(a[1].length,b[1].length); // The maximum length of the tree-size arrays.
 				if(a[0] != b[0]) { // Sort by operator.
 					return b[0] - a[0];
-				} else if(a[1].slice(0,Nab)+"" != b[1].slice(0,Nab)+"") { // Sort by tree size. Do this only if the arrays are not identical (up to Nab).
-					for(let i=0; i<Nab; i++) { // Compare only the mutual keys of a and b (up to Nab).
+				} else if(a[1].slice(0,Nab)+"" != b[1].slice(0,Nab)+"" || a[1].length != b[1].length) { // Sort by tree size. Do this only if the arrays are not identical (up to Nab) or if they have different size (this means that they can be sorted by tree size for sure).
+					for(let i=0; i<Nab; i++) { // Compare the size arrays, until they are different or until one of them is over.
 						if(a[1][i] != b[1][i]) {
-							return a[1][i] - b[1][i];
+							if(a[1][i] == undefined && b[1][i] != undefined) {
+								return 1;
+							} else if(a[1][i] != undefined && b[1][i] == undefined) {
+								return -1;
+							} else {
+								return b[1][i] - a[1][i];
+							}
 						} // otherwise continue to compare the next pair of elements.
 					}
 				} else { // Sort by numeric value.

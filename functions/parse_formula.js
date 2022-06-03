@@ -231,7 +231,7 @@ function end_substring(S,p1,i,id,operator) {
 	S.str[id] = S.str[id] + S.str[0].slice(p1,i+1);
 	S.operator[id] = operator;
 	// if(!isNaN(operator)) {
-	if(operator > 0) { // !NaN and positive.
+	if(operator >= 0) { // !NaN and non-negative.
 		let Ops = operators_database();
 		S.type[id] = Ops.type[Ops.index.indexOf(operator)]; // get_operation_type(operator);
 	} else {

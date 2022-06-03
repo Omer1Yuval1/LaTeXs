@@ -42,7 +42,7 @@ function index(test_ids,mode,plot) {
 		S = postprocess_tree(S);
 		
 		if(mode >= 1) {
-			S = sort_tree(S,null);
+			S = sort_tree(S,0);
 		}
 		
 		// just convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
@@ -63,7 +63,7 @@ function index(test_ids,mode,plot) {
 		});
 		// console.log(S);
 		
-		S = simplify_tree(S);
+		// S = simplify_tree(S);
 		
 		if(mode >= 2) {
 			S = replace_var_names(S);

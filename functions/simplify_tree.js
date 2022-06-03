@@ -22,6 +22,7 @@ function simplify_tree(S) {
 		// Remove () (index = 10) if it has one child. See test case 53 + 19-24.
 		
 		// TODO:
+			// ***** Can't remove elements with a minus sign.
 			// Remove {} only if they have one child, but only if their parent is:
 				// frac (index = 17). See test case 35.
 				// type=0 (middle operators with no special inputs). See test case 35.
