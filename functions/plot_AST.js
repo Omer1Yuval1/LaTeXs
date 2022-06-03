@@ -31,7 +31,7 @@ function add_subtree_nodes(S,p,AST,n) {
 	var Ops = operators_database();
 	for(let i=0; i<S.length; i++) { // Search for elements with p as their parent.
 		if(S[i].parent_id == p) { // If p is the parent of this element.
-			if(S[i].operator > 0) { // If it's an operator.
+			if(S[i].operator >= 0) { // If it's an operator.
 				let s = Ops.index.indexOf(S[i].operator);
 				
 				if([9,10,11].includes(s)) {

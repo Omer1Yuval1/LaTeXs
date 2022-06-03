@@ -133,11 +133,11 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			id1 = id;
 			
 			// Check the status of the arguments of the parent operator:
-			if(arg_list_parent.length == 1 || arg_list_parent.indexOf(op_ind) > -1) {
+			if(arg_list_parent.length == 1 || arg_list_parent.includes(op_ind)) {
 				arg_list_parent.splice(0,1); // Remove the first index that matched the current closing parenthesis.
 				if(!arg_list_parent.length) { // If the argument list is empty.
 					
-					if(i < S.str[0].length-1 && !isNaN(op_priority_parent) && [9,10,11].indexOf(op2ind(S.str[0][i+1],0)[0]) > -1) {
+					if(i < S.str[0].length-1 && !isNaN(op_priority_parent) && [9,10,11].includes(op2ind(S.str[0][i+1],0)[0])) {
 						S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 					}
 					
@@ -146,7 +146,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				}
 			} else if(op_type_parent == 0 && (op_priority_parent < 4 || isNaN(op_priority_parent))) {
 				
-				if(i < S.str[0].length-1 && !isNaN(op_priority_parent) && [9,10,11].indexOf(op2ind(S.str[0][i+1],0)[0]) > -1) {
+				if(i < S.str[0].length-1 && !isNaN(op_priority_parent) && [9,10,11].includes(op2ind(S.str[0][i+1],0)[0])) {
 					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 				

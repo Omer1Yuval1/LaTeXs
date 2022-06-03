@@ -68,7 +68,7 @@ function test_cases(n) {
 	str[++i] = 'z + 3 + y + 1 + x + 2';
 	
 	// Summation, integration and limits
-	str[++i] = '\\sum_{i+1}^{N+1}{i^2}';
+	str[++i] = '\\sum_{i=1}^{N+1}{i^2}';
 	str[++i] = '\\int_{i+1}^{N+1}{i^2}';
 	str[++i] = '\\sum_i^N';
 	str[++i] = '\\sum_i^N {2}';

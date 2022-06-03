@@ -54,22 +54,25 @@ function index(test_ids,mode,plot) {
 				S_transformed[i][key] = S[key][i];
 			});
 		}
+		S = S_transformed;
 		// console.log(S_transformed);
 		
 		// Sort the transformed S in increasing order of id:
-		S_transformed.sort(function(a,b) {
+		S.sort(function(a,b) {
 			return a.id - b.id;
 		});
-		// console.log(S_transformed);
+		// console.log(S);
+		
+		S = simplify_tree(S);
 		
 		if(mode >= 2) {
-			S_transformed = replace_var_names(S_transformed);
+			S = replace_var_names(S);
 		}
 		
 		if(plot) {
-			plot_AST(S_transformed,str[i],plot);
+			plot_AST(S,str[i],plot);
 		}
 	}
 	
-	return S_transformed;
+	return S;
 }

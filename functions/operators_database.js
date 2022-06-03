@@ -8,7 +8,7 @@ function operators_database() {
 		// 4 = parentheses.
 		// 5 = Minus and plus/minus.
 	
-	let i = 0;
+	let i = -1;
 	let priority_0 = 1;
 	let Ops = {index: [], operator: [], symbol: [], type: [], argument_num: [], argument_list: [], priority: [], commutative: []};
 	
@@ -26,7 +26,7 @@ function operators_database() {
 	Ops['symbol'].push(String.fromCharCode(94));
 	Ops['type'].push(0);
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([1]);
+	Ops['argument_list'].push([1]); // This 1 is not really used as an index (see parse_formula.js).
 	Ops['priority'].push(priority_0 + 1);
 	Ops['commutative'].push(false);
 	
@@ -98,7 +98,7 @@ function operators_database() {
 	Ops['symbol'].push(String.fromCharCode(8730));
 	Ops['type'].push(2);
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([12,10]); // [']','}']
+	Ops['argument_list'].push([11,9]); // [']','}']
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
@@ -107,7 +107,7 @@ function operators_database() {
 	Ops['symbol'].push(String.fromCharCode(247));
 	Ops['type'].push(2);
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([10,10]); // ['}','}'].
+	Ops['argument_list'].push([9,9]); // ['}','}'].
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
@@ -118,7 +118,7 @@ function operators_database() {
 		Ops['symbol'].push(String.fromCharCode(op[1]));
 		Ops['type'].push(3);
 		Ops['argument_num'].push(3);
-		Ops['argument_list'].push([2,1,10]); // ['_','^','}'].
+		Ops['argument_list'].push([2,1,9]); // ['_','^','}'].
 		Ops['priority'].push(priority_0 + 2);
 		Ops['commutative'].push(false);
 	}
@@ -128,7 +128,7 @@ function operators_database() {
 	Ops['symbol'].push('\\lim');
 	Ops['type'].push(3);
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([2,10]); // ['_','}']
+	Ops['argument_list'].push([2,9]); // ['_','}']
 	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(false);
 	
@@ -184,7 +184,7 @@ function operators_database() {
 		Ops['symbol'].push(op[1]);
 		Ops['type'].push(2);
 		Ops['argument_num'].push(1);
-		Ops['argument_list'].push([11]); // [')'].
+		Ops['argument_list'].push([10]); // [')'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
 	}
@@ -220,7 +220,7 @@ function operators_database() {
 	// Uppercase: char(913:937);
 	
 	for(let j=0; j<greek_lower_latex.length; j++) {
-		Ops['index'].push(0);
+		Ops['index'].push(++i);
 		Ops['operator'].push(greek_lower_latex[j]);
 		Ops['symbol'].push(String.fromCharCode(greek_lower_symbol[j]));
 		Ops['type'].push(NaN);
