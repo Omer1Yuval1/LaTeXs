@@ -42,7 +42,7 @@ function index(test_ids,mode,plot) {
 		S = postprocess_tree(S);
 		
 		if(mode >= 1) {
-			S = sort_tree(S,0);
+			S = sort_tree(S,null);
 		}
 		
 		// just convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.

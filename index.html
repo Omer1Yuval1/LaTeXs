@@ -33,9 +33,8 @@
 	<select name="parsing_mode_0" id="parsing_mode_0">
 		<option value="0">Basic</option>
 		<option value="1">Sorted</option>
-		<option value="2">Canonical</option>
-		<option value="3">Similarity</option>
-		<option value="4">Matching</option>
+		<option value="2">Matching</option>
+		<option value="3">Canonical</option>
 	</select>
 	<div id="compiled_latex_0"></div>
 	<div id="LaTex_AST_0"></div>
@@ -47,9 +46,8 @@
 	<select name="parsing_mode_1" id="parsing_mode_1">
 		<option value="0">Basic</option>
 		<option value="1">Sorted</option>
-		<option value="2">Canonical</option>
-		<option value="3">Similarity</option>
-		<option value="4">Matching</option>
+		<option value="2">Matching</option>
+		<option value="3">Canonical</option>
 	</select>
 	<div id="compiled_latex_1"></div>
 	
@@ -80,7 +78,10 @@
 				MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
 				
 				S[i] = index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
-				get_trees_similarity(S[0],S[1]);
+				
+				if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
+					get_trees_similarity(S[0][0].str,S[1][0].str);
+				}
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
 			}
@@ -94,19 +95,40 @@
 			
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			S[i] = index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
-			get_trees_similarity(S[0],S[1]);
+			
+			if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
+				document.getElementById("LaTex_AST_0").innerHTML = "";
+				document.getElementById("LaTex_AST_1").innerHTML = "";
+				get_trees_similarity(S[0][0].str,S[1][0].str);
+				// return;
+			}
 		});
 		
 		// If the user selects a parsing mode:
 		document.getElementById("parsing_mode_" + i).addEventListener("change", function() {
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
-			S[i] = index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
-			get_trees_similarity(S[0],S[1]);
+			
+			switch(this.value) {
+				case '2': // Matching.
+					if(i == 0) {
+						document.getElementById("parsing_mode_1").value = 2;
+						document.getElementById("LaTex_AST_1").innerHTML = "";
+						get_trees_similarity(S[0][0].str,S[1][0].str);
+						return;
+					} else {
+						document.getElementById("parsing_mode_0").value = 2;
+						document.getElementById("LaTex_AST_0").innerHTML = "";
+						get_trees_similarity(S[0][0].str,S[1][0].str);
+						return;
+					}
+				default:
+					S[i] = index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
+			}
 		});
 	}
 	
 	
-	get_trees_similarity(S[0],S[1]);
+	//get_trees_similarity(S[0][0].str,S[1][0].str);
 	// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 	
 </script>

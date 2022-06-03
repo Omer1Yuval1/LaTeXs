@@ -50,7 +50,7 @@ function sort_tree(S,p) {
 						} // otherwise continue to compare the next pair of elements.
 					}
 				} else { // Sort by numeric value.
-					return a[2] - b[2];
+					return b[2] - a[2]; // Larger numbers come first (e.g., 2 before 1). Later letters come first (e.g., x before a).
 				}
 			});
 			
