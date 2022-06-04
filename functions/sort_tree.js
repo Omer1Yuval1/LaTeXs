@@ -29,7 +29,7 @@ function sort_tree(S,p) {
 					if(isNaN(S.str[i])) { // If its NOT a number.
 						num_val = S.str[i].charCodeAt(0); // Get the numeric Unicode of the first letter.
 					} else { // If it's a number.
-						num_val = Number(S.str[i]);
+						num_val = Number(S.sign[i] + S.str[i]);
 					}
 				}
 				
