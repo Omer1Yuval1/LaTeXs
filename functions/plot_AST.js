@@ -19,7 +19,7 @@ function plot_AST(S,str0,container) {
 		}
 	};
 	
-	AST.nodeStructure.children = add_subtree_nodes(S,S[0].parent_id,[],container[container.length-1]);
+	AST.nodeStructure.children = add_subtree_nodes(S,null,[],container[container.length-1]);
 	
 	var my_chart = new Treant(AST);
 	
