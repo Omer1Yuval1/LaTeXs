@@ -94,6 +94,7 @@ function test_cases(n) {
 	str[++i] = '\\frac{x}{y}{b}';
 	str[++i] = '\\sqrt[3]{x}{y}{b}';
 	str[++i] = '\\nabla(x+4)(5)';
+	str[++i] = '\\nabla{x+4}(5)';
 	str[++i] = '\\lim_{i \\to \\infty} {1}{x}';
 	
 	

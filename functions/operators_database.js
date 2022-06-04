@@ -196,7 +196,7 @@ function operators_database() {
 		Ops['symbol'].push(String.fromCharCode(op[1]));
 		Ops['type'].push(2);
 		Ops['argument_num'].push(1);
-		Ops['argument_list'].push([10,11]); // [')','}'].
+		Ops['argument_list'].push([null]); // [')','}'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
 	}
