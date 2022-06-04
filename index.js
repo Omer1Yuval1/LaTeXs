@@ -63,9 +63,11 @@ function index(test_ids,mode,plot) {
 		});
 		// console.log(S);
 		
-		// S = simplify_tree(S);
+		if(mode != 4) {
+			S = simplify_tree(S);
+		}
 		
-		if(mode >= 2) {
+		if(mode == 3) {
 			S = replace_var_names(S);
 		}
 		

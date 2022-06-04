@@ -49,6 +49,7 @@
 		<option value="1">Sorted</option>
 		<option value="2">Matching</option>
 		<option value="3">Canonical</option>
+		<option value="4">Unsimplified</option>
 	</select>
 	<div id="compiled_latex_1"></div>
 	
@@ -101,8 +102,8 @@
 				if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
 					document.getElementById("LaTex_AST_0").innerHTML = "";
 					document.getElementById("LaTex_AST_1").innerHTML = "";
-					get_trees_similarity(S[0][0].str,S[1][0].str);
-					// return;
+					get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
+					return;
 				}
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
@@ -118,12 +119,12 @@
 					if(i == 0) {
 						document.getElementById("parsing_mode_1").value = 2;
 						document.getElementById("LaTex_AST_1").innerHTML = "";
-						get_trees_similarity(S[0][0].str,S[1][0].str);
+						get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 						return;
 					} else {
 						document.getElementById("parsing_mode_0").value = 2;
 						document.getElementById("LaTex_AST_0").innerHTML = "";
-						get_trees_similarity(S[0][0].str,S[1][0].str);
+						get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 						return;
 					}
 				default:
