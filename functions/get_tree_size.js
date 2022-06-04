@@ -9,20 +9,16 @@ function get_tree_size(S,p,treeSize) {
 		var treeSize = [];
 	}
 	
-	for(let i=0; i<S.id.length; i++) {
-		if(S.parent_id[i] == p) { // If p is the parent of this element.
+	for(let i=0; i<S.length; i++) {
+		if(S[i].parent_id == p) { // If p is the parent of this element.
 			
-			
-			
-			if(treeSize[S.level[i]] == undefined) { // If this index does not yet exist.
-				treeSize[S.level[i]] = 1;
+			if(treeSize[S[i].level] == undefined) { // If this index does not yet exist.
+				treeSize[S[i].level] = 1;
 			} else {
-				treeSize[S.level[i]]++; // Increment by 1 the number of nodes at level S.level[i].
+				treeSize[S[i].level]++; // Increment by 1 the number of nodes at level S.level[i].
 			}
 			
-			
-			
-			treeSize = get_tree_size(S,S.id[i],treeSize); // Run the function again with this element as the parent.
+			treeSize = get_tree_size(S,S[i].id,treeSize); // Run the function again with this element as the parent.
 		}
 	}
 	

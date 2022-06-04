@@ -39,14 +39,7 @@ function index(test_ids,mode,plot) {
 		
 		[S,undefined,undefined] = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
 		
-		S = postprocess_tree(S);
-		
-		if(mode >= 1) {
-			S = sort_tree(S,null);
-		}
-		
-		// just convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
-		
+		// Convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
 		var S_transformed = [];
 		for(let i=0; i<S.id.length; i++) {
 			S_transformed[i] = {};
@@ -57,15 +50,21 @@ function index(test_ids,mode,plot) {
 		S = S_transformed;
 		// console.log(S_transformed);
 		
+		if(mode != 4) {
+			S = simplify_tree(S);
+		}
+		
+		S = postprocess_tree(S); // This add a "level" field to S.
+		
+		if(mode >= 1) {
+			S = sort_tree(S,null);
+		}
+		
 		// Sort the transformed S in increasing order of id:
 		S.sort(function(a,b) {
 			return a.id - b.id;
 		});
 		// console.log(S);
-		
-		if(mode != 4) {
-			S = simplify_tree(S);
-		}
 		
 		if(mode == 3) {
 			S = replace_var_names(S);
