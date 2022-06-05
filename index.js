@@ -19,8 +19,6 @@ function index(test_ids,mode,plot) {
 	}
 	
 	for(let i=0; i< str.length; i++) { // i=1:length(str) {
-		// disp(str{i});
-		// disp(test_ids(i));
 		
 		var S = {id: [], str: [], parent_id: [], operator: [], type: [], sign: [], level: []};
 		
@@ -48,7 +46,6 @@ function index(test_ids,mode,plot) {
 			});
 		}
 		S = S_transformed;
-		// console.log(S_transformed);
 		
 		if(mode != 4) {
 			S = simplify_tree(S);
@@ -64,7 +61,6 @@ function index(test_ids,mode,plot) {
 		S.sort(function(a,b) {
 			return a.id - b.id;
 		});
-		// console.log(S);
 		
 		if(mode == 3) {
 			S = replace_var_names(S);

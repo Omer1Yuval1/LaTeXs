@@ -28,9 +28,11 @@
 </head>
 <body>
 
+<script> let n = 62; </script>
+
 <div id="wrapper_0">
 	<input type="text" id="input_latex_0">
-	<input type="number" id="input_test_index_0" value=0 min="0" max="61">
+	<input type="number" id="input_test_index_0" value=0 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
 	<select name="parsing_mode_0" id="parsing_mode_0">
 		<option value="0">Basic</option>
 		<option value="1">Sorted</option>
@@ -44,7 +46,7 @@
 
 <div id="wrapper_1">
 	<input type="text" id="input_latex_1">
-	<input type="number" id="input_test_index_1" value=0 min="0" max="61">
+	<input type="number" id="input_test_index_1" value=0 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
 	<select name="parsing_mode_1" id="parsing_mode_1">
 		<option value="0">Basic</option>
 		<option value="1">Sorted</option>
