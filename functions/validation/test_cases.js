@@ -88,7 +88,7 @@ function test_cases(n) {
 	
 	// Comparison inside parentheses
 	str[++i] = '\\sum_{i=0}^{N}{1}';
-	str[++i] = '\\cos(x=0)';
+	str[++i] = '\\cos(5x < 0)';
 	
 	// Unnecessary arguments
 	str[++i] = '\\frac{x}{y}{b}';

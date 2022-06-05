@@ -32,7 +32,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			continue;
 		}
 		
-		if(op_type == 0 || op_type == 1) { // If its a simple middle operator (e.g., *, \in).
+		if(op_type == 0 || op_type == 1) { // If its a simple (*, ^) or non-simple (=, \in) middle operator .
 			
 			minus = '';
 			
@@ -121,11 +121,12 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			}
 		} else if(op_type == 4) { // If it is an opening parenthesis.
 			
+			var [op_ind_eq,op_priority_eq,op_type_eq,undefined,undefined,undefined,undefined] = op2ind('=',0);
+			
 			[S,id] = add_new_substring(S,id0,id,minus); // If there is no operator before the open parenthesis.
+			S.type[id] = op_type_eq; // Temporarily assigning the parentheses with type = 1. This is so that inner level operators can detect it as a comparison operator.
 			
-			var [op_ind_plus,op_priority_plus,op_type_plus,undefined,undefined,undefined,undefined] = op2ind('=',0);
-			
-			[S,id1,i] = parse_formula(S,p1+1,id,op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
+			[S,id1,i] = parse_formula(S,p1+1,id,op_ind_eq,op_priority_eq,op_type_eq,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
 			i = Math.min(i,S.str[0].length-1);
 			
 			[S,p1] = end_substring(S,p1,i,id,op2ind(op_sym,0)[0]); // Once done, close the current statement (up to the previous character).
@@ -220,7 +221,7 @@ function add_new_substring(S,id0,id,minus) {
 	S.operator.push(NaN);
 	S.sign.push(minus);
 	
-	id = S.id.slice(-1)[0]; // S(end).id;
+	id = S.id.slice(-1)[0]; // Set id to the id of the last added element.
 	
 	return [S,id];
 }
