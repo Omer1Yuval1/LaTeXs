@@ -97,6 +97,9 @@ function test_cases(n) {
 	str[++i] = '\\nabla{x+4}(5)';
 	str[++i] = '\\lim_{i \\to \\infty} {1}{x}';
 	
+	// Indexing pathologies
+	str[++i] = 'f_{n+1}^2';
+	str[++i] = '(x=1)_n';
 	
 	if(arguments.length == 1) {
 		str = str[n];

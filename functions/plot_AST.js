@@ -43,8 +43,8 @@ function add_subtree_nodes(S,p,AST,n) {
 				var temp = { text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) };
 				AST.push(temp); // Add child of parent p.
 			} else { // If it's a leaf element.
-				let sym = op2ind(S[i].str,0)[3];
-				AST.push({ text: { name: S[i].sign + sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n});
+				let sym = S[i].sign + op2ind(S[i].str,0)[3];
+				AST.push({ text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) });
 			}
 		}
 	}

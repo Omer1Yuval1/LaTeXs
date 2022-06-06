@@ -32,7 +32,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			continue;
 		}
 		
-		if(op_type == 0 || op_type == 1) { // If its a simple (*, ^) or non-simple (=, \in) middle operator .
+		if(op_type == 0 || op_type == 1 || op_type == 6) { // If its a simple (*, ^) or non-simple (=, \in) middle operator .
 			
 			minus = '';
 			
@@ -42,8 +42,11 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				
 				[S,id] = add_new_substring(S,id0,[],minus); // Add a new element for this operation.
 				
-				if(op_type_parent != 3) { // Feedback mechanism for middle operations.
-					
+				if(op_type_parent == 3) { // If the parent is a type 3 operator (e.g., \sum, \int, \lim).
+					op_priority = NaN; // This switches middle operators like '^' into arguments.
+				} else if(op_type == 6) { // Indexing.
+					S.parent_id[id] = id1; // Just make it the child of the previous element.
+				} else { // Feedback mechanism for middle operations.
 					if(op_type == 1) { // If the parent is a comparison operator (=,<,> etc.).
 						
 						// Find the last child (that is an operator, not a leaf), of the last type=1 (comparison) element:
@@ -76,12 +79,15 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						
 						p1 = i;
 						continue;
-					} else {
+					} else { // Make the last element the child of the current one, and the current one the child of the parent of the last element.
+						if(S.type[id1] == 6) { // If the last element is an index.
+							id1 = S.id[S.id.indexOf(S.parent_id[id1])]; // Find the parent of the index and use it instead.
+						}
+						
 						S.parent_id[id1] = id; // Make this new element the parent of the last closed element.
 						S.str[id] = S.str[id1] + op_sym; // For the new element, add the str of the last closed element (before the operation) as an initial str (the rest will be added later).
+						
 					}
-				} else { // If the parent is a type 3 operator (e.g., \sum, \int, \lim).
-					op_priority = NaN;
 				}
 				
 				[S,id1,i] = parse_formula(S,i+di,id,op_ind,op_priority,op_type,arg_list); // Go one level deeper. Send the current operator as the parent operator for the deeper leve.
@@ -93,6 +99,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						if(I > -1) {
 							arg_list_parent.splice(I,1); // Remove the operator from the parent's arg_list.
 						}
+						id1 = id;
 					}
 					
 					id1 = id;
@@ -199,7 +206,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				}
 				
 				// var [undefined,undefined,op_type_temp,undefined,undefined,undefined,undefined] = op2ind(S.str[0],i+1); // Check the next element.
-				if(isNaN(op2ind(S.str[0],i+1)[2])) { // If the next element is also a letter/number.
+				if(isNaN(op2ind(S.str[0],i+1)[2])) { // If the next element is also a letter/number (type = NaN).
 					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 			}

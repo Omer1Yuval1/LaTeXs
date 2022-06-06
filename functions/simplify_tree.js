@@ -16,7 +16,7 @@ function simplify_tree(S) {
 	
 	var toRemove = [];
 	for(let i=0; i<S.length; i++) {
-		if(S[i].operator == 3 || S[i].operator == 4) { // '+' (3) || '=' (4) || () (10).
+		if(S[i].operator == 3 || S[i].operator == 4) { // '+' (3) || '=' (4).
 			if(S[i].sign != '-') { // If it does not have a minus sign.
 				let Cn = get_children(S,S[i].id); // Cn is an array of child indices (positions, not ids) in S.
 				if(Cn.length <= 1) { // If it has up to 1 (direct) child.
@@ -26,12 +26,12 @@ function simplify_tree(S) {
 					toRemove.push(i); // Mark the parent for removal.
 				}
 			}
-		} else if([9,10,11].includes(S[i].operator) && S[i].sign != '-') { // {}[] without a minus sign.
+		} else if([9,10,11].includes(S[i].operator) && S[i].sign != '-') { // {}()[] without a minus sign.
 			let Cn = get_children(S,S[i].id);
 			if(Cn.length <= 1) { // If it has up to 1 (direct) child.
 				for(let ii=0; ii<S.length; ii++) { // First find the parent of the {}.
 					if(S[i].parent_id == S[ii].id) {
-						if([0,1,2].includes(S[ii].type)) { // If the parent of the {} is \frac || type == 0 (^) || type == 1 (.e.,g \in) || type == 2 (\frac, \sqrt).
+						if([0,1,2,6].includes(S[ii].type)) { // If the parent of the {} is \frac || type=0 (^) || type=1 (.e.,g \in) || type=2 (\frac, \sqrt) || type=6 (_).
 							for(let j=0; j<Cn.length; j++) { // Update the parent_id of the children to be the parent of their parent.
 								S[Cn[j]].parent_id = S[i].parent_id;
 							}
@@ -40,7 +40,7 @@ function simplify_tree(S) {
 						break; // There is only parent, so break once it is found.
 					}
 				}
-			} else { // If it has 2+ children, keep it, but change it to =.
+			} else { // If it has 2+ children, keep it, but change it to =. Note that type=6 elements are not counted.
 				var [op_ind,undefined,op_type,op_sym,undefined,undefined,undefined] = op2ind('=',0);
 				S[i].str = '='; 
 				S[i].operator = op_ind;
@@ -74,7 +74,7 @@ function simplify_tree(S) {
 function get_children(S,p) {
 	var Cn = [];
 	for(let i=0; i<S.length; i++) {
-		if(S[i].parent_id == p) {
+		if(S[i].type != 6 && S[i].parent_id == p) {
 			Cn.push(i);
 		}
 	}

@@ -7,6 +7,7 @@ function operators_database() {
 		// 3 = Forward opertor with non-simple inputs (e.g., \\sum, \\int, \\lim).
 		// 4 = parentheses.
 		// 5 = Minus and plus/minus.
+		// 6 = Indexing.
 	
 	let i = -1;
 	let priority_0 = 1;
@@ -33,9 +34,9 @@ function operators_database() {
 	Ops['index'].push(++i);
 	Ops['operator'].push('_');
 	Ops['symbol'].push(String.fromCharCode(95));
-	Ops['type'].push(0);
+	Ops['type'].push(6); // 0.
 	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([]);
+	Ops['argument_list'].push([1]);
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
