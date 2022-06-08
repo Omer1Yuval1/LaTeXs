@@ -53,12 +53,21 @@ function op2ind(str,i) {
 		var type = NaN;
 		var di = str_i.length;
 		var sym = str_i;
-	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter.
-		str_i = str_i[0];
-		var ind = -1; // Letter(s).
-		var type = NaN;
-		var di = 1;
-		var sym = str_i;
+	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter(s).
+		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0]) { // If it is not a function.
+			str_i = str_i[0];
+			var ind = -1;
+			var type = NaN;
+			var di = 1;
+			var sym = str_i;
+		} else { // If it is a function.
+			str_i = str_i[0];
+			var ind = -3;
+			var type = 7;
+			var di = 1;
+			var sym = str_i;
+		}
+		// var [is_func,undefined] = is_func(str.slice(i),1,[0,0],[0,0,0],0);
 	} else { // Space.
 		var ind = NaN;
 		var di = 1;

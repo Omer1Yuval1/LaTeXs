@@ -8,6 +8,7 @@ function operators_database() {
 		// 4 = parentheses.
 		// 5 = Minus and plus/minus.
 		// 6 = Indexing.
+		// 7 = Function.
 	
 	let i = -1;
 	let priority_0 = 1;

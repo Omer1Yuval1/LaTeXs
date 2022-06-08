@@ -84,7 +84,7 @@ function generate_nested_array(S,C,Ci,p) {
 
 function compare_nested_arrays(C0,C1,op_score,leaf_score) {
 	for(let i=0; i<C0.length; i++) { // For each pair of corresponding arrays of C0 and C1 in the current level (the first element in each level is the parent).
-		if(C0[i].length == 1 && C1[i].length == 1) { // If both arrays have a single element in the i-th cell (and can thus be compared).
+		if(!Array.isArray(C0[i]) && !Array.isArray(C1[i])) { // If both arrays have a single element in the i-th cell (and can thus be compared).
 			if(typeof(C0[i]) == 'number' && typeof(C1[i]) == 'number') { // If both are not leafs (not letters).
 				if(C0[i] != C1[i]) {
 					op_score = op_score + 1;
@@ -97,7 +97,7 @@ function compare_nested_arrays(C0,C1,op_score,leaf_score) {
 				op_score = op_score + 1;
 				leaf_score = leaf_score + 1;
 			}
-		} else if(C0[i].length > 1 && C1[i].length > 1) { // If both arrays have multiple elements in the i-th cell.
+		} else if(Array.isArray(C0[i]) && Array.isArray(C1[i])) { // If both arrays have multiple elements in the i-th cell.
 			[op_score,leaf_score] = compare_nested_arrays(C0[i],C1[i],op_score,leaf_score);
 		} else {// If one array has a single element and the other multiple elements in the i-th cell.
 			// Compare only the first element.
