@@ -43,29 +43,32 @@ function op2ind(str,i) {
 		var is_commutative = Ops.commutative[fop];
 	} else if(str_i = str.slice(i).match(/^[0-9]+[.]{1}[0-9]+/g)) { // A decimal number (must come before the next condition for matching an integer).
 		str_i = str_i[0];
-		var ind = -2; // Number.
+		var ind = -3; // Number.
 		var type = NaN;
 		var di = str_i.length;
 		var sym = str_i;
 	} else if(str_i = str.slice(i).match(/^[0-9]+/g)) { // An integer number.
 		str_i = str_i[0];
-		var ind = -2; // Number.
+		var ind = -3; // Number.
 		var type = NaN;
 		var di = str_i.length;
 		var sym = str_i;
 	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter(s).
-		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0]) { // If it is not a function.
+		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0] || ['_','^'].includes(str[i-1])) { // If it is not a function (i.e., a variable/parameter).
 			str_i = str_i[0];
-			var ind = -1;
-			var type = NaN;
+			var ind = -2;
 			var di = 1;
 			var sym = str_i;
+			type = NaN;
 		} else { // If it is a function.
 			str_i = str_i[0];
-			var ind = -3;
-			var type = 7;
+			var ind = -1;
 			var di = 1;
 			var sym = str_i;
+			type = 3;
+			arg_list = [2,1,10]; // ['_','^','('].
+			priority = 3;
+			is_commutative = false;
 		}
 		// var [is_func,undefined] = is_func(str.slice(i),1,[0,0],[0,0,0],0);
 	} else { // Space.

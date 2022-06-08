@@ -12,7 +12,7 @@ function replace_var_names(S) {
 	var params = []; // An array of params/vars elements, with keys as their string (.e.g., letter).
 	var letters = [];
 	for(let i=0; i<S.length; i++) {
-		if(S[i].operator == -1) { // If it's a parameter/var element.
+		if([-1,-2].includes(S[i].operator)) { // If it's a parameter/var element.
 			if(letters.includes(S[i].str)) { // If this element has already been added before.
 				let ii = letters.indexOf(S[i].str); // The index of the previous occurance in the params/letters arrays.
 				params[ii][4].push(i); // Add the index of the new element with the same letter.
@@ -33,7 +33,7 @@ function replace_var_names(S) {
 	// Sort the array of leaf elements:
 	params.sort(function(a,b) { // Smallest comes first.
 		if(a[0] != b[0]) { // Sort by level.
-			return b[0] - a[0];
+			return a[0] - b[0];
 		} else if(a[1] != b[1]) { // Sort by parent_id.
 			return a[1] - b[1];
 		} else { // Sort by id.

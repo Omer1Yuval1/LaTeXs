@@ -127,7 +127,7 @@ function operators_database() {
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('\\lim');
-	Ops['symbol'].push('\\lim');
+	Ops['symbol'].push('lim');
 	Ops['type'].push(3);
 	Ops['argument_num'].push(2);
 	Ops['argument_list'].push([2,9]); // ['_','}']
@@ -214,6 +214,15 @@ function operators_database() {
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(NaN);
 	}
+	
+	Ops['index'].push(++i);
+	Ops['operator'].push(',');
+	Ops['symbol'].push(String.fromCharCode(44));
+	Ops['type'].push(0);
+	Ops['argument_num'].push(2);
+	Ops['argument_list'].push([]);
+	Ops['priority'].push(priority_0 + 2);
+	Ops['commutative'].push(true);
 	
 	greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
 	let range = (start, stop) => Array.from({ length: stop - start + 1 }, (_, i) => start + i);
