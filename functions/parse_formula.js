@@ -205,7 +205,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					id1 = id;
 				}
 				
-				if(isNaN(op2ind(S.str[0],i+1)[2]) || [10].includes(op2ind(S.str[0][i+1],0)[0])) { // If the next element is also a letter/number (type = NaN), or if it is '('.
+				if(isNaN(op2ind(S.str[0],i+1)[2]) || S.str[0][i+1] == '(') { // If the next element is also a letter/number (type = NaN), or if it is '('.
 					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 			}
