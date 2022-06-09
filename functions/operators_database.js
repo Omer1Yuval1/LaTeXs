@@ -71,6 +71,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
+	// Add ||
 	var A = [["{",123] , ["(",40] , ["[",91]];
 	for(let op of A) {
 		Ops['index'].push(++i);
@@ -83,6 +84,8 @@ function operators_database() {
 		Ops['commutative'].push(true);
 	}
 	
+	// Add ||
+	// remember to change the +3 in plot_AST.
 	var A = [["}",125] , [")",41] , ["]",93]];
 	for(let op of A) {
 		Ops['index'].push(++i);
@@ -113,7 +116,7 @@ function operators_database() {
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
 	
-	var A = [["\\sum",931] , ["\\int",8747]];
+	var A = [["\\sum",931] , ["\\int",8747] , ["\\prod",8719]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -125,6 +128,8 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
+	// Add here:
+	// var A = [["\\lim",'lim'] , ["\\inf",'inf'] , ["\\sup",'sup'] , ["\\min",'min'] , ["\\max",'max']];
 	Ops['index'].push(++i);
 	Ops['operator'].push('\\lim');
 	Ops['symbol'].push('lim');

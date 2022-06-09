@@ -97,14 +97,18 @@ function test_cases(n) {
 	str[++i] = '\\nabla{x+4}(5)';
 	str[++i] = '\\lim_{i \\to \\infty} {1}{x}';
 	
-	// Indexing pathologies
+	// Indexing & arguments pathologies
 	str[++i] = '(x=1)_n';
+	str[++i] = '\\prod_{i=0}^N \\sum_{j=0}^N \\sum_{k=0}^N (i*j*k)';
 	
 	// variables vs functions
 	str[++i] = 'f_n^2';
 	str[++i] = 'f_n^2 (x)';
 	str[++i] = 'f_{n}^{2} (x) + y + z + \\sum(w)';
 	str[++i] = 'f(x,y,z)';
+	str[++i] = 'n(k+1)';
+	str[++i] = 'f(x+1)';
+	
 	
 	if(arguments.length == 1) {
 		str = str[n];

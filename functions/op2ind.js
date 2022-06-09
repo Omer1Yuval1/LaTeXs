@@ -54,7 +54,7 @@ function op2ind(str,i) {
 		var di = str_i.length;
 		var sym = str_i;
 	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter(s).
-		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0] || ['_','^'].includes(str[i-1])) { // If it is not a function (i.e., a variable/parameter).
+		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0] || ['_','^'].includes(str[i-1]) || !['f','g','h','F','G','H'].includes(str_i[0])) { // If it is not a function (i.e., a variable/parameter).
 			str_i = str_i[0];
 			var ind = -2;
 			var di = 1;

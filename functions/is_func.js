@@ -5,6 +5,7 @@ function is_func(str,i,arg_count,par_count,level) { // This function detects whe
 		// var [answer,i] = is_func('f_(i)_()(',1,[0,0],[0,0,0],0);
 		// var [answer,i] = is_func('f_(x)^{}a(',1,[0,0],[0,0,0],0);
 		// var [answer,i] = is_func('f_(x)^{}*(',1,[0,0],[0,0,0],0);
+		// n(n+1);
 	
 	while(i < str.length) {
 		switch(str[i]) {
