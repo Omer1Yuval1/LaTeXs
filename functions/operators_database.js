@@ -230,6 +230,20 @@ function operators_database() {
 	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(true);
 	
+	
+	// var A = [['\\mathbb{R}','R'], ['\\mathbb{Q}','Q'], ['\\mathbb{N}','N'], ['\\mathbb{Z}','Z'], ['\\mathbb{Z^+}','Z+'], ['\\mathbb{Z^*}','Z*'], ['\\mathbb{W}','W'], ['\\mathbb{P}','P'], ['\\mathbb{C}','C']];
+	var A = [['\\mathbb','set']];
+	for(let op of A) {
+		Ops['index'].push(++i);
+		Ops['operator'].push(op[0]);
+		Ops['symbol'].push(op[1]);
+		Ops['type'].push(2);
+		Ops['argument_num'].push(1);
+		Ops['argument_list'].push(['{']);
+		Ops['priority'].push(priority_0 + 2);
+		Ops['commutative'].push(false);
+	}
+	
 	greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
 	let range = (start, stop) => Array.from({ length: stop - start + 1 }, (_, i) => start + i);
 	let greek_lower_symbol = [8734].concat(...range(945,969));

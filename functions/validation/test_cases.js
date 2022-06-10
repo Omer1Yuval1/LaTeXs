@@ -96,7 +96,8 @@ function test_cases(n) {
 	str[++i] = '\\nabla(x+4)(5)';
 	str[++i] = '\\nabla{x+4}(5)';
 	str[++i] = '\\lim_{i \\to \\infty} x^{-i}';
-	str[++i] = '\\sup_{x \\in R} f(x)';
+	str[++i] = '\\sup_{x \\in \\mathbb{R}} f(x)';
+	str[++i] = '\\min_{x \\in [a,b]} f(x)';
 	
 	// Indexing & arguments pathologies
 	str[++i] = '(x=1)_n';

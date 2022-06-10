@@ -26,10 +26,11 @@
 
 <script src="https://fperucic.github.io/treant-js/Treant.js"></script>
 <script src="https://fperucic.github.io/treant-js/vendor/raphael.js"></script>
+
 </head>
 <body>
 
-<script> let n = 70; </script>
+<script> let n = 72; </script>
 
 <div id="wrapper_0">
 	<input type="text" id="input_latex_0">
@@ -86,6 +87,7 @@
 			document.getElementById("compiled_latex_1").innerHTML = '$$' + document.getElementById("input_latex_1").value + '$$'; // ".
 			MathJax.typeset([document.getElementById("compiled_latex_0")]); // Compile LaTex.
 			MathJax.typeset([document.getElementById("compiled_latex_1")]); // ".
+			// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
 			
 			if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
 				document.getElementById("LaTex_AST_" + Math.abs(i-1)).innerHTML = ""; // document.getElementById("LaTex_AST_1").innerHTML = "";
@@ -96,6 +98,9 @@
 				S[0] = index([Number(this.value)],document.getElementById("parsing_mode_0").value,"#LaTex_AST_0");
 				S[1] = index([Number(this.value)],document.getElementById("parsing_mode_1").value,"#LaTex_AST_1");
 			}
+			
+			// MathJax.typeset([document.getElementById("LaTex_AST_0")]);
+			// MathJax.typeset([document.getElementById("LaTex_AST_1")]);
 		});
 		
 		// If the user types a formula:
@@ -103,6 +108,7 @@
 			
 			document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 			MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
+			// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
 			
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			
@@ -118,6 +124,9 @@
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
 			}
+			
+			// MathJax.typeset([document.getElementById("LaTex_AST_0")]);
+			// MathJax.typeset([document.getElementById("LaTex_AST_1")]);
 		});
 		
 		// If the user selects a parsing mode:
@@ -143,6 +152,9 @@
 		});
 	}
 	
+	// MathJax.typeset();
+	// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
+	// MathJax.typeset([document.getElementById("LaTex_AST_1")]); // Compile LaTex in AST.
 	
 	//get_trees_similarity(S[0][0].str,S[1][0].str);
 	// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);

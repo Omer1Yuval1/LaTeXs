@@ -23,6 +23,8 @@ function plot_AST(S,str0,container) {
 	
 	var my_chart = new Treant(AST);
 	
+	// MathJax.typeset([document.getElementById(container)]); // Compile LaTex in AST.
+	
 }
 
 // I could modify this function to collect all child nodes of p, and then go over them in their id order.
