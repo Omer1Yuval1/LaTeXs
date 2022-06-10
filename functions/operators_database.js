@@ -128,16 +128,17 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	// Add here:
-	// var A = [["\\lim",'lim'] , ["\\inf",'inf'] , ["\\sup",'sup'] , ["\\min",'min'] , ["\\max",'max']];
-	Ops['index'].push(++i);
-	Ops['operator'].push('\\lim');
-	Ops['symbol'].push('lim');
-	Ops['type'].push(3);
-	Ops['argument_num'].push(2);
-	Ops['argument_list'].push([2,9]); // ['_','}']
-	Ops['priority'].push(priority_0 + 2);
-	Ops['commutative'].push(false);
+	var A = [["\\lim",'lim'] , ["\\inf",'inf'] , ["\\sup",'sup'] , ["\\min",'min'] , ["\\max",'max']];
+	for(let op of A) {
+		Ops['index'].push(++i);
+		Ops['operator'].push(op[0]);
+		Ops['symbol'].push(op[1]);
+		Ops['type'].push(3);
+		Ops['argument_num'].push(2);
+		Ops['argument_list'].push([2,9]); // ['_','}']
+		Ops['priority'].push(priority_0 + 2);
+		Ops['commutative'].push(false);
+	}
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('\\to');

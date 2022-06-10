@@ -95,7 +95,8 @@ function test_cases(n) {
 	str[++i] = '\\sqrt[3]{x}{y}{b}';
 	str[++i] = '\\nabla(x+4)(5)';
 	str[++i] = '\\nabla{x+4}(5)';
-	str[++i] = '\\lim_{i \\to \\infty} {1}{x}';
+	str[++i] = '\\lim_{i \\to \\infty} x^{-i}';
+	str[++i] = '\\sup_{x \\in R} f(x)';
 	
 	// Indexing & arguments pathologies
 	str[++i] = '(x=1)_n';
