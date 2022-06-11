@@ -9,6 +9,7 @@ function operators_database() {
 		// 5 = Minus and plus/minus.
 		// 6 = Indexing.
 		// 7 = Function.
+		// 8 = Identical opening and closing parentheses (not used for arguments of functions).
 	
 	let i = -1;
 	let priority_0 = 1;
@@ -71,8 +72,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	// Add ||
-	var A = [["{",123] , ["(",40] , ["[",91]];
+	var A = [["{",123], ["(",40], ["[",91], ["\\abso", 124]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -84,9 +84,7 @@ function operators_database() {
 		Ops['commutative'].push(true);
 	}
 	
-	// Add ||
-	// remember to change the +3 in plot_AST.
-	var A = [["}",125] , [")",41] , ["]",93]];
+	var A = [["}",125], [")",41], ["]",93], ["\\absc", 124]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -97,6 +95,26 @@ function operators_database() {
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(true);
 	}
+	 /*
+	// absolute value
+	Ops['index'].push(++i);
+	Ops['operator'].push('\\abso');
+	Ops['symbol'].push('|'); 
+	Ops['type'].push(4);
+	Ops['argument_num'].push(NaN);
+	Ops['argument_list'].push([]);
+	Ops['priority'].push(NaN);
+	Ops['commutative'].push(true);
+	
+	Ops['index'].push(++i);
+	Ops['operator'].push('\\absc');
+	Ops['symbol'].push('||');
+	Ops['type'].push(-4);
+	Ops['argument_num'].push(NaN);
+	Ops['argument_list'].push([]);
+	Ops['priority'].push(NaN);
+	Ops['commutative'].push(true);
+	*/
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('\\sqrt');

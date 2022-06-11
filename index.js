@@ -22,7 +22,11 @@ function index(test_ids,mode,plot) {
 		
 		var S = {id: [], str: [], parent_id: [], operator: [], type: [], sign: [], level: []};
 		
-		let str_i = preprocess_input(str[i]);
+		let [str_i,is_good] = preprocess_input(str[i]);
+		
+		if(!is_good) {
+			return S;
+		}
 		
 		[op_ind,op_priority,op_type,undefined,undefined,undefined,undefined] = op2ind('=',0);
 		

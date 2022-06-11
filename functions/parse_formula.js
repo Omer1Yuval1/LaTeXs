@@ -133,10 +133,11 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			[S,id] = add_new_substring(S,id0,id,minus); // If there is no operator before the open parenthesis.
 			S.type[id] = op_type_eq; // Temporarily assigning the parentheses with type = 1. This is so that inner level operators can detect it as a comparison operator.
 			
-			[S,id1,i] = parse_formula(S,p1+1,id,op_ind_eq,op_priority_eq,op_type_eq,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
-			i = Math.min(i,S.str[0].length-1);
+			[S,id1,i] = parse_formula(S,p1+di,id,op_ind,op_priority_eq,op_type_eq,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
+			i = Math.min(i+di-1,S.str[0].length-1);
 			
-			[S,p1] = end_substring(S,p1,i,id,op2ind(op_sym,0)[0],op_type); // Once done, close the current statement (up to the previous character).
+			[S,p1] = end_substring(S,p1,i,id,op_ind,op_type); // Once done, close the current statement (up to the previous character).
+			// [S,p1] = end_substring(S,p1,i,id,op2ind(op_sym,0)[0],op_type); // Once done, close the current statement (up to the previous character).
 			
 			id1 = id;
 			
@@ -158,7 +159,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					S.str[0] = S.str[0].slice(0,i+1) + '*' + S.str[0].slice(i+1); // Add * after the i-th characeter.
 				}
 				
-				i = i + 1;
+				i = i + di;
 				break;
 			}
 			
@@ -237,12 +238,11 @@ function end_substring(S,p1,i,id,operator,type) {
 	
 	S.str[id] = S.str[id] + S.str[0].slice(p1,i+1);
 	S.operator[id] = operator;
-	// if(!isNaN(operator)) {
-	if(operator >= 0) { // !NaN and non-negative.
+	if(arguments.length == 6) {
+		S.type[id] = type;
+	} else if(operator >= 0) { // !NaN and non-negative.
 		let Ops = operators_database();
 		S.type[id] = Ops.type[Ops.index.indexOf(operator)]; // get_operation_type(operator);
-	} else if(arguments.length == 6) {
-		S.type[id] = type;
 	} else {
 		S.type[id] = NaN;
 	}

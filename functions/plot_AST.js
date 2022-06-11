@@ -36,8 +36,8 @@ function add_subtree_nodes(S,p,AST,n) {
 			if(S[i].operator >= 0) { // If it's an operator.
 				let s = Ops.index.indexOf(S[i].operator);
 				
-				if([9,10,11].includes(s)) {
-					var sym = S[i].sign + Ops.symbol[s] + Ops.symbol[s+3];
+				if([9,10,11,12].includes(s)) {
+					var sym = S[i].sign + Ops.symbol[s] + Ops.symbol[s+4];
 				} else {
 					var sym = S[i].sign + Ops.symbol[s];
 				}

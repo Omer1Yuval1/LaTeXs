@@ -111,6 +111,8 @@ function test_cases(n) {
 	str[++i] = 'n(k+1)';
 	str[++i] = 'f(x+1)';
 	
+	// Absolute value
+	str[++i] = '| x + |y| |';
 	
 	if(arguments.length == 1) {
 		str = str[n];
