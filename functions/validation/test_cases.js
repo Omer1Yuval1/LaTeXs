@@ -114,6 +114,9 @@ function test_cases(n) {
 	// Absolute value
 	str[++i] = '| x + |y| |';
 	
+	// function composition
+	str[++i] = '(f \\circ g)(x)';
+	
 	if(arguments.length == 1) {
 		str = str[n];
 	}
