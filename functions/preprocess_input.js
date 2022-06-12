@@ -28,10 +28,26 @@ function preprocess_input(str) {
 	
 	str = str.replace(/\\sqrt{/g,'\\sqrt[2]{'); // If a root is used without the power ([]), it means it's a square root.
 	
-	// Detect and standardize function composition
+	// Detect and standardize function composition/addition/multiplication syntax.
 	var func_letters = P.function_letters.join('');
-	var pattern = new RegExp("(\\(["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g");
+	var pattern = new RegExp("(\\(["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Composition.
 	str = str.replace(pattern,'$1($2($3))');
+	
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*([+-])[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Addition/subtraction.
+	str = str.replace(pattern,'$1($4)$2$3($4)');
+	
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*[*]{0,1}[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Multiplication.
+	str = str.replace(pattern,'$1($3)*$2($3)');
+	
+	var pattern = new RegExp("\\(\\\\frac\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division.
+	// var pattern = new RegExp("\\(\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division.
+	str = str.replace(pattern,'\\frac{$1($3)}{$2($3)}');
+	
+	// TODO
+		// (\frac{f}{g})(x) => \frac{f(x)}{g(x)}
+		// (f*g)(x) => f(x) * g(x)
+		// (f+g)(x) => f(x) + g(x)
+		// (f-g)(x) => f(x) - g(x)
 	
 	return [str,is_good];
 }
