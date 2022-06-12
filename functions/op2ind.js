@@ -67,7 +67,7 @@ function op2ind(str,i) {
 			var sym = str_i;
 			type = 3;
 			arg_list = [2,1,10]; // ['_','^','('].
-			priority = 3;
+			// priority = 3;
 			is_commutative = false;
 		}
 		// var [is_func,undefined] = is_func(str.slice(i),1,[0,0],[0,0,0],0);

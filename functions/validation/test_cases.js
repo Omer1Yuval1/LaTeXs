@@ -116,6 +116,7 @@ function test_cases(n) {
 	
 	// function composition
 	str[++i] = '(f \\circ g)(x)';
+	str[++i] = '(f+g)(x) + (f*g)(x) + (\\frac{f}{g})(x)';
 	
 	if(arguments.length == 1) {
 		str = str[n];
