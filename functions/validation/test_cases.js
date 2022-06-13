@@ -110,9 +110,10 @@ function test_cases(n) {
 	str[++i] = 'f(x,y,z)';
 	str[++i] = 'n(k+1)';
 	str[++i] = 'f(x+1)';
+	str[++i] = 'f^{{k}}(x) + f(x)*g(x)';
 	
 	// Absolute value
-	str[++i] = '| x + |y| |';
+	str[++i] = '|x + |y||';
 	
 	// function composition
 	str[++i] = '(f \\circ g)(x)';

@@ -196,7 +196,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				[S,p1] = end_substring(S,p1,i,id,op_ind,NaN);
 				break;
 			} else {
-				if(isNaN(op_priority_parent)) {
+				if(isNaN(op_priority_parent)) { // This means that the parent of the parent operator is some kind of function.
 					[S,p1] = end_substring(S,p1,i,id,op_ind,NaN);
 					i = i + 1;
 					p1 = i;

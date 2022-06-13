@@ -8,6 +8,7 @@ function op2ind(str,i) {
 	
 	// var P = parameters();
 	var Ops = operators_database();
+	var P = parameters();
 	
 	// Set the default to be a middle operator with two arguments (one before and one after):
 	var type = 0;
@@ -54,7 +55,7 @@ function op2ind(str,i) {
 		var di = str_i.length;
 		var sym = str_i;
 	} else if(str_i = str.slice(i).match(/^[a-zA-Z]{1}/g)) { // A letter(s).
-		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0] || ['_','^'].includes(str[i-1]) || !['f','g','h','F','G','H'].includes(str_i[0])) { // If it is not a function (i.e., a variable/parameter).
+		if(!is_func(str.slice(i),1,[0,0],[0,0,0],0)[0] || ['_','^'].includes(str[i-1]) || !P.function_letters.includes(str_i[0])) { // If it is not a function (i.e., a variable/parameter).
 			str_i = str_i[0];
 			var ind = -2;
 			var di = 1;
@@ -67,7 +68,7 @@ function op2ind(str,i) {
 			var sym = str_i;
 			type = 3;
 			arg_list = [2,1,10]; // ['_','^','('].
-			// priority = 3;
+			priority = 2;
 			is_commutative = false;
 		}
 		// var [is_func,undefined] = is_func(str.slice(i),1,[0,0],[0,0,0],0);
