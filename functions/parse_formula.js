@@ -42,7 +42,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				
 				[S,id] = add_new_substring(S,id0,[],minus); // Add a new element for this operation.
 				
-				if(op_type_parent == 3) { // If the parent is a type 3 operator (e.g., \sum, \int, \lim), including an arbitrary function.
+				if(op_type_parent == 3 && arg_list_parent.slice(0,-1).includes(op_ind)) { // If the parent is a type 3 operator (e.g., \sum, \int, \lim), including an arbitrary function AND the current operator is included in the argument list, excluding the last argument (usually '{}' or '()').
 					op_priority = NaN; // This switches middle operators like '^' into arguments.
 				} else if(op_type == 6) { // Indexing.
 					S.parent_id[id] = id1; // Just make it the child of the previous element.
@@ -86,7 +86,6 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						
 						S.parent_id[id1] = id; // Make this new element the parent of the last closed element.
 						S.str[id] = S.str[id1] + op_sym; // For the new element, add the str of the last closed element (before the operation) as an initial str (the rest will be added later).
-						
 					}
 				}
 				
@@ -137,7 +136,6 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			i = Math.min(i+di-1,S.str[0].length-1);
 			
 			[S,p1] = end_substring(S,p1,i,id,op_ind,op_type); // Once done, close the current statement (up to the previous character).
-			// [S,p1] = end_substring(S,p1,i,id,op2ind(op_sym,0)[0],op_type); // Once done, close the current statement (up to the previous character).
 			
 			id1 = id;
 			

@@ -47,7 +47,7 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 		var params = match_values(C0,C1,C0i,C1i,{});
 		console.log(params);
 		
-		var color_map = ["#C0392B", "#9B59B6" ,"#3498DB", "#1ABC9C", "#F39C12"];
+		var color_map = ["#C0392B", "#9B59B6" ,"#3498DB", "#1ABC9C", "#F39C12", "#A04000", "#707B7C"];
 		var keys = Object.keys(params);
 		for(let k=0; k<keys.length; k++) {
 			for(let i=0; i<S0.length; i++) {

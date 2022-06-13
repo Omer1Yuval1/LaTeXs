@@ -87,7 +87,7 @@ function test_cases(n) {
 	str[++i] = '\\sin^{-1}(x+6)'; // Inverse sine function is replaced by arcsin.
 	
 	// Comparison inside parentheses
-	str[++i] = '\\sum_{i=0}^{N}{1}';
+	str[++i] = '\\sum_{i=0}^{N} xy^i';
 	str[++i] = '\\cos(5x < 0)';
 	
 	// Unnecessary arguments
