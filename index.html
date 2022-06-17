@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<script> let n = 76; </script>
+<script> let n = 26; </script>
 
 <div id="wrapper_0">
 	<input type="text" id="input_latex_0">
@@ -72,8 +72,8 @@
 	for(let i=0; i<=1; i++) {
 		
 		// Assign default values:
-		S[i] = index(t,0,"#LaTex_AST_" + i);
-		document.getElementById("input_latex_" + i).value = test_cases(t);
+		S[i] = index(test_cases(t)[i],0,"#LaTex_AST_" + i);
+		document.getElementById("input_latex_" + i).value = test_cases(t)[i];
 		document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 		// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 		
@@ -82,8 +82,11 @@
 			document.getElementById("LaTex_AST_0").innerHTML = "";
 			document.getElementById("LaTex_AST_1").innerHTML = "";
 			
-			document.getElementById("input_latex_0").value = test_cases(this.value);
-			document.getElementById("input_latex_1").value = test_cases(this.value);
+			str0 = test_cases(this.value)[0];
+			str1 = test_cases(this.value)[1];
+			
+			document.getElementById("input_latex_0").value = str0;
+			document.getElementById("input_latex_1").value = str1;
 			document.getElementById("input_test_index_" + Math.abs(i-1)).value = this.value; // Change the test case of the other box to be the same.
 			
 			document.getElementById("compiled_latex_0").innerHTML = '$$' + document.getElementById("input_latex_0").value + '$$'; // Update the text in the compiled LaTex box.
@@ -98,8 +101,8 @@
 				return;
 			} else {
 				// S[i] = index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
-				S[0] = index([Number(this.value)],document.getElementById("parsing_mode_0").value,"#LaTex_AST_0");
-				S[1] = index([Number(this.value)],document.getElementById("parsing_mode_1").value,"#LaTex_AST_1");
+				S[0] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
+				S[1] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
 			}
 			
 			// MathJax.typeset([document.getElementById("LaTex_AST_0")]);

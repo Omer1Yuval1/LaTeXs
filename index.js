@@ -13,7 +13,7 @@ function index(test_ids,mode,plot) {
 	}
 	
 	if(!isNaN(test_ids)) { // If it's a number.
-		var str = [test_cases(test_ids)]; // Load test cases.
+		var str = [test_cases(test_ids)[0]]; // Load test cases.
 	} else { // If a formula is given as an input string.
 		var str = [test_ids];
 	}

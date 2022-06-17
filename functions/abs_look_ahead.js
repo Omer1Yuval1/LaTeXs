@@ -14,7 +14,7 @@ function abs_look_ahead(str,abs_count) {
 			str = str.slice(0,abs_pos[i]) + '\\absc ' + str.slice(abs_pos[i]+1); // Last | must be closing type.
 		} else if(i == abs_pos.length - 1) { // First |.
 			str = str.slice(0,abs_pos[i]) + '\\abso ' + str.slice(abs_pos[i]+1); // First | must be opening type.
-		} else if(str.slice(abs_pos[i]+1).match(/^([ ]*[a-z]+)/g)) { // If it is followed by a letter/number, it is opening type.
+		} else if(str.slice(abs_pos[i]+1).match(/^([ ]*[a-z0-9]+)/g)) { // If it is followed by a letter/number, it is opening type.
 			str = str.slice(0,abs_pos[i]) + '\\abso ' + str.slice(abs_pos[i]+1); // First | must be opening type.
 		} else {
 			str = str.slice(0,abs_pos[i]) + '\\absc ' + str.slice(abs_pos[i]+1); // Last | must be closing type.

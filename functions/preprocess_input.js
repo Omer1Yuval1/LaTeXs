@@ -30,7 +30,7 @@ function preprocess_input(str) {
 	
 	// Detect and standardize function composition/addition/multiplication syntax.
 	var func_letters = P.function_letters.join('');
-	var pattern = new RegExp("(\\(["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Composition.
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Composition.
 	str = str.replace(pattern,'$1($2($3))');
 	
 	var pattern = new RegExp("\\((["+func_letters+"])[ ]*([+-])[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Addition/subtraction.
