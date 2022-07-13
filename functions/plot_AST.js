@@ -1,13 +1,7 @@
 function plot_AST(S,str0,container) {
 	
-	// TODO:
-		// Add elements in order according to their id.
-			// Create an array of [id,row] pairs. Sort it by id. Then loop over the sorted row numbers.
-			
-	// var P = parameters();
 	var Ops = operators_database();
 	
-	// Replace this with a loop that converts S into this data structure:
 	var AST = {
 		chart: {
 			container: container // This refers to the id of the DIV element.
@@ -23,11 +17,7 @@ function plot_AST(S,str0,container) {
 	
 	var my_chart = new Treant(AST);
 	
-	// MathJax.typeset([document.getElementById(container)]); // Compile LaTex in AST.
-	
 }
-
-// I could modify this function to collect all child nodes of p, and then go over them in their id order.
 
 function add_subtree_nodes(S,p,AST,n) {
 	var Ops = operators_database();

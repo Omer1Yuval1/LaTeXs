@@ -18,7 +18,6 @@ function preprocess_input(str) {
 		str = str.replace(element[0],element[1]); 
 	});
 	
-	// TODO: This can probably be written more compactly.
 	str = str.replace('+-','-'); // Just in case user write +- in their input.
 	str = str.replace(/(.{1})-/g,'$1+-'); // Add a '+' in front of every '-', unless the '-' is the first character. 
 	
@@ -40,14 +39,7 @@ function preprocess_input(str) {
 	str = str.replace(pattern,'$1($3)*$2($3)');
 	
 	var pattern = new RegExp("\\(\\\\frac\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division.
-	// var pattern = new RegExp("\\(\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division.
 	str = str.replace(pattern,'\\frac{$1($3)}{$2($3)}');
-	
-	// TODO
-		// (\frac{f}{g})(x) => \frac{f(x)}{g(x)}
-		// (f*g)(x) => f(x) * g(x)
-		// (f+g)(x) => f(x) + g(x)
-		// (f-g)(x) => f(x) - g(x)
 	
 	return [str,is_good];
 }

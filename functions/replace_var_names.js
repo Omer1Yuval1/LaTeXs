@@ -42,8 +42,6 @@ function replace_var_names(S) {
 	});
 	
 	// Use the order of keys in params to update the the string of each param/var element:
-	// var I = Object.keys(params); // Get the numeric indices of the sorted object.
-	// var ii = NaN;
 	for(let i=0; i<params.length; i++) { // For each letter.
 		for(let j=0; j<params[i][4].length; j++) { // For each element with this letter.
 			S[params[i][4][j]].str = Letters_Vector[i];

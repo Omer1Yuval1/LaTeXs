@@ -27,14 +27,6 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 	// Create nested arrays for the reference (S0) and input (S1) trees
 	var [C0,C0i] = generate_nested_array(S0,[],[],null);
 	var [C1,C1i] = generate_nested_array(S1,[],[],null);
-	/*
-	C0 = C0[0];
-	C1 = C1[0];
-	C0i = C0i[0];
-	C1i = C1i[0];
-	*/
-	// console.log(C0);
-	// console.log(C1);
 	
 	// Compare the nested arrays of the reference (C0) and input (C1) trees
 	var [op_score,leaf_score] = compare_nested_arrays(C0,C1,0,0);

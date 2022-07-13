@@ -2,7 +2,7 @@ function abs_look_ahead(str,abs_count) {
 	
 	let abs_pos = [];
 	let N = abs_count[3]; // Total number of |.
-	// let L = str.length;
+	
 	for(let i=0; i<str.length; i++) {
 		if(str[i] == '|') {
 			abs_pos.unshift(i); // Save the position of the i-th | (push each element to first position).

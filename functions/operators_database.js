@@ -95,26 +95,6 @@ function operators_database() {
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(true);
 	}
-	 /*
-	// absolute value
-	Ops['index'].push(++i);
-	Ops['operator'].push('\\abso');
-	Ops['symbol'].push('|'); 
-	Ops['type'].push(4);
-	Ops['argument_num'].push(NaN);
-	Ops['argument_list'].push([]);
-	Ops['priority'].push(NaN);
-	Ops['commutative'].push(true);
-	
-	Ops['index'].push(++i);
-	Ops['operator'].push('\\absc');
-	Ops['symbol'].push('||');
-	Ops['type'].push(-4);
-	Ops['argument_num'].push(NaN);
-	Ops['argument_list'].push([]);
-	Ops['priority'].push(NaN);
-	Ops['commutative'].push(true);
-	*/
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('\\sqrt');
@@ -248,8 +228,6 @@ function operators_database() {
 	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(true);
 	
-	
-	// var A = [['\\mathbb{R}','R'], ['\\mathbb{Q}','Q'], ['\\mathbb{N}','N'], ['\\mathbb{Z}','Z'], ['\\mathbb{Z^+}','Z+'], ['\\mathbb{Z^*}','Z*'], ['\\mathbb{W}','W'], ['\\mathbb{P}','P'], ['\\mathbb{C}','C']];
 	var A = [['\\mathbb','set']];
 	for(let op of A) {
 		Ops['index'].push(++i);

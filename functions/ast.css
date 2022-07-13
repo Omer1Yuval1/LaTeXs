@@ -107,17 +107,6 @@ mjx-container {
 #LaTex_AST_0, #LaTex_AST_1 {
 	height: 80%;
 	margin: 20px auto 0 auto;
-	/* overflow-y: auto; */
 	padding: 0 auto 0 auto;
 	vertical-align: top;
 }
-
-/*
-#LaTex_AST_0 #node_8, #LaTex_AST_0 #node_9 {
-	color: #C0392B;
-}
-
-#LaTex_AST_1 #node_8, #LaTex_AST_1 #node_9 {
-	color: #229954;
-}
-*/
