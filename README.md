@@ -1,1 +1,3 @@
-# MathAST.js
+# LaTeXs
+
+**Semantic representation of LaTeX expressions**

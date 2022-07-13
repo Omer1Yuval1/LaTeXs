@@ -18,7 +18,6 @@
 <script src="functions/get_trees_similarity.js"></script>
 <script src="functions/plot_AST.js"></script>
 <script src="index.js"></script>
-<!-- <script src="functions/parameters.js"></script> -->
 
 <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script> <!-- MathJax library -->
 
@@ -75,7 +74,6 @@
 		S[i] = index(test_cases(t)[i],0,"#LaTex_AST_" + i);
 		document.getElementById("input_latex_" + i).value = test_cases(t)[i];
 		document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
-		// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 		
 		// If the user selects a test case number:
 		document.getElementById("input_test_index_" + i).addEventListener("change", function() {
@@ -93,20 +91,15 @@
 			document.getElementById("compiled_latex_1").innerHTML = '$$' + document.getElementById("input_latex_1").value + '$$'; // ".
 			MathJax.typeset([document.getElementById("compiled_latex_0")]); // Compile LaTex.
 			MathJax.typeset([document.getElementById("compiled_latex_1")]); // ".
-			// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
 			
 			if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
 				document.getElementById("LaTex_AST_" + Math.abs(i-1)).innerHTML = ""; // document.getElementById("LaTex_AST_1").innerHTML = "";
 				get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 				return;
 			} else {
-				// S[i] = index([Number(this.value)],document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
 				S[0] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
 				S[1] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
 			}
-			
-			// MathJax.typeset([document.getElementById("LaTex_AST_0")]);
-			// MathJax.typeset([document.getElementById("LaTex_AST_1")]);
 		});
 		
 		// If the user types a formula:
@@ -114,7 +107,6 @@
 			
 			document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 			MathJax.typeset([document.getElementById("compiled_latex_" + i)]); // Compile LaTex.
-			// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
 			
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			
@@ -130,9 +122,6 @@
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
 			}
-			
-			// MathJax.typeset([document.getElementById("LaTex_AST_0")]);
-			// MathJax.typeset([document.getElementById("LaTex_AST_1")]);
 		});
 		
 		// If the user selects a parsing mode:
@@ -157,13 +146,6 @@
 			}
 		});
 	}
-	
-	// MathJax.typeset();
-	// MathJax.typeset([document.getElementById("LaTex_AST_0")]); // Compile LaTex in AST.
-	// MathJax.typeset([document.getElementById("LaTex_AST_1")]); // Compile LaTex in AST.
-	
-	//get_trees_similarity(S[0][0].str,S[1][0].str);
-	// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 	
 </script>
 

@@ -1,8 +1,5 @@
 function index(test_ids,mode,plot) {
 	
-	// cd(fileparts(which(mfilename)));
-	// addpath(genpath(pwd));
-	
 	if(arguments.length == 0 || !test_ids.length) {
 		var test_ids = 1;
 	}

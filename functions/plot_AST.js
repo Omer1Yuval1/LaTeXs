@@ -41,13 +41,14 @@ function add_subtree_nodes(S,p,AST,n) {
 				} else {
 					var sym = S[i].sign + Ops.symbol[s];
 				}
-				
-				var temp = { text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) };
-				AST.push(temp); // Add child of parent p.
+			} else if(S[i].operator == -1) { // If it's a function.
+				var sym = S[i].sign + 'function (' + op2ind(S[i].str,0)[3] + ')';
 			} else { // If it's a leaf element.
-				let sym = S[i].sign + op2ind(S[i].str,0)[3];
-				AST.push({ text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) });
+				var sym = S[i].sign + op2ind(S[i].str,0)[3];
 			}
+			
+			let temp = { text: { name: sym }, HTMLid: "node_" + S[i].id.toString() + "_" + n, children: add_subtree_nodes(S,S[i].id,[],n) };
+			AST.push(temp); // Add child of parent p.
 		}
 	}
 	

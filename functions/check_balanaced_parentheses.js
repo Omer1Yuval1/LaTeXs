@@ -1,5 +1,7 @@
 function check_balanaced_parentheses(str) {
 	
+	// This functions checks if all parentheses in a string are balanced.
+	
 	let par_arr = [['{','}'], ['(',')'], ['[',']'], ['|','|']];
 	let par_count = new Array(par_arr.length).fill(0);
 	for(let i=0; i<par_arr.length; i++) {

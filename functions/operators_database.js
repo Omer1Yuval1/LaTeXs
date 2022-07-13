@@ -60,7 +60,7 @@ function operators_database() {
 	Ops['priority'].push(priority_0 + 4);
 	Ops['commutative'].push(true);
 	
-	var A = [[">",62] , ["<",60] , ["≤",8804] , ["≥",8805]];
+	var A = [[">",62] , ["<",60] , ["\\le",8804] , ["\\ge",8805]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);

@@ -71,7 +71,7 @@ function test_cases(n) {
 	// str[++i] = 'f_n^2';
 	// str[++i] = 'f_n^2 (x)';
 	// str[++i] = 'f_{n}^{2} (x) + y + z + \\sum(w)';
-	str[++i] = ['f(x,y,z)','f(z,y,x)'];
+	str[++i] = ['f(x,y,z)','G(z,y,x)'];
 	str[++i] = ['n(k+1)','f(x+1)'];
 	// str[++i] = 'f(x+1)';
 	// str[++i] = 'f^{{k}}(x) + f(x)*g(x)';
@@ -82,7 +82,7 @@ function test_cases(n) {
 	// function composition
 	str[++i] = ['(f \\circ g)(x)', '(f \\circ g)(x)'];
 	str[++i] = ['(f+g)(x)', '(\\frac{f}{g})(x)'];
-	str[++i] = ['\\sum_{i=1}^{N+1}{\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}}', '\\sum_{i=1}^{N+1}{\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}}'];
+	str[++i] = ['\\sum_{i=1}^{N+1}{\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}}', '\\sum_{i=1}^{N+1}\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}'];
 	
 	if(arguments.length == 1) {
 		str = str[n];

@@ -1,4 +1,6 @@
-function is_func(str,i,arg_count,par_count,level) { // This function detects whether a letter is followed by (), possibly with other '_' and '^' arguments in between.
+function is_func(str,i,arg_count,par_count,level) {
+	
+	// This function detects whether a letter is followed by (), possibly with other '_' and '^' arguments in between.
 	
 	// Run examples
 		// var [answer,i] = is_func('f_(i)^(k)(',1,[0,0],[0,0,0],0);
