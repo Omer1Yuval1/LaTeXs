@@ -2,8 +2,9 @@ body,div,input {
 	font-family: 'Open Sans', sans-serif;
 }
 
-body {
-	padding: auto;
+html, body {
+	margin: 0;
+	padding: 0;
 	text-align: center;
 }
 
@@ -36,15 +37,67 @@ body {
 	min-width: 25px;
 }
 
+#navbar {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 5%;
+	background: #34495E;
+	margin: 0 0 20px 0;
+}
+
+#logo {
+	font-size: 2.5vh;
+	margin: auto 0 auto 20px;
+	font-weight: 700;
+	color: #D5DBDB;
+}
+
+#description {
+	font-size: 2vh;
+	font-weight: 600;
+	color: #D5DBDB;
+	margin: auto 0 auto 0;
+}
+
+#navbar_icons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-right: 20px;
+	width: 5%;
+}
+
+.navbar_icon {
+}
+
+#navbar_img {
+	height: 80%;
+	padding: auto;
+	margin: auto;
+}
+
+#parent_wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+	height: 85%;
+}
+
 #wrapper_0, #wrapper_1 {
-	display: inline-block;
+	display: flex;
+	flex-flow: column;
 	width: 45%;
 	margin: 10px auto 0 auto;
 	text-align: center;
+	/* border: 1px solid black; */
+	/* border-radius: 5px; */
+}
+
+#input_panel_0, #input_panel_1 {
+	/* width: 100%; */
 }
 
 #input_latex_0, #input_latex_1 {
-	display: inline-block;
 	width: 67%;
 	height: 35px;
 	border: 2px solid #2C3E50;
@@ -57,7 +110,7 @@ body {
 }
 
 #input_test_index_0, #input_test_index_1 {
-	display: inline-block;
+	/* display: inline-block; */
 	width: 10%;
 	height: 35px;
 	margin: 0 5px 0 auto;
@@ -73,8 +126,9 @@ body {
 }
 
 #parsing_mode_0, #parsing_mode_1 {
-	display: inline-block;
-	width: 20%;
+	/* display: inline-block; */
+	min-width: 20%;
+	max-width: 100%;
 	height: 35px;
 	margin: auto;
 	border: 2px solid #2C3E50;
@@ -106,7 +160,7 @@ mjx-container {
 
 #LaTex_AST_0, #LaTex_AST_1 {
 	height: 80%;
-	margin: 20px auto 0 auto;
+	margin: 20px 0 0 0;
 	padding: 0 auto 0 auto;
 	vertical-align: top;
 }

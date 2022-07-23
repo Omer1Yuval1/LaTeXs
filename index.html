@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css" type="text/css"/>
-<link rel="stylesheet" href="functions/ast.css">
+<link rel="stylesheet" href="functions/style/ast.css">
 
 <script src="https://fperucic.github.io/treant-js/Treant.js"></script>
 <script src="https://fperucic.github.io/treant-js/vendor/raphael.js"></script>
@@ -32,35 +32,50 @@
 </head>
 <body>
 
-<script> let n = 26; </script>
-
-<div id="wrapper_0">
-	<input type="text" id="input_latex_0">
-	<input type="number" id="input_test_index_0" value=1 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
-	<select name="parsing_mode_0" id="parsing_mode_0">
-		<option value="0">Basic</option>
-		<option value="1">Sorted</option>
-		<option value="2">Matching</option>
-		<option value="3">Canonical</option>
-		<option value="4">Unsimplified</option>
-	</select>
-	<div id="compiled_latex_0"></div>
-	<div id="LaTex_AST_0"></div>
+<div id="navbar">
+	<span id="logo">LaTeXs</span>
+	<span id="description">Semantic representation and matching of LaTeX expressions</span>
+	<div id="navbar_icons">
+		<a class="navbar_icon" href="https://www.linkedin.com/in/omeryuval/"><img id="navbar_img" src="functions/style/icons/linkedin.png" alt="Linkedin Profile"></a>
+		<a class="navbar_icon" href="https://github.com/Omer1Yuval1/LaTeXs"><img id="navbar_img" src="functions/style/icons/GitHub-Mark-Light-64px.png" alt="LaTeXs Repo"></a>
+	</div>
 </div>
 
-<div id="wrapper_1">
-	<input type="text" id="input_latex_1">
-	<input type="number" id="input_test_index_1" value=1 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
-	<select name="parsing_mode_1" id="parsing_mode_1">
-		<option value="0">Basic</option>
-		<option value="1">Sorted</option>
-		<option value="2">Matching</option>
-		<option value="3">Canonical</option>
-		<option value="4">Unsimplified</option>
-	</select>
-	<div id="compiled_latex_1"></div>
-	
-	<div id="LaTex_AST_1"></div>
+<script> let n = 26; </script>
+
+<div id="parent_wrapper">
+	<div id="wrapper_0">
+		<div id="input_panel_0">
+			<input type="text" id="input_latex_0">
+			<input type="number" id="input_test_index_0" value=1 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
+			<select name="parsing_mode_0" id="parsing_mode_0">
+				<option value="0">Basic</option>
+				<option value="1">Sorted</option>
+				<option value="2">Matching</option>
+				<option value="3">Canonical</option>
+				<option value="4">Unsimplified</option>
+			</select>
+		</div>
+		<div id="compiled_latex_0"></div>
+		<div id="LaTex_AST_0"></div>
+	</div>
+
+	<div id="wrapper_1">
+		<div id="input_panel_1">
+			<input type="text" id="input_latex_1">
+			<input type="number" id="input_test_index_1" value=1 min="-1" max="n" onchange="this.value = (this.value % n + n) % n;">
+			<select name="parsing_mode_1" id="parsing_mode_1">
+				<option value="0">Basic</option>
+				<option value="1">Sorted</option>
+				<option value="2">Matching</option>
+				<option value="3">Canonical</option>
+				<option value="4">Unsimplified</option>
+			</select>
+		</div>
+		<div id="compiled_latex_1"></div>
+		
+		<div id="LaTex_AST_1"></div>
+	</div>
 </div>
 
 <script>
