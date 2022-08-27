@@ -36,7 +36,7 @@ function index(test_ids,mode,plot) {
 		S['sign'].push('');
 		S['level'].push(0);
 		
-		[S,undefined,undefined] = parse_formula(S,0,id,op_ind,op_priority,op_type,[]);
+		[S,undefined,undefined] = parse_formula(S,0,[id],op_ind,op_priority,op_type,[]);
 		
 		// Convert this structure to an object where each key is the id. then sort by id. then plot the tree using this object.
 		var S_transformed = [];

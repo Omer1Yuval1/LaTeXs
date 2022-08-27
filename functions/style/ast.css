@@ -64,11 +64,12 @@ html, body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-right: 20px;
+	margin-right: 100px;
 	width: 5%;
 }
 
 .navbar_icon {
+	margin-right: 20px;
 }
 
 #navbar_img {

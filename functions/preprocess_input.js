@@ -4,6 +4,10 @@ function preprocess_input(str) {
 	var P = parameters();
 	var is_good = true;
 	
+	// Detect and standardize set notation (this comes here before checking parentheses balance in order to capture single '|' in set notation)
+	// var pattern = new RegExp("([^Y]+)Y([^Y]+)","g");
+	str = str.replace(/\\{([^|]+)\|([^|]+)\\}/,'\\set{$1}{$2}')
+	
 	var [is_good,abs_count] = check_balanaced_parentheses(str); // Check if parentheses are balanced.
 	
 	if(!is_good) {
@@ -27,18 +31,18 @@ function preprocess_input(str) {
 	
 	str = str.replace(/\\sqrt{/g,'\\sqrt[2]{'); // If a root is used without the power ([]), it means it's a square root.
 	
-	// Detect and standardize function composition/addition/multiplication syntax.
+	// Detect and standardize function composition/addition/multiplication syntax
 	var func_letters = P.function_letters.join('');
-	var pattern = new RegExp("\\((["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Composition.
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*\\\\circ[ ]+(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Composition. f◦g(x).
 	str = str.replace(pattern,'$1($2($3))');
 	
-	var pattern = new RegExp("\\((["+func_letters+"])[ ]*([+-])[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Addition/subtraction.
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*([+-])[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Addition/subtraction. f+g(x).
 	str = str.replace(pattern,'$1($4)$2$3($4)');
 	
-	var pattern = new RegExp("\\((["+func_letters+"])[ ]*[*]{0,1}[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Multiplication.
+	var pattern = new RegExp("\\((["+func_letters+"])[ ]*[*]{0,1}[ ]*(["+func_letters+"])\\)\\(([a-z])\\)","g"); // Multiplication. f*g(x).
 	str = str.replace(pattern,'$1($3)*$2($3)');
 	
-	var pattern = new RegExp("\\(\\\\frac\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division.
+	var pattern = new RegExp("\\(\\\\frac\\{(["+func_letters+"])\\}\\{(["+func_letters+"])\\}\\)\\(([a-z])\\)","g"); // Division. \frac{f}{g}(x).
 	str = str.replace(pattern,'\\frac{$1($3)}{$2($3)}');
 	
 	return [str,is_good];

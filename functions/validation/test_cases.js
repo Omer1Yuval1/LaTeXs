@@ -84,6 +84,9 @@ function test_cases(n) {
 	str[++i] = ['(f+g)(x)', '(\\frac{f}{g})(x)'];
 	str[++i] = ['\\sum_{i=1}^{N+1}{\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}}', '\\sum_{i=1}^{N+1}\\frac{(f \\circ g)(x)}{\\lim_{i \\to \\infty} \\sqrt[3]{i}}'];
 	
+	// Set notation
+	str[++i] = ['\\{ x \\in \\mathbb{Z} | -4 \\le x < 3 \\}', '\\{ x \\in \\mathbb{Z} | -4 \\le x < 3 \\}'];
+	
 	if(arguments.length == 1) {
 		str = str[n];
 	}

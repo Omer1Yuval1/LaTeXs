@@ -1,9 +1,12 @@
-function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,arg_list_parent) {
+function parse_formula(S,p1,ids,op_ind_parent,op_priority_parent,op_type_parent,arg_list_parent) {
 	
 	var id = id0; // id0 is the parent id. id is the index of the currently parsed element.
 	var id1 = id0; // id1 is the id of last parsed child element.
 	var minus = '';
 	var i = p1;
+	
+	np = ids.length - 1; // The index of most recent parent (last index in 'ids').
+	var id0 = ids[np];
 	
 	while(i < S.str[0].length) { // For each character.
 		
@@ -17,7 +20,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			[S,p1] = end_substring(S,p1,i,id,op_ind_plus,op_type_plus); // Once done, close the current statement (up to the previous character).
 			S.str[id] = '=+=';
 			
-			[S,id1,i] = parse_formula(S,p1,id,op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
+			[S,id1,i] = parse_formula(S,p1,[...ids,id],op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
 			if(i == S.str[0].length-1) {
 				break;
 			} else {
@@ -25,7 +28,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			}
 		}
 		
-		if(op_type == 5) { // Minus and \pm. These are not treated as normal operators, but are instead attached to the element that comes after them (leaf or parenthesis).
+		if(op_type == 5) { // Minus and \pm. These are not treated as normal operators, but are instead attached to the element that comes after them (leaf or brackets).
 			minus = op_sym;
 			i = i + 1;
 			p1 = i;
@@ -49,7 +52,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 				} else { // Feedback mechanism for middle operations.
 					if(op_type == 1) { // If the parent is a comparison operator (=,<,> etc.).
 						
-						// Find the last child (that is an operator, not a leaf), of the last type=1 (comparison) element:
+						// Find the last child (that is an operator, not a leaf), of the last type 1 (comparison) element:
 						let I = S.type.lastIndexOf(1); // Find the last (most recent) element of type 1 (comparison operator). Its index (=id) will be used to find its last child.
 						let id_temp;
 						for(let j=S.id.length-1; j>=0; j--) { // Go over elements in S backwards.
@@ -68,7 +71,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						[S,p1] = end_substring(S,p1,i,id1,op_ind_plus,op_type_plus); // Once done, close the current statement (up to the previous character).
 						S.str[id1] = '=+=';
 						
-						[S,id1,i] = parse_formula(S,p1+di,id1,op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
+						[S,id1,i] = parse_formula(S,p1+di,[...ids, id1],op_ind_plus,op_priority_plus,op_type_plus,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
 						
 						[S,p1] = end_substring(S,p1,i-1,id,op_ind,op_type);
 						S.str[id] = op_sym;
@@ -89,7 +92,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					}
 				}
 				
-				[S,id1,i] = parse_formula(S,i+di,id,op_ind,op_priority,op_type,arg_list); // Go one level deeper. Send the current operator as the parent operator for the deeper leve.
+				[S,id1,i] = parse_formula(S,i+di,[...ids, id],op_ind,op_priority,op_type,arg_list); // Go one level deeper. Send the current operator as the parent operator for the deeper leve.
 				[S,p1] = end_substring(S,p1,i-1,id,op_ind,op_type); // Once done, close the current statement (up to the previous character).
 				
 				if(i < S.str[0].length-1) {
@@ -98,7 +101,6 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 						if(I > -1) {
 							arg_list_parent.splice(I,1); // Remove the operator from the parent's arg_list.
 						}
-						id1 = id;
 					}
 					
 					id1 = id;
@@ -112,6 +114,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					[S,p1] = end_substring(S,p1,i-1,id,op_ind,op_type); // Close the last statement. Return the previous char as last (operator not included).
 				}
 				id = id1; // This is done to return the latest id to the first outer level.
+				
 				break; // Break to go back one level up.
 			} else if(op_ind == op_ind_parent) { // If the current and parent operators are identical and commutative.
 				if(isNaN(S.operator[id1])) {
@@ -130,9 +133,10 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 			var [op_ind_eq,op_priority_eq,op_type_eq,undefined,undefined,undefined,undefined] = op2ind('=',0);
 			
 			[S,id] = add_new_substring(S,id0,id,minus); // If there is no operator before the open parenthesis.
+			
 			S.type[id] = op_type_eq; // Temporarily assigning the parentheses with type = 1. This is so that inner level operators can detect it as a comparison operator.
 			
-			[S,id1,i] = parse_formula(S,p1+di,id,op_ind,op_priority_eq,op_type_eq,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
+			[S,undefined,i] = parse_formula(S,p1+di,[...ids, id],op_ind,op_priority_eq,op_type_eq,[]); // Go one level deeper. Set the '+' operator to be the parent operator in the inner level.
 			i = Math.min(i+di-1,S.str[0].length-1);
 			
 			[S,p1] = end_substring(S,p1,i,id,op_ind,op_type); // Once done, close the current statement (up to the previous character).
@@ -173,11 +177,13 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 		} else if(op_type == 2 || op_type == 3) { // If it's a forward operator (e.g., \frac, \sqrt, \sum), including an arbitrary function.
 			
 			[S,id] = add_new_substring(S,id0,id,minus);
-			[S,id1,i] = parse_formula(S,p1+di,id,op_ind,op_priority,op_type,arg_list);
+			
+			[S,undefined,i] = parse_formula(S,p1+di,[...ids, id],op_ind,op_priority,op_type,arg_list);
 			[S,p1] = end_substring(S,p1,i,id,op_ind,op_type);
 			
 			id1 = id;
 			id = id0;
+			
 			p1 = i;
 			
 			if(i == S.str[0].length-1) {
@@ -186,6 +192,7 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 		} else if(isNaN(op_type)) { // If the current character is not an operator (i.e., letter or number).
 			
 			[S,id] = add_new_substring(S,id0,id,minus);
+			
 			id1 = id;
 			
 			i = i + di - 1;
@@ -201,7 +208,6 @@ function parse_formula(S,p1,id0,op_ind_parent,op_priority_parent,op_type_parent,
 					break;
 				} else {
 					[S,p1] = end_substring(S,p1,i,id,op_ind,NaN);
-					id1 = id;
 				}
 				
 				if(isNaN(op2ind(S.str[0],i+1)[2]) || S.str[0][i+1] == '(') { // If the next element is also a letter/number (type = NaN), or if it is '('.
