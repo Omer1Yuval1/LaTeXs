@@ -5,7 +5,7 @@ function parse_formula(S,p1,ids,op_ind_parent,op_priority_parent,op_type_parent,
 	var minus = '';
 	var i = p1;
 	
-	np = ids.length - 1; // The index of most recent parent (last index in 'ids').
+	var np = ids.length - 1; // The index of most recent parent (last index in 'ids').
 	var id0 = ids[np];
 	
 	while(i < S.str[0].length) { // For each character.

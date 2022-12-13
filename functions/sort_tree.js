@@ -9,6 +9,7 @@ function sort_tree(S,p) {
 	
 	// var P = parameters();
 	var Ops = operators_database();
+	var treeSize;
 	
 	// Find the index of element id=p
 	var ii = NaN;

@@ -25,7 +25,7 @@ function index(test_ids,mode,plot) {
 			return S;
 		}
 		
-		[op_ind,op_priority,op_type,undefined,undefined,undefined,undefined] = op2ind('=',0);
+		let [op_ind,op_priority,op_type] = op2ind('=',0);
 		
 		id = 0;
 		S['id'].push(id);

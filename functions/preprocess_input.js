@@ -6,7 +6,7 @@ function preprocess_input(str) {
 	
 	// Detect and standardize set notation (this comes here before checking parentheses balance in order to capture single '|' in set notation)
 	// var pattern = new RegExp("([^Y]+)Y([^Y]+)","g");
-	str = str.replace(/\\{([^|]+)\|([^|]+)\\}/,'\\set{$1}{$2}')
+	str = str.replace(/\\{([^|]+)\|([^|]+)\\}/,'\\set{$1}{$2}'); // {x | x > 0}. Identify set notation.
 	
 	var [is_good,abs_count] = check_balanaced_parentheses(str); // Check if parentheses are balanced.
 	

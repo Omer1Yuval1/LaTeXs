@@ -243,7 +243,7 @@ function operators_database() {
 		Ops['commutative'].push(false);
 	}
 	
-	greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
+	let greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
 	let range = (start, stop) => Array.from({ length: stop - start + 1 }, (_, i) => start + i);
 	let greek_lower_symbol = [8734].concat(...range(945,969));
 	// ['\\Gamma','\\Delta','\\Theta','\\Lambda','\\Pi','\\Sigma','\\Upsilon','\\Phi','\\Psi','\\Omega'];
