@@ -94,7 +94,7 @@
 		document.getElementById("input_latex_" + i).value = test_cases(t)[i];
 		document.getElementById("compiled_latex_" + i).innerHTML = '$$' + document.getElementById("input_latex_" + i).value + '$$'; // Update the text in the compiled LaTex box.
 		
-		document.getElementById("text_" + i).innerHTML = text[i].join(" ");
+		document.getElementById("text_" + i).innerHTML = text[i];
 		
 		// If the user selects a test case number:
 		document.getElementById("input_test_index_" + i).addEventListener("change", function() {
@@ -118,9 +118,12 @@
 				get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
 				return;
 			} else {
-				S[0] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
-				S[1] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
+				[S[0], text[0]] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
+				[S[1], text[1]] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
 			}
+			
+			document.getElementById("text_0").innerHTML = text[0];
+			document.getElementById("text_1").innerHTML = text[1];
 		});
 		
 		// If the user types a formula:
@@ -132,7 +135,7 @@
 			document.getElementById("LaTex_AST_" + i).innerHTML = "";
 			
 			if(this.value.length) {
-				S[i] = index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+				[S[i], text[i]] = index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
 				
 				if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
 					document.getElementById("LaTex_AST_0").innerHTML = "";
@@ -143,6 +146,8 @@
 			} else {
 				document.getElementById("input_latex_" + i).value = "";
 			}
+			
+			document.getElementById("text_" + i).innerHTML = text[i];
 		});
 		
 		// If the user selects a parsing mode:
@@ -163,8 +168,10 @@
 						return;
 					}
 				default:
-					S[i] = index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
+					[S[i], text[i]] = index(document.getElementById("input_latex_" + i).value ,this.value,"#LaTex_AST_" + i);
 			}
+			
+			document.getElementById("text_" + i).innerHTML = text[i];
 		});
 	}
 	

@@ -22,12 +22,9 @@ function ast_to_text(S) {
 	var parent_node = S.filter(x => x.parent_id === id)[0]; // Find the root node.
 	text.push(...get_child_text(S, Ops, parent_node));
 	
-	/*
-	var child_nodes = S.filter(x => x.parent_id === parent_node.id); // Find all child nodes of 'parent_node'.
-	for(let i=0; i<child_nodes.length; i++) {
-		text.push(...get_child_text(S, Ops, child_nodes[i]));
-	}
-	*/
+	text = text.join(" ");
+	
+	text = text.replace("plus minus", "minus");
 	
 	return text;
 	
@@ -53,6 +50,9 @@ function get_child_text(S, Ops, parent_node) {
 		}
 	} else {
 		let ii = null;
+		if(parent_node.sign) {
+			text.push("minus");
+		}
 		text.push(parent_node.str);
 	}
 	

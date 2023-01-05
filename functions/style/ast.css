@@ -163,12 +163,12 @@ html, body {
 	/* vertical-align: middle; */
 	justify-content: center;
 	width: 99%;
-	height: 6%;
+	min-height: 6%;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
 	margin: 10px auto 0 auto;
 	padding: 0;
-	font-size: 24px;
+	font-size: 20px;
 	color: #2C3E50;
 }
 
