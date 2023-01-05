@@ -13,7 +13,7 @@ function operators_database() {
 	
 	let i = -1;
 	let priority_0 = 1;
-	let Ops = {index: [], operator: [], symbol: [], type: [], argument_num: [], argument_list: [], priority: [], commutative: []};
+	let Ops = {index: [], operator: [], symbol: [], type: [], argument_num: [], argument_list: [], priority: [], commutative: [], text: []};
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('*');
@@ -23,6 +23,7 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(true);
+	Ops['text'].push(["times"]);
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('^');
@@ -32,6 +33,7 @@ function operators_database() {
 	Ops['argument_list'].push([1]); // This 1 is not really used as an index (see parse_formula.js).
 	Ops['priority'].push(priority_0 + 1);
 	Ops['commutative'].push(false);
+	Ops['text'].push(["to the power of"]);
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('_');
@@ -41,6 +43,7 @@ function operators_database() {
 	Ops['argument_list'].push([1]);
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
+	Ops['text'].push(["with index"]);
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('+');
@@ -50,6 +53,7 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 3);
 	Ops['commutative'].push(true);
+	Ops['text'].push(["plus"]);
 	
 	Ops['index'].push(++i);
 	Ops['operator'].push('=');
@@ -59,8 +63,9 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 4);
 	Ops['commutative'].push(true);
+	Ops['text'].push(["equals to"]);
 	
-	var A = [[">",62] , ["<",60] , ["\\le",8804] , ["\\ge",8805]];
+	var A = [[">",62, "greater than"] , ["<",60, "less than"] , ["\\le",8804, "less than or equal to"] , ["\\ge",8805, "greater than or equal to"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -70,6 +75,7 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(priority_0 + 4);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
 	var A = [["{",123], ["(",40], ["[",91], ["\\abso", 124]];

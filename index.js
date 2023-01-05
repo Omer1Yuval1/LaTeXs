@@ -70,7 +70,12 @@ function index(test_ids,mode,plot) {
 		if(plot) {
 			plot_AST(S,str[i],plot);
 		}
+		
+		console.log(S);
+		
+		var text = ast_to_text(S);
+		console.log(text);
 	}
 	
-	return S;
+	return [S, text];
 }
