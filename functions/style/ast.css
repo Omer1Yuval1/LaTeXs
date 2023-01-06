@@ -148,7 +148,8 @@ html, body {
 	/* vertical-align: middle; */
 	justify-content: center;
 	width: 99%;
-	height: 12%;
+	min-height: 17%;
+	max-height: 20%;
 	border: 2px solid #2C3E50;
 	border-radius: 5px;
 	margin: 10px auto 0 auto;

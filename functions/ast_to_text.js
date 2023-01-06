@@ -20,33 +20,58 @@ function ast_to_text(S) {
 	var text = [];
 	
 	var parent_node = S.filter(x => x.parent_id === id)[0]; // Find the root node.
-	text.push(...get_child_text(S, Ops, parent_node));
+	text.push(...get_child_text(S, Ops, parent_node, false));
 	
 	text = text.join(" ");
 	
 	text = text.replace("plus minus", "minus");
+	text = text.replace("to the power of 2", "squared");
+	text = text.replace("to the power of 3", "cubed");
 	
 	return text;
 	
 }
 
-function get_child_text(S, Ops, parent_node) {
+function get_child_text(S, Ops, parent_node, skip) {
 	var text = [];
+	
+	let child_nodes = S.filter(x => x.parent_id === parent_node.id); // Find all child nodes of the parent operator.
 	
 	if(parent_node.operator >= 0) {
 		
-		let ii = Ops.index.indexOf(parent_node.operator); // Find the index of this operator in the database.
-		
-		let child_nodes = S.filter(x => x.parent_id === parent_node.id); // Find all child nodes of the parent operator.
-		
-		if(parent_node.type === 0) { // If it's a middle operator, two arguments are expected, and one string.
-			for(let i=0; i<child_nodes.length; i++) {
-				text.push(...get_child_text(S, Ops, child_nodes[i])); // Add the text for the i-th argument.
-				
-				if(i < child_nodes.length - 1) { // After all children, except for the last one,
-					text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+		if(!skip) {
+			let ii = Ops.index.indexOf(parent_node.operator); // Find the index of this operator in the database.
+			
+			if(parent_node.type === 0 || parent_node.type === 1) { // If it's a middle operator, two arguments are expected, and one string.
+				for(let i=0; i<child_nodes.length; i++) {
+					text.push(...get_child_text(S, Ops, child_nodes[i], false)); // Add the text for the i-th argument.
+					
+					if(i < child_nodes.length - 1) { // After all children, except for the last one,
+						text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+					}
 				}
+			} else if(parent_node.type === 3) { // Forward opertor with non-simple inputs (e.g., \\sum, \\int, \\lim).
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+				
+				for(let i=0; i<child_nodes.length; i++) {
+					
+					let arg_i = Ops.argument_list[ii].indexOf(child_nodes[i].operator); // Find the index of child i in the argument list of its parent.
+					if(arg_i > -1) {
+						text.push(Ops.text[ii][arg_i + 1]);
+						text.push(...get_child_text(S, Ops, child_nodes[i], true));
+					} else if(child_nodes[i].operator == 10 && Ops.argument_list[ii].indexOf(9)) {
+						arg_i = Ops.argument_list[ii].indexOf(9);
+						text.push(Ops.text[ii][arg_i + 1]);
+						text.push(...get_child_text(S, Ops, child_nodes[i], true));
+					}
+				}
+				
+			} else if(parent_node.type === 6) {
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+				text.push(...get_child_text(S, Ops, child_nodes[0], false));
 			}
+		} else {
+			text.push(...get_child_text(S, Ops, child_nodes[0], false));
 		}
 	} else {
 		let ii = null;
@@ -54,6 +79,10 @@ function get_child_text(S, Ops, parent_node) {
 			text.push("minus");
 		}
 		text.push(parent_node.str);
+		
+		if(child_nodes.length > 0) {
+			text.push(...get_child_text(S, Ops, child_nodes[0], false));
+		}
 	}
 	
 	return text;

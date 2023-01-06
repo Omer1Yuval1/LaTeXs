@@ -86,6 +86,7 @@ function test_cases(n) {
 	
 	// Set notation
 	str[++i] = ['\\{ x \\in \\mathbb{Z} | -4 \\le x < 3 \\}', '\\{ x \\in \\mathbb{Z} | -4 \\le x < 3 \\}'];
+	str[++i] = ['\\forall r \\in \\mathbb{Q}, \\forall s \\in \\mathbb{R} \\setminus \\mathbb{Q} \\implies r+s \\in \\mathbb{R} \\setminus \\mathbb{Q}', '\\forall r \\in \\mathbb{Q}, \\forall s \\in \\mathbb{R}\\setminus\\mathbb{Q} \\implies r+s \\in \\mathbb{R}\\setminus\\mathbb{Q}'];
 	
 	if(arguments.length == 1) {
 		str = str[n];

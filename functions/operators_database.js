@@ -63,7 +63,7 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 4);
 	Ops['commutative'].push(true);
-	Ops['text'].push(["equals to"]);
+	Ops['text'].push(["equals"]);
 	
 	var A = [[">",62, "greater than"] , ["<",60, "less than"] , ["\\le",8804, "less than or equal to"] , ["\\ge",8805, "greater than or equal to"]];
 	for(let op of A) {
@@ -78,7 +78,7 @@ function operators_database() {
 		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["{",123], ["(",40], ["[",91], ["\\abso", 124]];
+	var A = [["{",123, ""], ["(",40, ""], ["[",91, ""], ["\\abso", 124, ""]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -88,9 +88,10 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(true);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["}",125], [")",41], ["]",93], ["\\absc", 124]];
+	var A = [["}",125, ""], [")",41, ""], ["]",93, ""], ["\\absc", 124, ""]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -100,6 +101,7 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(true);
+		Ops['text'].push([op[2]]);
 	}
 	
 	Ops['index'].push(++i);
@@ -110,8 +112,9 @@ function operators_database() {
 	Ops['argument_list'].push([11,9]); // [']','}']
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
+	Ops['text'].push(["square root of"]);
 	
-	var A = [["\\frac",String.fromCharCode(247)] , ["\\set",'Set']];
+	var A = [["\\frac",String.fromCharCode(247), "divided by"] , ["\\set",'Set', "set"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -121,9 +124,10 @@ function operators_database() {
 		Ops['argument_list'].push([9,9]); // ['}','}'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["\\sum",931] , ["\\int",8747] , ["\\prod",8719]];
+	var A = [["\\sum",931, "sum"] , ["\\int",8747, "integral"] , ["\\prod",8719, "product"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -133,9 +137,10 @@ function operators_database() {
 		Ops['argument_list'].push([2,1,9]); // ['_','^','}'].
 		Ops['priority'].push(priority_0 + 2);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2], "from", "to", "of"]);
 	}
 	
-	var A = [["\\lim",'lim'] , ["\\inf",'inf'] , ["\\sup",'sup'] , ["\\min",'min'] , ["\\max",'max']];
+	var A = [["\\lim",'lim', "limit"] , ["\\inf",'inf', "infimum"] , ["\\sup",'sup', "supremum"] , ["\\min",'min', "minimum"] , ["\\max",'max', "maximum"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -145,6 +150,7 @@ function operators_database() {
 		Ops['argument_list'].push([2,9]); // ['_','}']
 		Ops['priority'].push(priority_0 + 2);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2] + " over", "of"]);
 	}
 	
 	Ops['index'].push(++i);
@@ -155,8 +161,9 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
+	Ops['text'].push(["goes to"]);
 	
-	var A = [["\\in",8712] , ["\\notin",8713] , ["\\ni",8715] , ["\\nni",8716] , ["\\exists",8707] , ["\\nexists",8708] , ["\\subset",8834] , ["\\subseteq",8838]];
+	var A = [["\\in",8712, "in"] , ["\\notin",8713, "not in"] , ["\\ni",8715, "has the member"] , ["\\nni",8716, "???"] , ["\\exists",8707, "there exists"] , ["\\nexists",8708, "does not exist"] , ["\\subset",8834, "is a subset of"] , ["\\subseteq",8838, "is a subset of or equal to"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -166,9 +173,10 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(priority_0 + 4);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["\\cup",8746] , ["\\cap",8745] , ["\\wedge",8896] , ["\\vee",8897]];
+	var A = [["\\cup",8746, "union"] , ["\\cap",8745, "intersection"] , ["\\wedge",8896, "and"] , ["\\vee",8897, "or"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -178,9 +186,10 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(priority_0 + 4);
 		Ops['commutative'].push(true);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["\\cdot",8226] , ["\\vdot",8226] , ["\\cross",215]];
+	var A = [["\\cdot",8226, "dot"] , ["\\vdot",8226, "dot"] , ["\\cross",215, "cross"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -190,9 +199,10 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(true);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["\\sin","sin"] , ["\\cos","cos"] , ["\\tan","tan"] , ["\\csc ","csc"] , ["\\sec","sec"] , ["\\cot","cot"] , ["\\sinh","sinh"] , ["\\cosh","cosh"] , ["\\tanh","tanh"] , ["\\coth","coth"] , ["\\arcsin","arcsin"] , ["\\arccos","arccos"] , ["\\arctan","arctan"]];
+	var A = [["\\sin","sin", "sine"] , ["\\cos","cos", "cosine"] , ["\\tan","tan", "tangent"] , ["\\csc ","csc", "cosecant"] , ["\\sec","sec", "secant"] , ["\\cot","cot", "contangent"] , ["\\sinh","sinh", "hyperbolic sine"] , ["\\cosh","cosh", "hyperbolic cosine"] , ["\\tanh","tanh", "hyperbolic tangent"] , ["\\coth","coth", "hyperbolic cotangent"] , ["\\arcsin","arcsin", "arc sin"] , ["\\arccos","arccos", "arc cos"] , ["\\arctan","arctan", "arc tan"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -202,9 +212,10 @@ function operators_database() {
 		Ops['argument_list'].push([10]); // [')'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["\\nabla",8711] , ["\\gradient",8711] , ["\\grad",8711]];  // ∇. Physics. Same as \\curl, \\div.
+	var A = [["\\nabla",8711, "nabla"] , ["\\gradient",8711, "gradient", "gradient"] , ["\\grad",8711, "gradient"]];  // ∇. Physics. Same as \\curl, \\div.
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -214,9 +225,10 @@ function operators_database() {
 		Ops['argument_list'].push([null]); // [')','}'].
 		Ops['priority'].push(priority_0);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["-",45] , ["\\pm",177] , ["\\mp",8723]];
+	var A = [["-",45, "minus"] , ["\\pm",177, "plus minus"] , ["\\mp",8723, "minus plus"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -226,6 +238,7 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(NaN);
+		Ops['text'].push([op[2]]);
 	}
 	
 	Ops['index'].push(++i);
@@ -236,8 +249,9 @@ function operators_database() {
 	Ops['argument_list'].push([]);
 	Ops['priority'].push(priority_0 + 2);
 	Ops['commutative'].push(true);
+	Ops['text'].push(["comma"]);
 	
-	var A = [['\\mathbb','Number set']];
+	var A = [['\\mathbb','Number set', ""]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);
@@ -247,6 +261,7 @@ function operators_database() {
 		Ops['argument_list'].push(['{']);
 		Ops['priority'].push(priority_0 + 2);
 		Ops['commutative'].push(false);
+		Ops['text'].push([op[2]]);
 	}
 	
 	let greek_lower_latex = ["\\infty","\\alpha","\\beta","\\gamma","\\delta","\\epsilon","\\zeta","\\eta","\\theta","\\iota","\\kappa","\\lambda","\\mu","\\nu","\\xi","\\omicron","\\pi","\\rho","\\varsigma","\\sigma","\\tau","\\upsilon","\\phi","\\chi","\\psi","\\omega"];
@@ -264,6 +279,7 @@ function operators_database() {
 		Ops['argument_list'].push([]);
 		Ops['priority'].push(NaN);
 		Ops['commutative'].push(NaN);
+		Ops['text'].push([greek_lower_latex[j]]);
 	}
 	
 	return Ops;
