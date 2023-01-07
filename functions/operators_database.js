@@ -112,7 +112,7 @@ function operators_database() {
 	Ops['argument_list'].push([11,9]); // [']','}']
 	Ops['priority'].push(priority_0);
 	Ops['commutative'].push(false);
-	Ops['text'].push(["square root of"]);
+	Ops['text'].push(["root of"]);
 	
 	var A = [["\\frac",String.fromCharCode(247), "divided by"] , ["\\set",'Set', "set"]];
 	for(let op of A) {

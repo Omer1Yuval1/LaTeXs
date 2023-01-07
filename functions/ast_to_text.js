@@ -27,6 +27,9 @@ function ast_to_text(S) {
 	text = text.replace("plus minus", "minus");
 	text = text.replace("to the power of 2", "squared");
 	text = text.replace("to the power of 3", "cubed");
+	text = text.replace("1th", "1st");
+	text = text.replace("2th", "2nd");
+	text = text.replace("3th", "3rd");
 	
 	return text;
 	
@@ -69,6 +72,10 @@ function get_child_text(S, Ops, parent_node, skip) {
 			} else if(parent_node.type === 6) {
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				text.push(...get_child_text(S, Ops, child_nodes[0], false));
+			} else if(Ops.operator[ii] === '\\sqrt') {
+				text.push("the " + child_nodes[0].str + "th");
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+				text.push(child_nodes[1].str );
 			}
 		} else {
 			text.push(...get_child_text(S, Ops, child_nodes[0], false));
