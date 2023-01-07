@@ -127,6 +127,19 @@ function operators_database() {
 		Ops['text'].push([op[2]]);
 	}
 	
+	var A = [["\\ne", String.fromCharCode(8800), "not equal to"] , ["\\neq", String.fromCharCode(8800), "not equal to"]];
+	for(let op of A) {
+		Ops['index'].push(++i);
+		Ops['operator'].push(op[0]);
+		Ops['symbol'].push(op[1]);
+		Ops['type'].push(1);
+		Ops['argument_num'].push(2);
+		Ops['argument_list'].push([]);
+		Ops['priority'].push(priority_0 + 4);
+		Ops['commutative'].push(true);
+		Ops['text'].push([op[2]]);
+	} // These operators are treated the same as '='.
+	
 	var A = [["\\sum",931, "sum"] , ["\\int",8747, "integral"] , ["\\prod",8719, "product"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
@@ -251,7 +264,7 @@ function operators_database() {
 	Ops['commutative'].push(true);
 	Ops['text'].push(["comma"]);
 	
-	var A = [['\\mathbb','Number set', ""]];
+	var A = [['\\mathbb','Number set', "numbers"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);

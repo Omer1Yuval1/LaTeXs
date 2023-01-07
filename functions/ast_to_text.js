@@ -31,6 +31,16 @@ function ast_to_text(S) {
 	text = text.replace("2th", "2nd");
 	text = text.replace("3th", "3rd");
 	
+	let A = [["R", "real"], ["Q", "rational"], ["R'", "irrational"], ["N", "natural"], ["Z", "integer"], ["C", "complex"], ["I", "imaginary"], ]
+	for(let op of A) {
+		text = text.replace("in " + op[0] + " numbers", "be " + op[1]);	
+		text = text.replace(op[0] + " numbers", op[1] + " numbers");	
+	}
+	
+	text = text.replace(/([a-z]) comma ([a-z]) comma ([a-z])/, "$1, $2 and $3");
+	
+	text = text.replace("a ", " `a` ");
+	
 	return text;
 	
 }
@@ -53,6 +63,9 @@ function get_child_text(S, Ops, parent_node, skip) {
 						text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 					}
 				}
+			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \\mathbb).
+				text.push(...get_child_text(S, Ops, child_nodes[0], false));
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 			} else if(parent_node.type === 3) { // Forward opertor with non-simple inputs (e.g., \\sum, \\int, \\lim).
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				
