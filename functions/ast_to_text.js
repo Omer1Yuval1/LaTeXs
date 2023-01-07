@@ -30,6 +30,8 @@ function ast_to_text(S) {
 	text = text.replace("1th", "1st");
 	text = text.replace("2th", "2nd");
 	text = text.replace("3th", "3rd");
+	text = text.replace("2nd root", "squared root");
+	text = text.replace("3rd root", "cube root");
 	
 	let A = [["R", "real"], ["Q", "rational"], ["R'", "irrational"], ["N", "natural"], ["Z", "integer"], ["C", "complex"], ["I", "imaginary"], ]
 	for(let op of A) {
@@ -63,9 +65,6 @@ function get_child_text(S, Ops, parent_node, skip) {
 						text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 					}
 				}
-			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \\mathbb).
-				text.push(...get_child_text(S, Ops, child_nodes[0], false));
-				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 			} else if(parent_node.type === 3) { // Forward opertor with non-simple inputs (e.g., \\sum, \\int, \\lim).
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				
@@ -89,7 +88,10 @@ function get_child_text(S, Ops, parent_node, skip) {
 				text.push("the " + child_nodes[0].str + "th");
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				text.push(child_nodes[1].str );
-			}
+			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \\mathbb).
+				text.push(...get_child_text(S, Ops, child_nodes[0], false));
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+			} 
 		} else {
 			text.push(...get_child_text(S, Ops, child_nodes[0], false));
 		}
