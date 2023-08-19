@@ -98,10 +98,6 @@
 	var S = new Array(2).fill(null);
 	var text = new Array(2);
 	
-	// var msg = new SpeechSynthesisUtterance();
-	// msg.text = "Hello World";
-	// window.speechSynthesis.speak(msg);
-	
 	for(let i=0; i<=1; i++) {
 		
 		// Assign default values:
@@ -127,18 +123,19 @@
 			document.getElementById("compiled_latex_1").innerHTML = '$$' + document.getElementById("input_latex_1").value + '$$'; // ".
 			MathJax.typeset([document.getElementById("compiled_latex_0")]); // Compile LaTex.
 			MathJax.typeset([document.getElementById("compiled_latex_1")]); // ".
-			
-			if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
-				document.getElementById("LaTex_AST_" + Math.abs(i-1)).innerHTML = ""; // document.getElementById("LaTex_AST_1").innerHTML = "";
-				get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
-				return;
-			} else {
-				[S[0], text[0]] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
-				[S[1], text[1]] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
-			}
+
+			[S[0], text[0]] = index(str0,document.getElementById("parsing_mode_0").value,"#LaTex_AST_0"); // [Number(this.value)].
+			[S[1], text[1]] = index(str1,document.getElementById("parsing_mode_1").value,"#LaTex_AST_1"); // [Number(this.value)]
 			
 			document.getElementById("text_0").innerHTML = text[0];
 			document.getElementById("text_1").innerHTML = text[1];
+			
+			if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
+				document.getElementById("LaTex_AST_" + Math.abs(i-1)).innerHTML = ""; // document.getElementById("LaTex_AST_1").innerHTML = "";
+				get_trees_similarity(S[0],S[1]);
+				// get_trees_similarity(document.getElementById("input_latex_0").value,document.getElementById("input_latex_1").value);
+				return;
+			}
 		});
 		
 		// If the user types a formula:
@@ -151,6 +148,7 @@
 			
 			if(this.value.length) {
 				[S[i], text[i]] = index(this.value,document.getElementById("parsing_mode_" + i).value,"#LaTex_AST_" + i);
+				document.getElementById("text_"+i).innerHTML = text[i];
 				
 				if(document.getElementById("parsing_mode_0").value == 2 && document.getElementById("parsing_mode_1").value == 2) {
 					document.getElementById("LaTex_AST_0").innerHTML = "";
@@ -192,7 +190,6 @@
 	
 	function speak(i) {
 		const utterance = new SpeechSynthesisUtterance(document.getElementById("text_" + i).innerHTML);
-		console.log(utterance);
 		speechSynthesis.speak(utterance);
 	}
 	

@@ -57,7 +57,13 @@ function get_child_text(S, Ops, parent_node, skip) {
 		if(!skip) {
 			let ii = Ops.index.indexOf(parent_node.operator); // Find the index of this operator in the database.
 			
-			if(parent_node.type === 0 || parent_node.type === 1) { // If it's a middle operator, two arguments are expected, and one string.
+			if(parent_node.operator === 10) { // If it's a "(".
+				if(parent_node.sign) {
+					text.push("minus ");
+					text.push("...");
+				}
+				text.push(...get_child_text(S, Ops, child_nodes[0], false));
+			} else if(parent_node.type === 0 || parent_node.type === 1) { // If it's a middle operator, two arguments are expected, and one string.
 				for(let i=0; i<child_nodes.length; i++) {
 					text.push(...get_child_text(S, Ops, child_nodes[i], false)); // Add the text for the i-th argument.
 					
@@ -91,12 +97,12 @@ function get_child_text(S, Ops, parent_node, skip) {
 			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \\mathbb).
 				text.push(...get_child_text(S, Ops, child_nodes[0], false));
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
-			} 
+			}
 		} else {
 			text.push(...get_child_text(S, Ops, child_nodes[0], false));
 		}
 	} else {
-		let ii = null;
+		// let ii = null;
 		if(parent_node.sign) {
 			text.push("minus");
 		}
