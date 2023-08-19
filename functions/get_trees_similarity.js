@@ -3,11 +3,13 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 	// This function computes a similarity score between two given trees.
 	// The similarity is computed asymmetrically, as one tree (S0) is the reference tree, and the second (S1) is the tested tree.
 	// The trees are assumed to be sorted.
+	// `params` is an object of matching child nodes where each key is a variable/parameter, and the value is an array.
+		// where the first element is the value, and the other two elements are the indices of the elements.
 	
 	// Run examples
 	/*
-		S0 = index(34,0);
-		S1 = index(35,0);
+		[S0, text0] = index(34,0);
+		[S1, text1] = index(35,0);
 		[C0,C1] = get_trees_similarity(S0,S1);
 		
 		[C0,C1] = get_trees_similarity('a*x^2','3*x^2');
@@ -17,11 +19,11 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 	*/
 	
 	if(typeof(S0) == 'string' && typeof(S1) == 'string') {
-		var S0 = index(S0,1,"#LaTex_AST_0"); // mode=1 means the tree will be sorted.
-		var S1 = index(S1,1,"#LaTex_AST_1"); // ".
+		var [S0, text0] = index(S0,1,"#LaTex_AST_0"); // mode=1 means the tree will be sorted.
+		var [S1, text1] = index(S1,1,"#LaTex_AST_1"); // ".
 	} else { // Assume both are sorted.
-		// var S0 = index(S0[0].str,1,0); // mode=1 means the tree will be sorted.
-		// var S1 = index(S1[0].str,1,0); // ".
+		// var [S0, text0] = index(S0[0].str,1,0); // mode=1 means the tree will be sorted.
+		// var [S1, text1] = index(S1[0].str,1,0); // ".
 	}
 	
 	// Create nested arrays for the reference (S0) and input (S1) trees
@@ -33,11 +35,12 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 	console.log("\nOperator nodes similarity = " + op_score, "\nLeaf nodes similarity = " + leaf_score);
 	
 	// Match values
+	var params;
 	if(op_score == 0) { // If parameters are given as an input argument && if the structures are identical.
 		// var vars_vals = new Array(vars.length).fill(null);
 		// var param_vals = new Array(params.length).fill(null);
-		var params = match_values(C0,C1,C0i,C1i,{});
-		console.log(params);
+		params = match_values(C0,C1,C0i,C1i,{});
+		
 		
 		var color_map = ["#C0392B", "#9B59B6" ,"#3498DB", "#1ABC9C", "#F39C12", "#A04000", "#707B7C"];
 		var keys = Object.keys(params);
@@ -54,7 +57,9 @@ function get_trees_similarity(S0,S1,vars,params,param_constraints) {
 		}
 	}
 	
-	return [C0,C1];
+	console.log("params: ", params);
+	
+	return [params, C0, C1];
 }
 
 function generate_nested_array(S,C,Ci,p) {
@@ -62,6 +67,7 @@ function generate_nested_array(S,C,Ci,p) {
 	for(let i=0; i<S.length; i++) { // For each child element of parent p (with indices in ascending order (according to tree sorting)).
 		if(S[i].parent_id == p) { // If this element is a child of element p.
 			
+			// This is just to check if element i has child nodes
 			var has_child = false;
 			for(let j=0; j<S.length; j++) { // Check if the current element has children.
 				if(S[j].parent_id == S[i].id) { // If the i-th element has at least one child, set has_child to true and break the loop.
