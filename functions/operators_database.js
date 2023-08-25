@@ -78,7 +78,7 @@ function operators_database() {
 		Ops['text'].push([op[2]]);
 	}
 	
-	var A = [["{",123, ""], ["(",40, ""], ["[",91, ""], ["\\abso", 124, ""]];
+	var A = [["{",123, ""], ["(",40, ""], ["[",91, ""], ["\\abso", 124, "absolute value of"]];
 	for(let op of A) {
 		Ops['index'].push(++i);
 		Ops['operator'].push(op[0]);

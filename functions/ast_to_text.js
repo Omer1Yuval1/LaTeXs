@@ -57,11 +57,12 @@ function get_child_text(S, Ops, parent_node, skip) {
 		if(!skip) {
 			let ii = Ops.index.indexOf(parent_node.operator); // Find the index of this operator in the database.
 			
-			if(parent_node.operator === 10) { // If it's a "(".
+			if([9,10,11,12].includes(parent_node.operator)) { // If it's a "(".
 				if(parent_node.sign) {
 					text.push("minus ");
 					text.push("...");
 				}
+				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				text.push(...get_child_text(S, Ops, child_nodes[0], false));
 			} else if(parent_node.type === 0 || parent_node.type === 1) { // If it's a middle operator, two arguments are expected, and one string.
 				for(let i=0; i<child_nodes.length; i++) {
@@ -94,9 +95,12 @@ function get_child_text(S, Ops, parent_node, skip) {
 				text.push("the " + child_nodes[0].str + "th");
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
 				text.push(child_nodes[1].str );
-			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \\mathbb).
+			} else if(parent_node.type === 2) { // Forward opertor with simple inputs (e.g., \frac, \sqrt, \mathbb).
 				text.push(...get_child_text(S, Ops, child_nodes[0], false));
 				text.push(Ops.text[ii][0]); // Add the text for the operator itself.
+				if(child_nodes.length >= 2) {
+					text.push(...get_child_text(S, Ops, child_nodes[1], false));
+				}
 			}
 		} else {
 			text.push(...get_child_text(S, Ops, child_nodes[0], false));
